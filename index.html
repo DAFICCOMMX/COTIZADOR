@@ -17,7 +17,7 @@
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 20px;
-            /* --- CAMBIO --- */
+            /* Fondo de página gris */
             background-color: #e6e6e6;
             color: black;
         }
@@ -25,12 +25,13 @@
             max-width: 700px;
             margin: auto;
             padding: 25px;
-            background-color: #ffffff; /* El contenedor sigue blanco para contraste */
+            /* Fondo de contenedor gris */
+            background-color: #e6e6e6;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            /* Sombra eliminada */
+            box-shadow: none; 
         }
         h1 {
-            /* --- CAMBIO --- */
             color: black;
             text-align: center;
             margin-top: 0;
@@ -41,7 +42,6 @@
             display: block;
             text-align: center;
             font-size: 1.1em;
-            /* --- CAMBIO --- */
             color: black;
             text-decoration: none;
             font-weight: 500;
@@ -56,11 +56,11 @@
             padding-bottom: 20px;
         }
         .servicio-grupo h3, .info-cliente-grupo h3 {
-            /* --- CAMBIO --- */
             color: black;
             border-bottom: 2px solid black;
             padding-bottom: 5px;
-            display: inline-block;
+            /* Títulos centrados */
+            text-align: center; 
         }
         .servicio-item {
             display: flex;
@@ -77,13 +77,11 @@
         .servicio-item-info label {
             font-size: 1.1em;
             font-weight: 500;
-            /* --- CAMBIO --- */
             color: black;
             cursor: pointer;
         }
         .servicio-item-info .descripcion {
             font-size: 0.9em;
-            /* --- CAMBIO --- */
             color: black;
             padding-left: 20px;
             display: block;
@@ -102,19 +100,17 @@
         }
         .servicio-item .precio {
             font-size: 0.9em;
-            /* --- CAMBIO --- */
             color: black;
             font-weight: 500;
         }
         .leyenda-consultas {
             text-align: center;
             font-style: italic;
-            /* --- CAMBIO --- */
             color: black;
             font-weight: 500;
             margin-top: 20px;
             padding: 10px;
-            background-color: #f0f0f0; /* Tono gris más claro */
+            background-color: #f0f0f0; 
             border-radius: 5px;
         }
         input[type="radio"], input[type="checkbox"] {
@@ -139,7 +135,6 @@
             display: block;
             margin-bottom: 5px;
             font-size: 1.1em;
-            /* --- CAMBIO --- */
             color: black;
         }
         .info-cliente-grupo input[type="text"],
@@ -173,8 +168,7 @@
             margin-top: 10px;
         }
         .referido-grupo {
-            /* --- CAMBIO --- */
-            background-color: #f0f0f0; /* Tono gris más claro */
+            background-color: #f0f0f0; 
             padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
@@ -196,7 +190,6 @@
         .referido-grupo small {
             display: block;
             font-size: 0.9em;
-            /* --- CAMBIO --- */
             color: black;
             margin-top: 8px;
         }
@@ -204,8 +197,7 @@
             display: none;
             font-size: 1em;
             font-weight: bold;
-            /* --- CAMBIO --- */
-            color: black; /* Era verde */
+            color: black; 
             margin-top: 10px;
             text-align: center;
         }
@@ -214,15 +206,13 @@
             margin-top: 30px;
             font-size: 1.9em;
             font-weight: bold;
-            /* --- CAMBIO --- */
             color: black;
         }
         .total-container span {
             display: inline-block;
             min-width: 150px;
             text-align: left;
-            /* --- CAMBIO --- */
-            background-color: #f0f0f0; /* Tono gris más claro */
+            background-color: #f0f0f0; 
             padding: 10px 15px;
             border-radius: 5px;
         }
@@ -231,7 +221,7 @@
             width: 100%;
             padding: 15px;
             background-color: #25D366;
-            color: #ffffff; /* Mantenido blanco por legibilidad */
+            color: #ffffff; 
             text-align: center;
             font-size: 1.2em;
             font-weight: bold;
@@ -247,13 +237,11 @@
         }
         .boton-whatsapp.boton-secundario {
             background-color: #ffffff;
-            /* --- CAMBIO --- */
             color: black;
             border: 2px solid black;
             margin-top: 15px;
         }
         .boton-whatsapp.boton-secundario:hover {
-            /* --- CAMBIO --- */
             background-color: #f0f0f0;
             color: black;
         }
@@ -263,9 +251,8 @@
         }
 
         @keyframes flash {
-            /* --- CAMBIO --- */
             0%   { background-color: #f0f0f0; } 
-            50%  { background-color: #e0f8e6; } /* Destello verde se mantiene */
+            50%  { background-color: #e0f8e6; } 
             100% { background-color: #f0f0f0; } 
         }
 
@@ -313,12 +300,12 @@
         </div>
         
         <div class="servicio-grupo">
-            <h3>2. Servicios Recurrentes</h3>
+            <h3>Servicios Recurrentes</h3>
             <div class="servicio-item"><div class="servicio-item-info"><div style="display: flex; align-items: center;"><label for="nomina">Empleados en Nómina</label><input type="number" class="servicio-calculo" data-precio="90" min="0" value="0" id="nomina"></div><small class="descripcion no-padding">Cálculo, timbrado de recibos y cálculo de impuestos (IMSS, ISN).</small></div><div class="precio-control"><span class="precio">$90.00 c/u</span></div></div>
         </div>
         
         <div class="servicio-grupo" id="grupo-adicionales">
-            <h3>3. Servicios Adicionales (Pago Único)</h3>
+            <h3>Servicios Adicionales (Pago Único)</h3>
              <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="1200" id="anual_pf"><label for="anual_pf">Declaración Anual (Persona Física)</label><small class="descripcion">Presentación anual (externo). **Si hay saldo a favor, se cobra 10% adicional sobre el monto recuperado**.</small></div><div class="precio-control"><span class="precio">$1,200.00</span></div></div>
             <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="5000" id="anual_pm"><label for="anual_pm">Declaración Anual (Persona Moral)</label><small class="descripcion">Presentación de declaración anual para PM (clientes externos).</small></div><div class="precio-control"><span class="precio">$5,000.00</span></div></div>
             <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="500" id="alta_imss"><label for="alta_imss">Alta Patronal IMSS</label><small class="descripcion">Trámite único de registro de la empresa ante el IMSS.</small></div><div class="precio-control"><span class="precio">$500.00</span></div></div>
@@ -327,7 +314,7 @@
         </div>
 
         <div class="info-cliente-grupo">
-            <h3>4. Información Adicional</h3>
+            <h3>Información Adicional</h3>
             <div class="campo"><label for="nombre_cliente">Tu Nombre</label><input type="text" id="nombre_cliente" placeholder="¿Cómo te llamas?"></div>
             <div class="campo"><label for="giro">Giro de la empresa</label><input type="text" id="giro" placeholder="Ej: Restaurante, Consultoría, Comercio, etc."></div>
             <div class="campo"><label for="anios">Años con el negocio</label><input type="number" id="anios" min="0" placeholder="Ej: 3"></div>
@@ -366,12 +353,12 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             // --- Inicialización del calendario Flatpickr ---
-            flatpickr.localize(flatpickr.l10ns.es); // Pone el calendario en español
+            flatpickr.localize(flatpickr.l10ns.es); 
             flatpickr("#dias_visita", {
-                enableTime: true,       // Permite seleccionar la hora
-                minDate: "today",       // No deja seleccionar días pasados
-                dateFormat: "Y-m-d H:i", // Formato de la fecha
-                time_24hr: true         // Formato de 24 horas
+                enableTime: true,       
+                minDate: "today",       
+                dateFormat: "Y-m-d H:i", 
+                time_24hr: true         
             });
             // --- Fin Flatpickr ---
 
@@ -392,7 +379,7 @@
             const grupoAtraso = document.getElementById('grupo_atraso');
             const botonWhatsApp = document.getElementById('enviar-whatsapp');
             const botonInfo = document.getElementById('info-whatsapp');
-            const telefono = "523329780881"; // Tu número
+            const telefono = "523329780881"; 
 
             // --- FUNCIÓN DE CÁLCULO (CORREGIDA CON ID) ---
             function getCalculo() {
@@ -654,8 +641,8 @@
             }
             
             // --- Carga Inicial ---
-            actualizarDisplay(); // Calcular total al cargar
-            manejarVisibilidadCampos(); // Ajustar visibilidad inicial
+            actualizarDisplay(); 
+            manejarVisibilidadCampos(); 
 
         }); // Fin de DOMContentLoaded
     </script>
