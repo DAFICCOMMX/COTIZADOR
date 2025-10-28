@@ -15,7 +15,6 @@
 
     <style>
         body {
-            /* Fuente base: Montserrat */
             font-family: 'Montserrat', sans-serif;
             margin: 20px;
             background-color: #e6e6e6;
@@ -30,25 +29,22 @@
             box-shadow: none; 
         }
         h1 {
-            /* CAMBIO: Fuente Cinzel */
             font-family: 'Cinzel', serif;
-            font-weight: 700; /* Asegura que se use la versión bold */
+            font-weight: 700;
             color: black;
             text-align: center;
             margin-top: 0;
-            margin-bottom: 30px; 
+            margin-bottom: 30px;
             letter-spacing: 1px;
         }
-        /* ELIMINADO: .website-link */
         .servicio-grupo, .info-cliente-grupo {
             margin-bottom: 25px;
             border-bottom: 1px solid #eee;
             padding-bottom: 20px;
         }
         .servicio-grupo h3, .info-cliente-grupo h3 {
-            /* CAMBIO: Fuente Cinzel */
             font-family: 'Cinzel', serif;
-            font-weight: 700; /* Asegura que se use la versión bold */
+            font-weight: 700;
             color: black;
             border-bottom: 2px solid black;
             padding-bottom: 5px;
@@ -251,17 +247,51 @@
         .total-actualizado {
             animation: flash 0.8s ease-out;
         }
+
+        /* INICIO: Media Queries para Pantallas Pequeñas (Celulares) */
+        @media (max-width: 600px) {
+            .container {
+                margin: 0 10px; 
+                padding: 15px;
+            }
+
+            .container a img {
+                max-width: 250px !important; 
+            }
+
+            h1 {
+                font-size: 1.5em; 
+                margin-bottom: 20px;
+            }
+
+            .servicio-item {
+                flex-direction: column; 
+                align-items: flex-start;
+                padding: 10px 0;
+            }
+
+            .servicio-item .precio-control {
+                width: 100%;
+                justify-content: flex-start;
+                padding-top: 5px;
+            }
+            
+            .total-container {
+                font-size: 1.4em;
+            }
+        }
+        /* FIN: Media Queries */
     </style>
 </head>
 <body>
 
     <div class="container">
 
-<div style="text-align: center; margin-bottom: 0px;">
-    <a href="https://dafic.com.mx" target="_blank" rel="noopener noreferrer" style="display: inline-block; text-decoration: none;"> 
-        <img src="logo.png" alt="Logo DAFIC" style="max-width: 400px; height: auto; display: block; margin: 0 auto;"> 
-    </a>
-</div>
+        <div style="text-align: center; margin-bottom: 0px;">
+            <a href="https://dafic.com.mx" target="_blank" rel="noopener noreferrer" style="display: inline-block; text-decoration: none;"> 
+                <img src="logo.png" alt="Logo DAFIC" style="max-width: 400px; height: auto; display: block; margin: 0 auto;"> 
+            </a>
+        </div>
         
         <h1>COTIZADOR DE SERVICIOS</h1>
         
@@ -644,9 +674,8 @@
             actualizarDisplay(); 
             manejarVisibilidadCampos(); 
 
-        }); // Fin de DOMContentLoaded
+        }); 
     </script>
 
 </body>
 </html>
-
