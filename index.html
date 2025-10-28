@@ -17,7 +17,6 @@
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 20px;
-            /* Fondo de página gris */
             background-color: #e6e6e6;
             color: black;
         }
@@ -25,31 +24,18 @@
             max-width: 700px;
             margin: auto;
             padding: 25px;
-            /* Fondo de contenedor gris */
             background-color: #e6e6e6;
             border-radius: 8px;
-            /* Sombra eliminada */
             box-shadow: none; 
         }
         h1 {
             color: black;
             text-align: center;
             margin-top: 0;
-            margin-bottom: 5px; 
+            margin-bottom: 30px; /* Aumentado el margen inferior para compensar la eliminación del link */
             letter-spacing: 1px;
         }
-        .website-link {
-            display: block;
-            text-align: center;
-            font-size: 1.1em;
-            color: black;
-            text-decoration: none;
-            font-weight: 500;
-            margin-bottom: 30px;
-        }
-        .website-link:hover {
-            text-decoration: underline;
-        }
+        /* ELIMINADO: .website-link */
         .servicio-grupo, .info-cliente-grupo {
             margin-bottom: 25px;
             border-bottom: 1px solid #eee;
@@ -59,7 +45,6 @@
             color: black;
             border-bottom: 2px solid black;
             padding-bottom: 5px;
-            /* Títulos centrados */
             text-align: center; 
         }
         .servicio-item {
@@ -266,15 +251,15 @@
     <div class="container">
 
         <div style="text-align: center; margin-bottom: 5px;">
-            <img src="logo.png" alt="Logo DAFIC" style="max-width: 350px; height: auto; display: block; margin: 0 auto;">
+            <a href="https://dafic.com.mx" target="_blank" rel="noopener noreferrer" style="display: inline-block; text-decoration: none;"> 
+
+<img src="logo.png" alt="Logo DAFIC" style="max-width: 350px; height: auto; display: block; margin: 0 auto;"> 
+
+</a>
         </div>
         
         <h1>COTIZADOR DE SERVICIOS</h1>
         
-        <a href="https://dafic.com.mx" class="website-link" target="_blank" rel="noopener noreferrer">
-            dafic.com.mx
-        </a>
-
         <div class="servicio-grupo">
             <h3>Mensualidades</h3>
             
