@@ -15,41 +15,34 @@
 
     <style>
         body {
-            /* MEJORA: Fuente Montserrat */
             font-family: 'Montserrat', sans-serif;
             margin: 20px;
-            background-color: #f4f7f6;
-            color: #333;
+            /* --- CAMBIO --- */
+            background-color: #e6e6e6;
+            color: black;
         }
         .container {
             max-width: 700px;
             margin: auto;
             padding: 25px;
-            background-color: #ffffff;
+            background-color: #ffffff; /* El contenedor sigue blanco para contraste */
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         h1 {
-            color: #2c3e50;
+            /* --- CAMBIO --- */
+            color: black;
             text-align: center;
             margin-top: 0;
             margin-bottom: 5px; 
             letter-spacing: 1px;
         }
-        /* ELIMINADO: Estilo para el subtítulo DAFIC */
-        /* h2.subtitulo {
-            text-align: center;
-            color: #777;
-            font-weight: 400;
-            font-size: 1.5em;
-            margin-top: 0;
-            margin-bottom: 10px;
-        } */
         .website-link {
             display: block;
             text-align: center;
             font-size: 1.1em;
-            color: #005a9c;
+            /* --- CAMBIO --- */
+            color: black;
             text-decoration: none;
             font-weight: 500;
             margin-bottom: 30px;
@@ -63,8 +56,9 @@
             padding-bottom: 20px;
         }
         .servicio-grupo h3, .info-cliente-grupo h3 {
-            color: #005a9c;
-            border-bottom: 2px solid #005a9c;
+            /* --- CAMBIO --- */
+            color: black;
+            border-bottom: 2px solid black;
             padding-bottom: 5px;
             display: inline-block;
         }
@@ -83,12 +77,14 @@
         .servicio-item-info label {
             font-size: 1.1em;
             font-weight: 500;
-            color: #555;
+            /* --- CAMBIO --- */
+            color: black;
             cursor: pointer;
         }
         .servicio-item-info .descripcion {
             font-size: 0.9em;
-            color: #666;
+            /* --- CAMBIO --- */
+            color: black;
             padding-left: 20px;
             display: block;
             margin-top: 4px;
@@ -106,17 +102,19 @@
         }
         .servicio-item .precio {
             font-size: 0.9em;
-            color: #777;
+            /* --- CAMBIO --- */
+            color: black;
             font-weight: 500;
         }
         .leyenda-consultas {
             text-align: center;
             font-style: italic;
-            color: #005a9c;
+            /* --- CAMBIO --- */
+            color: black;
             font-weight: 500;
             margin-top: 20px;
             padding: 10px;
-            background-color: #f4f7f6;
+            background-color: #f0f0f0; /* Tono gris más claro */
             border-radius: 5px;
         }
         input[type="radio"], input[type="checkbox"] {
@@ -141,7 +139,8 @@
             display: block;
             margin-bottom: 5px;
             font-size: 1.1em;
-            color: #555;
+            /* --- CAMBIO --- */
+            color: black;
         }
         .info-cliente-grupo input[type="text"],
         .info-cliente-grupo input[type="number"],
@@ -174,7 +173,8 @@
             margin-top: 10px;
         }
         .referido-grupo {
-            background-color: #f4f7f6;
+            /* --- CAMBIO --- */
+            background-color: #f0f0f0; /* Tono gris más claro */
             padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
@@ -196,14 +196,16 @@
         .referido-grupo small {
             display: block;
             font-size: 0.9em;
-            color: #666;
+            /* --- CAMBIO --- */
+            color: black;
             margin-top: 8px;
         }
         .descuento-aplicado {
             display: none;
             font-size: 1em;
             font-weight: bold;
-            color: #25D366;
+            /* --- CAMBIO --- */
+            color: black; /* Era verde */
             margin-top: 10px;
             text-align: center;
         }
@@ -212,13 +214,15 @@
             margin-top: 30px;
             font-size: 1.9em;
             font-weight: bold;
-            color: #005a9c;
+            /* --- CAMBIO --- */
+            color: black;
         }
         .total-container span {
             display: inline-block;
             min-width: 150px;
             text-align: left;
-            background-color: #f4f7f6;
+            /* --- CAMBIO --- */
+            background-color: #f0f0f0; /* Tono gris más claro */
             padding: 10px 15px;
             border-radius: 5px;
         }
@@ -227,7 +231,7 @@
             width: 100%;
             padding: 15px;
             background-color: #25D366;
-            color: #ffffff;
+            color: #ffffff; /* Mantenido blanco por legibilidad */
             text-align: center;
             font-size: 1.2em;
             font-weight: bold;
@@ -243,25 +247,26 @@
         }
         .boton-whatsapp.boton-secundario {
             background-color: #ffffff;
-            color: #005a9c;
-            border: 2px solid #005a9c;
+            /* --- CAMBIO --- */
+            color: black;
+            border: 2px solid black;
             margin-top: 15px;
         }
         .boton-whatsapp.boton-secundario:hover {
-            background-color: #f4f7f6;
-            color: #004a80;
+            /* --- CAMBIO --- */
+            background-color: #f0f0f0;
+            color: black;
         }
 
-        /* Estilo para que el cursor cambie en el input del calendario */
         input[type="text"]#dias_visita {
             cursor: pointer;
         }
 
-        /* MEJORA: Animación para el total al actualizarse */
         @keyframes flash {
-            0%   { background-color: #f4f7f6; } /* Color original */
-            50%  { background-color: #e0f8e6; } /* Un destello verde claro */
-            100% { background-color: #f4f7f6; } /* Vuelve al original */
+            /* --- CAMBIO --- */
+            0%   { background-color: #f0f0f0; } 
+            50%  { background-color: #e0f8e6; } /* Destello verde se mantiene */
+            100% { background-color: #f0f0f0; } 
         }
 
         .total-actualizado {
@@ -274,10 +279,11 @@
     <div class="container">
 
         <div style="text-align: center; margin-bottom: 20px;">
-            <img src="logo.png" alt="logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto;">
+            <img src="logo.png" alt="Logo DAFIC" style="max-width: 180px; height: auto; display: block; margin: 0 auto;">
         </div>
         
         <h1>COTIZADOR DE SERVICIOS</h1>
+        
         <a href="https://dafic.com.mx" class="website-link" target="_blank" rel="noopener noreferrer">
             dafic.com.mx
         </a>
@@ -388,9 +394,7 @@
             const botonInfo = document.getElementById('info-whatsapp');
             const telefono = "523329780881"; // Tu número
 
-            // --- ================================================ ---
             // --- FUNCIÓN DE CÁLCULO (CORREGIDA CON ID) ---
-            // --- ================================================ ---
             function getCalculo() {
                 let total = 0;
                 let descuentoAplicado = false;
@@ -425,7 +429,6 @@
                     }
                 });
 
-                // Devuelve el total correcto de las 3 secciones
                 return {
                     montoTotal: total,
                     descuentoFueAplicado: descuentoAplicado,
@@ -443,13 +446,11 @@
                         maximumFractionDigits: 2
                     });
 
-                    // --- MEJORA: Animación de actualización del total ---
                     const totalContainer = document.querySelector('.total-container span');
                     totalContainer.classList.add('total-actualizado');
                     setTimeout(() => {
                         totalContainer.classList.remove('total-actualizado');
-                    }, 800); // Duración de la animación
-                    // --- Fin animación ---
+                    }, 800); 
                 }
 
                 if (textoDescuento) {
@@ -523,7 +524,6 @@
                 mensajeIntro += ` Mi negocio está ubicado en ${direccion}.`;
                 mensajeIntro += ` Me gustaría que me visitaran preferentemente: ${diasVisita}.`;
                 
-                // Obtenemos el cálculo de la función central (que ahora sí suma bien)
                 const calculo = getCalculo();
                 const totalCalculado = calculo.montoTotal;
                 const descuentoAplicado = calculo.descuentoFueAplicado;
@@ -662,6 +662,3 @@
 
 </body>
 </html>
-
-.
-
