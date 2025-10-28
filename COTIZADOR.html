@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador de Servicios Contables</title>
+    <title>Cotizador de Servicios Contables - DAFIC</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /* MEJORA: Fuente Montserrat */
+            font-family: 'Montserrat', sans-serif;
             margin: 20px;
             background-color: #f4f7f6;
             color: #333;
@@ -240,12 +250,32 @@
             background-color: #f4f7f6;
             color: #004a80;
         }
+
+        /* Estilo para que el cursor cambie en el input del calendario */
+        input[type="text"]#dias_visita {
+            cursor: pointer;
+        }
+
+        /* MEJORA: Animación para el total al actualizarse */
+        @keyframes flash {
+            0%   { background-color: #f4f7f6; } /* Color original */
+            50%  { background-color: #e0f8e6; } /* Un destello verde claro */
+            100% { background-color: #f4f7f6; } /* Vuelve al original */
+        }
+
+        .total-actualizado {
+            animation: flash 0.8s ease-out;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
 
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="logo-dafic.jpg" alt="Logo DAFIC" style="max-width: 180px; height: auto; display: block; margin: 0 auto;">
+        </div>
+        
         <h1>COTIZADOR DE SERVICIOS</h1>
         <h2 class="subtitulo">DAFIC</h2>
         
@@ -299,7 +329,9 @@
             <div class="campo"><label>¿Están dados de alta en el SAT?</label><div class="opciones-radio"><label><input type="radio" name="alta_sat" value="si" id="alta_sat_si"> Sí</label><label><input type="radio" name="alta_sat" value="no" id="alta_sat_no"> No</label></div></div>
             <div id="grupo_declaraciones" class="campo-condicional"><div class="campo"><label>Si sí, ¿presentan declaraciones actualmente?</label><div class="opciones-radio"><label><input type="radio" name="declaran" value="si" id="declaran_si"> Sí</label><label><input type="radio" name="declaran" value="no" id="declaran_no"> No</label></div></div><div id="grupo_atraso" class="campo-condicional"><div class="campo"><label for="meses_atraso">Si no declaran, ¿cuántos meses de atraso tienen aproximadamente?</label><input type="number" id="meses_atraso" min="0" placeholder="Ej: 6"></div></div></div>
             <div class="campo"><label for="direccion">Dirección del negocio (Calle, Número, Colonia, Municipio)</label><textarea id="direccion" placeholder="Ej: Av. Siempre Viva 123, Col. Centro, Zapopan"></textarea></div>
-            <div class="campo"><label for="dias_visita">Días y horarios preferidos para visita</label><input type="text" id="dias_visita" placeholder="Ej: Lunes o Miércoles por la tarde, Viernes antes de las 12pm"></div>
+            
+            <div class="campo"><label for="dias_visita">Días y horarios preferidos para visita</label><input type="text" id="dias_visita" placeholder="Selecciona fecha y hora..."></div>
+
         </div>
 
         <div class="referido-grupo">
@@ -328,6 +360,16 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
+            // --- Inicialización del calendario Flatpickr ---
+            flatpickr.localize(flatpickr.l10ns.es); // Pone el calendario en español
+            flatpickr("#dias_visita", {
+                enableTime: true,       // Permite seleccionar la hora
+                minDate: "today",       // No deja seleccionar días pasados
+                dateFormat: "Y-m-d H:i", // Formato de la fecha
+                time_24hr: true         // Formato de 24 horas
+            });
+            // --- Fin Flatpickr ---
+
             // --- Lista de Referidos Válidos ---
             const listaNombresValidos = ["ALEJANDRA DELGADO GAYTAN","ALEJANDRA ENRIQUEZ LUNA","ALEJANDRO PRIETO AVILA","ALONZO MARMOLEJOMENDIOLA","ARACELI ROBLES CASTILLO","ASTRID PARRA NORIEGA","BRYAN YAIR AVILA SANTILLAN","CARLOS ANTONIO CARDONA ALERIANO","CARLOS OCTAVIO ROSALES GARCIA","COLEGIO DE REUMATOLOGOS DE AGUASCALIENTES","DANIELA ALEJANDRA SALDAÑA GAYTAN","EDSG","ERICK GEOVANNI MIRANDA BALDOVINES","GUADALUPE ESTHER CHAVEZ MATA","GUILLERMO JOSEPH GARCIA","IVAN ALEJANDRO MEDINA PEREZ","JESUS ALBERTO SOTOMAYOR","JESUS OMAR AVILA SANTILLAN","JOSE ANTONIO DURAN HERNANDEZ","JOSE LUIS ESPINOZA LOPEZ","JUAN ANGEL FLORES PACHECO","JUAN ANTONIO DIAZ RODRIGUEZ","JULIA MENDOZA NUÑEZ","KAREN JUAREZ NICOLAS","LUCY GARCIA","MARCO ANTONIO PAREDES VELAZQUEZ","MARIZA SANTILLAN ORTIZ","MARTIN SANTILLAN GOMEZ","MIGUEL ANGEL VIVEROS PEREZ","NIDIA FERNANDEZ ESPINOSA","ROBEROTO OLMEDO HERNANDEZ","RODOLFO CARDENAS JIMENEZ","VIANNEY PARRA NORIEGA","VICTOR HUGO TENORIO MARTINEZ","YADIRA CAROLANA MORALES SANCHEZ","JONATHAN"];
             const validReferrers = listaNombresValidos.map(name => name.toUpperCase().trim());
@@ -348,15 +390,15 @@
             const telefono = "523329780881"; // Tu número
 
             // --- ================================================ ---
-            // --- SOLUCIÓN: FUNCIÓN DE CÁLCULO ÚNICA ---
+            // --- ¡¡¡FUNCIÓN DE CÁLCULO CORREGIDA!!! ---
             // --- ================================================ ---
-            // Esta función es ahora la ÚNICA fuente de verdad para el total.
             function getCalculo() {
                 let total = 0;
                 let descuentoAplicado = false;
                 const nombreReferidoEstandarizado = campoReferido ? campoReferido.value.trim().toUpperCase() : ""; 
                 const esReferidoValido = validReferrers.includes(nombreReferidoEstandarizado);
                 
+                // --- 1. Mensualidades ---
                 const paqueteSeleccionado = document.querySelector('input[name="paquete_iguala"]:checked');
                 let precioPaquete = 0;
                 if (paqueteSeleccionado) {
@@ -367,22 +409,26 @@
                         descuentoAplicado = true;
                     }
                 }
-                total += precioPaquete;
+                total += precioPaquete; // <-- SUMA SECCIÓN 1
 
+                // --- 2. Servicios Recurrentes (Nómina) ---
                 const nominaInput = document.getElementById('nomina');
                 const nominaCantidad = nominaInput ? (parseInt(nominaInput.value) || 0) : 0;
                 if (nominaCantidad > 0) {
-                    total += (parseFloat(nominaInput.dataset.precio) || 0) * nominaCantidad;
+                    // --- CORRECCIÓN: Esta línea faltaba ---
+                    total += (parseFloat(nominaInput.dataset.precio) || 0) * nominaCantidad; // <-- SUMA SECCIÓN 2
                 }
 
+                // --- 3. Servicios Adicionales (Pago Único) ---
                 const adicionales = document.querySelectorAll('.servicio-grupo:nth-of-type(3) input[type="checkbox"]');
                 adicionales.forEach(input => {
                     if (input.checked) {
-                        total += (parseFloat(input.dataset.precio) || 0);
+                        // --- CORRECCIÓN: Esta línea faltaba ---
+                        total += (parseFloat(input.dataset.precio) || 0); // <-- SUMA SECCIÓN 3
                     }
                 });
 
-                // Devuelve un objeto con toda la info necesaria
+                // Ahora 'total' contiene la suma de las 3 secciones.
                 return {
                     montoTotal: total,
                     descuentoFueAplicado: descuentoAplicado,
@@ -391,16 +437,22 @@
             }
 
             // --- Función para ACTUALIZAR LA PANTALLA ---
-            // Esta función ahora solo lee el cálculo y actualiza el HTML
             function actualizarDisplay() {
                 const calculo = getCalculo();
                 
                 if (totalDisplay) {
-                    // Usamos toLocaleString que es más seguro para formatear comas
                     totalDisplay.textContent = calculo.montoTotal.toLocaleString('en-US', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     });
+
+                    // --- MEJORA: Animación de actualización del total ---
+                    const totalContainer = document.querySelector('.total-container span');
+                    totalContainer.classList.add('total-actualizado');
+                    setTimeout(() => {
+                        totalContainer.classList.remove('total-actualizado');
+                    }, 800); // Duración de la animación
+                    // --- Fin animación ---
                 }
 
                 if (textoDescuento) {
@@ -410,11 +462,11 @@
             
             // --- Event Listeners para Recalcular ---
             inputsCalculo.forEach(input => {
-                input.addEventListener('change', actualizarDisplay); // Llama a la nueva función
-                input.addEventListener('input', actualizarDisplay);  // Llama a la nueva función
+                input.addEventListener('change', actualizarDisplay);
+                input.addEventListener('input', actualizarDisplay);
             });
             
-            // --- Lógica Campos Condicionales (Esta queda igual) ---
+            // --- Lógica Campos Condicionales ---
             function manejarVisibilidadCampos() {
                  if (radioAltaSatSi && grupoDeclaraciones && grupoAtraso && radioDeclaranNo && radioDeclaranSi) {
                      if (radioAltaSatSi.checked) {
@@ -437,9 +489,7 @@
             
             // --- Función para Generar Mensaje WhatsApp ---
             function generarMensaje() {
-                // Leer info cliente (esto queda igual)
                 const nombreCliente = document.getElementById('nombre_cliente')?.value.trim() || "Cliente";
-                // ... (toda la lógica de giro, anios, altaSatRadio, etc. queda igual) ...
                 const giro = document.getElementById('giro')?.value.trim() || "No especificado";
                 const anios = document.getElementById('anios')?.value.trim() || "No especificado";
                 const altaSatRadio = document.querySelector('input[name="alta_sat"]:checked');
@@ -469,7 +519,6 @@
                 const direccion = document.getElementById('direccion')?.value.trim() || "No especificada";
                 const diasVisita = document.getElementById('dias_visita')?.value.trim() || "No especificados";
 
-                // Construir parte inicial (queda igual)
                 let mensajeIntro = `¡Hola DAFIC! Soy ${nombreCliente}. `;
                 mensajeIntro += `El giro de mi negocio es ${giro}. `;
                 mensajeIntro += `Tengo ${anios} años con él.`;
@@ -477,17 +526,16 @@
                 mensajeIntro += ` Mi negocio está ubicado en ${direccion}.`;
                 mensajeIntro += ` Me gustaría que me visitaran preferentemente: ${diasVisita}.`;
                 
-                // Resumen de servicios
-                // ¡AQUÍ ESTÁ EL CAMBIO! Usamos la función central
+                // Obtenemos el cálculo de la función central
                 const calculo = getCalculo();
-                const totalCalculado = calculo.montoTotal; // <-- Total desde la fuente única
-                const descuentoAplicado = calculo.descuentoFueAplicado; // <-- Info desde la fuente única
+                const totalCalculado = calculo.montoTotal;
+                const descuentoAplicado = calculo.descuentoFueAplicado;
                 
                 let hayMensualidad = false, hayRecurrentes = false, hayAdicionales = false, esRango = false;
                 const nombreReferido = campoReferido ? campoReferido.value.trim() : "";
                 let resumenServicios = "";
 
-                // Mensualidades
+                // Mensualidades (Esta lógica es para construir el texto, no para sumar)
                 const paqueteSeleccionado = document.querySelector('input[name="paquete_iguala"]:checked');
                 if (paqueteSeleccionado) { 
                      let precioOriginal = parseFloat(paqueteSeleccionado.dataset.precio) || 0; 
@@ -497,7 +545,6 @@
                          const precioTexto = precioTextoElement ? precioTextoElement.textContent : "";
                          let precioFinalTexto = ""; 
                          
-                         // Esta lógica SÍ debe quedar aquí para construir el texto
                          let precioActual = precioOriginal; 
                          if (descuentoAplicado) {
                              precioActual = precioOriginal * 0.90;
@@ -524,7 +571,7 @@
                      } 
                 }
                 
-                // Recurrentes
+                // Recurrentes (Texto)
                 const nominaInput = document.getElementById('nomina');
                 const nominaCantidad = nominaInput ? (parseInt(nominaInput.value) || 0) : 0;
                 if (nominaCantidad > 0) { 
@@ -534,7 +581,7 @@
                     hayRecurrentes = true; 
                 }
 
-                // Adicionales
+                // Adicionales (Texto)
                 const adicionales = document.querySelectorAll('.servicio-grupo:nth-of-type(3) input[type="checkbox"]');
                 adicionales.forEach(input => { 
                     if (input.checked) { 
@@ -557,7 +604,6 @@
                 let mensajeFinal = `${mensajeIntro}\n\nEstoy interesado/a en los siguientes servicios:\n${resumenServicios}`;
                 mensajeFinal += `\n-----------------------\n`;
                 
-                // Usamos el totalCalculado de la función central
                 const totalFormateado = totalCalculado.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                 if (esRango) { 
@@ -579,7 +625,7 @@
                 return { mensaje: mensajeFinal }; 
             }
 
-            // --- Event Listeners Botones (Quedan igual) ---
+            // --- Event Listeners Botones ---
             if(botonWhatsApp) {
                 botonWhatsApp.addEventListener('click', (e) => { 
                     e.preventDefault(); 
