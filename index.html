@@ -11,10 +11,10 @@
         :root {
             --primary: #1a1a1a;
             --secondary: #555;
-            --accent: #1b4d3e; /* Verde Bosque - Tu color de Dinero/Seriedad */
-            --gold: #d4af37;   /* Dorado - Tu color Premium */
-            --bg: #e6e6e6;     /* El fondo Gris que pediste */
-            --border-subtle: #d1d1d1; /* Borde sutil */
+            --accent: #1b4d3e; /* Verde Bosque */
+            --gold: #d4af37;   /* Dorado */
+            --bg: #e6e6e6;     /* Fondo Gris */
+            --border-subtle: #d1d1d1;
         }
 
         body {
@@ -78,21 +78,20 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        /* --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ESTO HACE QUE FUNCIONE EL SWITCH --- */
+        /* SWITCH LOGIC */
         .service-section {
-            display: none; /* Oculta todo por defecto */
+            display: none; 
             animation: fadeIn 0.5s ease;
         }
 
         .service-section.active-section {
-            display: block; /* Solo muestra la sección activa */
+            display: block; 
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* ------------------------------------------------------------- */
 
         /* CARDS */
         .cards-grid {
@@ -118,7 +117,6 @@
             border-color: var(--accent);
         }
 
-        /* ESTILO PREMIUM */
         .card.premium {
             border: 2px solid var(--gold);
         }
@@ -328,7 +326,12 @@
             <div class="card">
                 <h3>Asesoría Diagnóstico</h3>
                 <span class="price">$1,000 MXN</span>
-                <p class="desc">Sesión única de 2 hrs para diagnóstico fiscal o planificación personal.</p>
+                <p class="desc">
+                    Sesión única de 2 hrs para diagnóstico fiscal. <br>
+                    <strong style="color:var(--accent); font-size:0.8rem; display:block; margin-top:5px;">
+                        * 100% Bonificable en tu 1ra mensualidad.
+                    </strong>
+                </p>
                 <div class="select-container">
                     <label for="asesoria_pf">Seleccionar</label>
                     <input type="checkbox" id="asesoria_pf" class="calc-check" data-price="1000" data-name="Asesoría PF" onchange="calculateTotal()">
@@ -377,7 +380,12 @@
             <div class="card">
                 <h3>Diagnóstico Fiscal</h3>
                 <span class="price">$3,000 MXN</span>
-                <p class="desc">Auditoría "Express" de cumplimiento y situación fiscal actual.</p>
+                <p class="desc">
+                    Auditoría "Express" de cumplimiento y situación actual. <br>
+                    <strong style="color:var(--accent); font-size:0.8rem; display:block; margin-top:5px;">
+                        * 100% Bonificable en tu 1ra mensualidad.
+                    </strong>
+                </p>
                 <div class="select-container">
                     <label for="asesoria_pm">Seleccionar</label>
                     <input type="checkbox" id="asesoria_pm" class="calc-check" data-price="3000" data-name="Diagnóstico PM" onchange="calculateTotal()">
@@ -450,19 +458,19 @@
         
         if (type === 'emprendedor') {
             viewEmprendedor.classList.add('active-section');
-            viewEmprendedor.style.display = 'block'; // Refuerzo JS
+            viewEmprendedor.style.display = 'block';
 
             viewEmpresa.classList.remove('active-section');
-            viewEmpresa.style.display = 'none'; // Refuerzo JS
+            viewEmpresa.style.display = 'none';
 
             btns[0].classList.add('active');
             btns[1].classList.remove('active');
         } else {
             viewEmprendedor.classList.remove('active-section');
-            viewEmprendedor.style.display = 'none'; // Refuerzo JS
+            viewEmprendedor.style.display = 'none';
 
             viewEmpresa.classList.add('active-section');
-            viewEmpresa.style.display = 'block'; // Refuerzo JS
+            viewEmpresa.style.display = 'block';
 
             btns[0].classList.remove('active');
             btns[1].classList.add('active');
