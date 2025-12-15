@@ -50,7 +50,7 @@
         .client-type-switch {
             display: flex;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             background: #dcdcdc;
             border-radius: 50px;
             padding: 5px;
@@ -78,7 +78,17 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        /* SWITCH LOGIC */
+        /* INSTRUCCIÓN INICIAL */
+        .welcome-msg {
+            text-align: center;
+            padding: 40px;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            animation: fadeIn 1s ease;
+        }
+
+        /* SECCIONES (OCULTAS POR DEFECTO) */
         .service-section {
             display: none; 
             animation: fadeIn 0.5s ease;
@@ -279,7 +289,7 @@
     </header>
 
     <div class="client-type-switch">
-        <button class="switch-btn active" onclick="switchView('emprendedor')">
+        <button class="switch-btn" onclick="switchView('emprendedor')">
             <i class="fas fa-user"></i> Emprendedores (PF)
         </button>
         <button class="switch-btn" onclick="switchView('empresa')">
@@ -287,9 +297,14 @@
         </button>
     </div>
 
-    <div id="view-emprendedor" class="service-section active-section">
+    <div id="welcome-msg" class="welcome-msg">
+        <i class="fas fa-arrow-up" style="margin-bottom:15px; font-size:1.5rem;"></i><br>
+        Selecciona tu perfil arriba para ver los paquetes disponibles.
+    </div>
+
+    <div id="view-emprendedor" class="service-section" style="display:none;">
         <h2 style="text-align:center; font-family:'Playfair Display', serif; color:#666; margin-bottom:30px;">
-            Soluciones Personales & RESICO
+            Persona Física
         </h2>
         <div class="cards-grid">
             
@@ -310,6 +325,16 @@
                 <div class="select-container">
                     <label for="pf_plat">Seleccionar</label>
                     <input type="checkbox" id="pf_plat" class="calc-check" data-price="600" data-name="Paquete Plataformas" onchange="calculateTotal()">
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Arrendamiento</h3>
+                <span class="price">$1,000 - $6,000 MXN</span>
+                <p class="desc">Para arrendadores de casa habitación o locales. Declaraciones mensuales y anuales.</p>
+                <div class="select-container">
+                    <label for="pf_arrend">Seleccionar</label>
+                    <input type="checkbox" id="pf_arrend" class="calc-check" data-price="1000" data-name="Paquete Arrendamiento" onchange="calculateTotal()">
                 </div>
             </div>
 
@@ -342,7 +367,7 @@
 
     <div id="view-empresa" class="service-section" style="display:none;">
         <h2 style="text-align:center; font-family:'Playfair Display', serif; color:#666; margin-bottom:30px;">
-            Soluciones Corporativas & Blindaje
+            Persona Moral
         </h2>
         <div class="cards-grid">
             
@@ -394,7 +419,7 @@
         </div>
     </div>
 
-    <div style="margin-top:50px; padding-top:20px; border-top: 1px dashed #ccc;">
+    <div id="view-adicionales" style="margin-top:50px; padding-top:20px; border-top: 1px dashed #ccc; display:none;">
         <h3 style="text-align:center; font-family:'Playfair Display', serif; margin-bottom:20px;">Servicios Adicionales</h3>
         <div class="cards-grid">
             <div class="card">
@@ -454,7 +479,16 @@
     function switchView(type) {
         const viewEmprendedor = document.getElementById('view-emprendedor');
         const viewEmpresa = document.getElementById('view-empresa');
+        const welcomeMsg = document.getElementById('welcome-msg');
+        const viewAdicionales = document.getElementById('view-adicionales');
+        
         const btns = document.querySelectorAll('.switch-btn');
+
+        // Ocultar mensaje de bienvenida
+        welcomeMsg.style.display = 'none';
+        
+        // Mostrar sección de adicionales
+        viewAdicionales.style.display = 'block';
         
         if (type === 'emprendedor') {
             viewEmprendedor.classList.add('active-section');
