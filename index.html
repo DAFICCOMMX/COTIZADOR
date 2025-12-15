@@ -508,7 +508,7 @@
             <i class="fab fa-whatsapp"></i> Solicitar Propuesta Formal
         </button>
         <p style="font-size:0.8rem; color:#888; margin-top:15px;">
-            Cotización estimada. Sujeta a revisión final.
+            Precios finales con IVA incluido. Cotización sujeta a revisión.
         </p>
     </div>
 
@@ -552,15 +552,16 @@
 
     function calculateTotal() {
         const checkboxes = document.querySelectorAll('.calc-check:checked');
-        let subtotal = 0;
+        let total = 0;
         
         checkboxes.forEach(box => {
-            subtotal += parseInt(box.getAttribute('data-price'));
+            total += parseInt(box.getAttribute('data-price'));
         });
 
-        // Cálculo de IVA (16%)
-        let iva = subtotal * 0.16;
-        let total = subtotal + iva;
+        // DESGLOSE INVERSO (El total YA incluye IVA)
+        // Subtotal = Total / 1.16
+        let subtotal = total / 1.16;
+        let iva = total - subtotal;
 
         // Mostrar valores formateados
         document.getElementById('subtotalAmount').innerText = subtotal.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -597,7 +598,7 @@
         msg += `🏢 *Giro:* ${business}\n`;
         msg += `⚠️ *Estatus:* ${status}\n\n`;
         msg += `📊 *Interés:* \n- ${servicios.join('\n- ')}\n\n`;
-        msg += `💰 *DESGLOSE:* \n`;
+        msg += `💰 *INVERSIÓN:* \n`;
         msg += `Subtotal: $${subtotal}\n`;
         msg += `IVA: $${iva}\n`;
         msg += `*TOTAL NETO: $${total} MXN*\n`;
