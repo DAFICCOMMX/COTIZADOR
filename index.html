@@ -18,7 +18,7 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif; /* Texto general moderno */
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--bg);
             color: var(--primary);
             margin: 0;
@@ -43,7 +43,6 @@
             max-width: 380px;
             width: 100%;
             height: auto;
-            /* Filtro opcional por si quieres que el logo resalte más */
             filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.05));
         }
 
@@ -79,6 +78,22 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
+        /* --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ESTO HACE QUE FUNCIONE EL SWITCH --- */
+        .service-section {
+            display: none; /* Oculta todo por defecto */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .service-section.active-section {
+            display: block; /* Solo muestra la sección activa */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* ------------------------------------------------------------- */
+
         /* CARDS */
         .cards-grid {
             display: grid;
@@ -94,14 +109,13 @@
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
             background: var(--bg); 
-            /* Sombra suave para despegarlo del fondo del mismo color */
             box-shadow:  5px 5px 10px #bebebe, 
                         -5px -5px 10px #ffffff;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: var(--accent); /* Al pasar el mouse, el borde se pone Verde */
+            border-color: var(--accent);
         }
 
         /* ESTILO PREMIUM */
@@ -124,9 +138,8 @@
             box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
         }
 
-        /* CAMBIO CLAVE: Fuente Serif para Títulos */
         .card h3 {
-            font-family: 'Playfair Display', serif; /* Elegancia pura */
+            font-family: 'Playfair Display', serif;
             margin-top: 10px;
             font-size: 1.25rem;
             color: var(--primary);
@@ -162,7 +175,7 @@
         input[type="checkbox"] {
             width: 22px;
             height: 22px;
-            accent-color: var(--accent); /* Checkbox VERDE, no azul */
+            accent-color: var(--accent);
             cursor: pointer;
         }
 
@@ -181,7 +194,6 @@
             padding: 40px;
             border-radius: 12px;
             margin-top: 50px;
-            /* Sombra estilo 'Neumorfismo' sutil */
             box-shadow:  5px 5px 10px #bebebe, 
                         -5px -5px 10px #ffffff;
         }
@@ -204,7 +216,6 @@
             font-size: 0.9rem;
         }
 
-        /* CAMBIO CLAVE: Inputs Blancos para contraste */
         .form-control {
             width: 100%;
             padding: 15px;
@@ -212,7 +223,7 @@
             border-radius: 8px;
             font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
-            background: #ffffff; /* BLANCO PURO */
+            background: #ffffff;
             transition: border-color 0.3s;
             font-size: 1rem;
         }
@@ -326,7 +337,7 @@
         </div>
     </div>
 
-    <div id="view-empresa" class="service-section">
+    <div id="view-empresa" class="service-section" style="display:none;">
         <h2 style="text-align:center; font-family:'Playfair Display', serif; color:#666; margin-bottom:30px;">
             Soluciones Corporativas & Blindaje
         </h2>
@@ -439,12 +450,20 @@
         
         if (type === 'emprendedor') {
             viewEmprendedor.classList.add('active-section');
+            viewEmprendedor.style.display = 'block'; // Refuerzo JS
+
             viewEmpresa.classList.remove('active-section');
+            viewEmpresa.style.display = 'none'; // Refuerzo JS
+
             btns[0].classList.add('active');
             btns[1].classList.remove('active');
         } else {
             viewEmprendedor.classList.remove('active-section');
+            viewEmprendedor.style.display = 'none'; // Refuerzo JS
+
             viewEmpresa.classList.add('active-section');
+            viewEmpresa.style.display = 'block'; // Refuerzo JS
+
             btns[0].classList.remove('active');
             btns[1].classList.add('active');
         }
