@@ -241,19 +241,42 @@
             border-color: var(--accent);
         }
 
-        /* FOOTER */
+        /* FOOTER CON DESGLOSE */
         .sticky-footer {
             margin-top: 40px;
             text-align: center;
             padding: 20px;
+            border-top: 2px solid #dcdcdc;
         }
 
-        .total-display {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
+        .price-breakdown {
+            display: inline-block;
+            text-align: right;
             margin-bottom: 25px;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            min-width: 280px;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: var(--secondary);
+            gap: 20px;
+        }
+
+        .breakdown-row.total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-weight: 700;
+            font-size: 1.4rem;
             color: var(--primary);
+            font-family: 'Playfair Display', serif;
         }
 
         .btn-whatsapp {
@@ -463,13 +486,29 @@
     </div>
 
     <div class="sticky-footer">
-        <div class="total-display">Inversión Estimada: $<span id="totalAmount">0</span> MXN</div>
         
+        <div class="price-breakdown">
+            <div class="breakdown-row">
+                <span>Subtotal:</span>
+                <span>$<span id="subtotalAmount">0</span></span>
+            </div>
+            <div class="breakdown-row">
+                <span>IVA (16%):</span>
+                <span>$<span id="ivaAmount">0</span></span>
+            </div>
+            <div class="breakdown-row total">
+                <span>TOTAL NETO:</span>
+                <span>$<span id="totalAmount">0</span> MXN</span>
+            </div>
+        </div>
+        
+        <br>
+
         <button class="btn-whatsapp" onclick="sendWhatsapp()">
             <i class="fab fa-whatsapp"></i> Solicitar Propuesta Formal
         </button>
         <p style="font-size:0.8rem; color:#888; margin-top:15px;">
-            *Precios más IVA. Cotización sujeta a revisión final.
+            Cotización estimada. Sujeta a revisión final.
         </p>
     </div>
 
@@ -513,19 +552,29 @@
 
     function calculateTotal() {
         const checkboxes = document.querySelectorAll('.calc-check:checked');
-        let total = 0;
+        let subtotal = 0;
         
         checkboxes.forEach(box => {
-            total += parseInt(box.getAttribute('data-price'));
+            subtotal += parseInt(box.getAttribute('data-price'));
         });
 
-        document.getElementById('totalAmount').innerText = total.toLocaleString('es-MX');
+        // Cálculo de IVA (16%)
+        let iva = subtotal * 0.16;
+        let total = subtotal + iva;
+
+        // Mostrar valores formateados
+        document.getElementById('subtotalAmount').innerText = subtotal.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('ivaAmount').innerText = iva.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('totalAmount').innerText = total.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     }
 
     function sendWhatsapp() {
         const name = document.getElementById('clientName').value;
         const business = document.getElementById('clientBuss').value;
         const status = document.getElementById('clientStatus').value;
+        
+        const subtotal = document.getElementById('subtotalAmount').innerText;
+        const iva = document.getElementById('ivaAmount').innerText;
         const total = document.getElementById('totalAmount').innerText;
 
         let servicios = [];
@@ -548,7 +597,10 @@
         msg += `🏢 *Giro:* ${business}\n`;
         msg += `⚠️ *Estatus:* ${status}\n\n`;
         msg += `📊 *Interés:* \n- ${servicios.join('\n- ')}\n\n`;
-        msg += `💰 *Presupuesto Estimado:* $${total} MXN + IVA.\n`;
+        msg += `💰 *DESGLOSE:* \n`;
+        msg += `Subtotal: $${subtotal}\n`;
+        msg += `IVA: $${iva}\n`;
+        msg += `*TOTAL NETO: $${total} MXN*\n`;
 
         const phone = "523329780881"; 
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
