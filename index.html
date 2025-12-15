@@ -11,9 +11,9 @@
         :root {
             --primary: #1a1a1a;
             --secondary: #666;
-            --accent: #004aad;
+            --accent: #1b4d3e; /* Verde Bosque elegante */
             --gold: #d4af37;
-            --bg: #e6e6e6; /* EL COLOR QUE PEDISTE PARA TODO */
+            --bg: #e6e6e6; /* Fondo gris general */
         }
 
         body {
@@ -27,12 +27,11 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: var(--bg); /* AHORA EL CONTENEDOR TAMBIÉN ES GRIS */
+            background: var(--bg);
             padding: 20px;
-            /* Se quitó la sombra y el borde para que se fusione con el fondo */
         }
 
-        /* HEADER SIMPLIFICADO */
+        /* HEADER */
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -40,7 +39,7 @@
         }
 
         .logo {
-            max-width: 250px; /* Logo grande y protagonista */
+            max-width: 250px;
             width: 100%;
             height: auto;
         }
@@ -50,7 +49,7 @@
             display: flex;
             justify-content: center;
             margin-bottom: 40px;
-            background: #dcdcdc; /* Un gris un poco más oscuro para resaltar los botones */
+            background: #dcdcdc;
             border-radius: 50px;
             padding: 5px;
             width: fit-content;
@@ -95,7 +94,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* CARDS - Aquí mantenemos el blanco para que resalten sobre el gris */
+        /* CARDS */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -104,12 +103,12 @@
         }
 
         .card {
-            border: none; /* Sin bordes, solo sombra suave */
+            border: none;
             border-radius: 12px;
             padding: 25px;
             position: relative;
             transition: transform 0.2s, box-shadow 0.2s;
-            background: #fff; /* Fondo BLANCO para contraste */
+            background: #fff;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
@@ -184,7 +183,7 @@
 
         /* FORMULARIO DATOS */
         .data-form {
-            background: #fff; /* Blanco para que se vea limpio */
+            background: #fff;
             padding: 30px;
             border-radius: 12px;
             margin-top: 40px;
@@ -254,7 +253,7 @@
 <div class="container">
     <header>
         <img src="logo.png" alt="DAFIC Logo" class="logo" onerror="this.style.display='none'">
-        </header>
+    </header>
 
     <div class="client-type-switch">
         <button class="switch-btn active" onclick="switchView('emprendedor')">
@@ -272,7 +271,7 @@
             <div class="card">
                 <h3>Paquete Básico (RESICO)</h3>
                 <span class="price">$300 - $800 MXN</span>
-                <p class="desc">Ideal para iniciar. Cálculo y presentación de impuestos mensuales (ISR, IVA). Hasta 25 CFDI.</p>
+                <p class="desc">Ideal para iniciar. Cálculo y presentación de impuestos mensuales (ISR, IVA).</p>
                 <div class="select-container">
                     <label for="pf_basic">Seleccionar</label>
                     <input type="checkbox" id="pf_basic" class="calc-check" data-price="300" data-name="Paquete PF Básico" onchange="calculateTotal()">
@@ -281,18 +280,18 @@
 
             <div class="card">
                 <h3>Plataformas Digitales</h3>
-                <span class="price">$800 - $1,500 MXN</span>
-                <p class="desc">Para Uber, Airbnb, MercadoLibre. Incluye cálculo de ISR, IVA y DIOT. Hasta 50 CFDI.</p>
+                <span class="price">$600 - $1,500 MXN</span>
+                <p class="desc">Para Uber, Airbnb, MercadoLibre. Incluye cálculo de ISR, IVA y DIOT.</p>
                 <div class="select-container">
                     <label for="pf_plat">Seleccionar</label>
-                    <input type="checkbox" id="pf_plat" class="calc-check" data-price="800" data-name="Paquete Plataformas" onchange="calculateTotal()">
+                    <input type="checkbox" id="pf_plat" class="calc-check" data-price="600" data-name="Paquete Plataformas" onchange="calculateTotal()">
                 </div>
             </div>
 
             <div class="card">
                 <h3>Actividad Empresarial (RAEP)</h3>
                 <span class="price">$1,000 - $4,000 MXN</span>
-                <p class="desc">Negocios con mayor volumen. Impuestos, DIOT y Contabilidad Electrónica. Hasta 100 CFDI.</p>
+                <p class="desc">Negocios con mayor volumen. Impuestos, DIOT y Contabilidad Electrónica.</p>
                 <div class="select-container">
                     <label for="pf_adv">Seleccionar</label>
                     <input type="checkbox" id="pf_adv" class="calc-check" data-price="1000" data-name="Paquete PF Avanzado" onchange="calculateTotal()">
