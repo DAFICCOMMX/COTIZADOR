@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador DAFIC | Mtro. Eduardo Guerrero</title>
+    <title>Cotizador DAFIC</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #1a1a1a; /* Negro elegante */
-            --secondary: #666; /* Gris sofisticado */
-            --accent: #004aad; /* Azul corporativo */
-            --gold: #d4af37; /* Dorado para lo premium */
-            --bg: #f4f4f4;
+            --primary: #1a1a1a;
+            --secondary: #666;
+            --accent: #004aad;
+            --gold: #d4af37;
+            --bg: #e6e6e6; /* EL COLOR QUE PEDISTE PARA TODO */
         }
 
         body {
@@ -27,52 +27,30 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: var(--bg); /* AHORA EL CONTENEDOR TAMBIÉN ES GRIS */
+            padding: 20px;
+            /* Se quitó la sombra y el borde para que se fusione con el fondo */
         }
 
-        /* --- CAMBIOS EN EL HEADER --- */
+        /* HEADER SIMPLIFICADO */
         header {
             text-align: center;
-            margin-bottom: 40px;
-            background-color: #E6E6E6; /* NUEVO COLOR DE FONDO */
-            padding: 30px 20px; /* Espacio interno para que se vea bien */
-            border-radius: 15px; /* Bordes redondeados elegantes */
+            margin-bottom: 30px;
+            padding: 10px;
         }
 
         .logo {
-            max-width: 220px; /* LOGO MÁS GRANDE (Antes 150px) */
+            max-width: 250px; /* Logo grande y protagonista */
             width: 100%;
             height: auto;
-            margin-bottom: 15px;
         }
 
-        /* El h1 ya no se usa, pero lo dejamos por si acaso */
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-            color: var(--primary);
-            display: none; /* Aseguramos que no se vea */
-        }
-        /* --------------------------- */
-
-        .subtitle {
-            color: var(--primary);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        /* SWITCHER / TABS (La Cuerda de Terciopelo) */
+        /* SWITCHER / TABS */
         .client-type-switch {
             display: flex;
             justify-content: center;
             margin-bottom: 40px;
-            background: #eee;
+            background: #dcdcdc; /* Un gris un poco más oscuro para resaltar los botones */
             border-radius: 50px;
             padding: 5px;
             width: fit-content;
@@ -95,7 +73,7 @@
         .switch-btn.active {
             background-color: var(--primary);
             color: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .switch-btn:hover:not(.active) {
@@ -104,7 +82,7 @@
 
         /* SECTIONS */
         .service-section {
-            display: none; /* Oculto por defecto */
+            display: none;
             animation: fadeIn 0.5s ease;
         }
 
@@ -117,7 +95,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* CARDS */
+        /* CARDS - Aquí mantenemos el blanco para que resalten sobre el gris */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -126,22 +104,23 @@
         }
 
         .card {
-            border: 1px solid #eee;
-            border-radius: 8px;
+            border: none; /* Sin bordes, solo sombra suave */
+            border-radius: 12px;
             padding: 25px;
             position: relative;
             transition: transform 0.2s, box-shadow 0.2s;
-            background: #fff;
+            background: #fff; /* Fondo BLANCO para contraste */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        /* ESTILO PREMIUM (Para Empresas) */
+        /* ESTILO PREMIUM */
         .card.premium {
-            border: 1px solid var(--gold);
+            border: 2px solid var(--gold);
             background: linear-gradient(to bottom right, #fff, #fffae6);
         }
 
@@ -205,10 +184,11 @@
 
         /* FORMULARIO DATOS */
         .data-form {
-            background: #f9f9f9;
+            background: #fff; /* Blanco para que se vea limpio */
             padding: 30px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-top: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .form-group {
@@ -223,11 +203,12 @@
 
         .form-control {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             font-family: 'Montserrat', sans-serif;
-            box-sizing: border-box; /* Fix padding issues */
+            box-sizing: border-box;
+            background: #f9f9f9;
         }
 
         /* TOTAL Y BOTON */
@@ -235,11 +216,10 @@
             margin-top: 30px;
             text-align: center;
             padding: 20px;
-            border-top: 2px solid #eee;
         }
 
         .total-display {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 20px;
             color: var(--primary);
@@ -249,20 +229,22 @@
             background-color: #25D366;
             color: white;
             text-decoration: none;
-            padding: 15px 40px;
+            padding: 18px 45px;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: background 0.3s;
+            transition: transform 0.2s, background 0.3s;
             border: none;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
         .btn-whatsapp:hover {
             background-color: #128C7E;
+            transform: scale(1.05);
         }
 
     </style>
@@ -272,8 +254,7 @@
 <div class="container">
     <header>
         <img src="logo.png" alt="DAFIC Logo" class="logo" onerror="this.style.display='none'">
-        <div class="subtitle">Mtro. Eduardo Guerrero | Estrategia & Blindaje Fiscal</div>
-    </header>
+        </header>
 
     <div class="client-type-switch">
         <button class="switch-btn active" onclick="switchView('emprendedor')">
@@ -377,8 +358,8 @@
         </div>
     </div>
 
-    <div style="margin-top:40px; border-top:1px dashed #ccc; padding-top:20px;">
-        <h3>Servicios Adicionales (Pago Único)</h3>
+    <div style="margin-top:40px; padding-top:20px;">
+        <h3 style="text-align:center; color:#666;">Servicios Adicionales (Pago Único)</h3>
         <div class="cards-grid">
             <div class="card">
                 <h4>Declaración Anual</h4>
@@ -434,13 +415,10 @@
 </div>
 
 <script>
-    // 1. Lógica para cambiar de pestañas (El Switch)
     function switchView(type) {
         const viewEmprendedor = document.getElementById('view-emprendedor');
         const viewEmpresa = document.getElementById('view-empresa');
         const btns = document.querySelectorAll('.switch-btn');
-
-        // Reset inputs when switching? Opcional. Por ahora los dejamos.
         
         if (type === 'emprendedor') {
             viewEmprendedor.classList.add('active-section');
@@ -455,7 +433,6 @@
         }
     }
 
-    // 2. Lógica de Cálculo
     function calculateTotal() {
         const checkboxes = document.querySelectorAll('.calc-check:checked');
         let total = 0;
@@ -464,18 +441,15 @@
             total += parseInt(box.getAttribute('data-price'));
         });
 
-        // Formatear con comas
         document.getElementById('totalAmount').innerText = total.toLocaleString('es-MX');
     }
 
-    // 3. Enviar a WhatsApp
     function sendWhatsapp() {
         const name = document.getElementById('clientName').value;
         const business = document.getElementById('clientBuss').value;
         const status = document.getElementById('clientStatus').value;
         const total = document.getElementById('totalAmount').innerText;
 
-        // Recopilar servicios seleccionados
         let servicios = [];
         document.querySelectorAll('.calc-check:checked').forEach(box => {
             servicios.push(box.getAttribute('data-name'));
@@ -491,7 +465,6 @@
             return;
         }
 
-        // Construir mensaje
         let msg = `Hola Mtro. Eduardo, me interesa una cotización formal para *DAFIC*.\n\n`;
         msg += `👤 *Nombre:* ${name}\n`;
         msg += `🏢 *Giro:* ${business}\n`;
@@ -500,8 +473,7 @@
         msg += `💰 *Presupuesto base:* $${total} MXN aprox.\n\n`;
         msg += `Quedo atento a tus comentarios.`;
 
-        // Codificar URL y abrir
-        const phone = "523329780881"; // TU NÚMERO
+        const phone = "523329780881"; 
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
         
         window.open(url, '_blank');
