@@ -18,6 +18,8 @@
     --shadow-dark: rgba(163, 177, 198, 0.6);
     --accent-color: #222;
     --promo-color: #d32f2f;
+    --new-color: #2E7D32;
+    --discount-text: #1565C0; /* Azul para el ahorro */
   }
 
   body {
@@ -79,19 +81,15 @@
   .dafic-cards-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
   
   .dafic-card {
-    background-color: var(--bg-color); border-radius: 25px; 
-    /* AJUSTE: Más padding superior para espacio de la etiqueta */
-    padding: 50px 25px 35px 25px; 
-    width: 260px;
+    background-color: var(--bg-color); border-radius: 25px; padding: 50px 25px 35px 25px; width: 260px;
     text-align: left; cursor: pointer; position: relative; user-select: none;
     border: 1px solid rgba(255,255,255,0.3);
     box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0; animation: fadeInUp 0.6s forwards; 
-    overflow: hidden; /* Necesario para el brillo, causaba el corte */
+    opacity: 0; animation: fadeInUp 0.6s forwards; overflow: hidden;
   }
   
-  /* SHEEN EFECTO */
+  /* SHEEN */
   .dafic-card::before {
     content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
     background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
@@ -102,33 +100,29 @@
   .dafic-card:hover { transform: translateY(-8px); box-shadow: 18px 18px 30px var(--shadow-dark), -18px -18px 30px var(--shadow-light); }
   .dafic-card.selected { box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); border-color: transparent; transform: scale(0.98); }
   
-  /* BADGES CORREGIDOS */
+  /* BADGES */
   .popular-badge {
-    position: absolute; 
-    top: 0; /* AJUSTE: Pegado al borde superior */
-    left: 50%; transform: translateX(-50%);
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     background: var(--accent-color); color: var(--bg-color);
     font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-    padding: 6px 15px; 
-    border-radius: 0 0 15px 15px; /* AJUSTE: Solo redondeado abajo para parecer etiqueta colgante */
-    box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
+    padding: 6px 15px; border-radius: 0 0 15px 15px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
   }
   .promo-badge {
-    position: absolute; 
-    top: 0; /* AJUSTE: Pegado al borde superior */
-    left: 50%; transform: translateX(-50%);
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     background: var(--promo-color); color: #fff;
     font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-    padding: 6px 15px; 
-    border-radius: 0 0 15px 15px; /* AJUSTE: Solo redondeado abajo */
-    box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
+    padding: 6px 15px; border-radius: 0 0 15px 15px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
     width: auto; text-align: center; white-space: nowrap;
+  }
+  .new-badge {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    background: var(--new-color); color: #fff;
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    padding: 6px 15px; border-radius: 0 0 15px 15px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
   }
 
   .card-check-icon {
-    position: absolute; 
-    top: 35px; /* AJUSTE: Bajado un poco para no chocar con la etiqueta */
-    right: 25px; width: 24px; height: 24px;
+    position: absolute; top: 35px; right: 25px; width: 24px; height: 24px;
     border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
     background: var(--bg-color); z-index: 2;
     box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
@@ -166,6 +160,7 @@
     border-color: transparent; transform: translateY(1px);
   }
 
+  /* Indicador del check */
   .option-indicator {
     width: 26px; height: 26px; border-radius: 50%; background: var(--bg-color);
     box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
@@ -176,10 +171,12 @@
     box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
   }
   .calc-option-card.active .option-indicator::after { content: "✓"; font-size: 14px; font-weight: 800; }
+  
   .option-title { display: block; font-size: 16px; font-weight: 700; color: #333; margin-bottom: 5px; }
   .option-subtitle { font-size: 13px; color: #777; font-weight: 500; }
   .option-price { font-size: 20px; font-weight: 700; color: #333; }
 
+  /* CONTROLES NUMÉRICOS (General) */
   .qty-control {
     display: flex; align-items: center; background: var(--bg-color); border-radius: 30px;
     padding: 5px; margin-left: 20px; visibility: hidden; opacity: 0; transition: all 0.3s;
@@ -193,14 +190,17 @@
     transition: all 0.2s; display: flex; align-items: center; justify-content: center;
   }
   .qty-btn:active { box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light); transform: scale(0.95); }
-  #numEmpleados { width: 45px; text-align: center; border: none; font-size: 18px; font-weight: 700; background: transparent; color: #333; font-family: 'Montserrat', sans-serif;}
+  
+  /* Inputs de número (empleados y meses) */
+  .num-input { width: 45px; text-align: center; border: none; font-size: 18px; font-weight: 700; background: transparent; color: #333; font-family: 'Montserrat', sans-serif;}
 
   .total-display {
-    font-size: 42px; font-weight: 800; text-align: right; margin-top: 40px; color: #222; letter-spacing: -1px;
+    font-size: 52px; font-weight: 800; text-align: right; margin-top: 40px; color: #222; letter-spacing: -2px;
     text-shadow: 2px 2px 2px var(--shadow-light);
   }
-  .total-label { font-size: 12px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 2px;}
+  .total-label { font-size: 12px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 3px;}
   .subtotal-note { text-align: right; font-size: 12px; color: #999; margin-bottom: 40px; font-style: italic; font-weight: 500;}
+  .discount-alert { color: var(--discount-text); font-weight: 700; font-size: 14px; margin-top: 5px; display: block; }
 
   /* FORMULARIO Y CALENDARIO */
   .form-section { margin-top: 40px; padding-top: 40px; border-top: 1px solid #d1d1d1; }
@@ -268,7 +268,6 @@
 
   .hidden { display: none !important; }
   .dafic-card { opacity: 0; animation: fadeInUp 0.6s forwards; }
-  /* Animación escalonada para más tarjetas */
   .dafic-card:nth-child(1) { animation-delay: 0.1s; } 
   .dafic-card:nth-child(2) { animation-delay: 0.15s; }
   .dafic-card:nth-child(3) { animation-delay: 0.2s; } 
@@ -276,6 +275,7 @@
   .dafic-card:nth-child(5) { animation-delay: 0.3s; }
   .dafic-card:nth-child(6) { animation-delay: 0.35s; }
   .dafic-card:nth-child(7) { animation-delay: 0.4s; }
+  .dafic-card:nth-child(8) { animation-delay: 0.45s; }
   
   @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
@@ -340,6 +340,20 @@
       <span class="card-price-range">$1,500 <small style="font-size:14px;">+ 15%</small></span>
       <p class="card-desc">Gestión integral para la recuperación de tu saldo a favor.</p>
     </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 2000, 'Regularización Fiscal PF', 0, '')">
+      <div class="new-badge">Recomendado</div>
+      <div class="card-check-icon"></div>
+      <div class="card-title">Regularización</div>
+      <span class="card-price-range">Desde $2,000</span>
+      <p class="card-desc">Ponte al corriente con declaraciones de años anteriores.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 800, 'Renovación e.Firma', 0, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Renovación e.Firma</div>
+      <span class="card-price-range">$800</span>
+      <p class="card-desc">Trámite en línea para renovar tu firma electrónica vencida.</p>
+    </div>
+    
     <div class="dafic-card" onclick="seleccionarPlan(this, 500, 'Cita SAT', 0, '')">
       <div class="card-check-icon"></div>
       <div class="card-title">Citas SAT</div>
@@ -357,6 +371,12 @@
       <div class="card-title">Generar Contraseña</div>
       <span class="card-price-range">$200</span>
       <p class="card-desc">Acceso al portal del SAT. (Gratis si contratas anual).</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 800, 'Asesoría 1:1', 0, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Asesoría 1 a 1</div>
+      <span class="card-price-range">$800 <small style="font-size:12px;">/ hora</small></span>
+      <p class="card-desc">Sesión por Zoom para resolver dudas específicas.</p>
     </div>
   </div>
 
@@ -380,12 +400,36 @@
       <span class="card-price-range">$3,500 <small style="font-size:14px;">+ 20%</small></span>
       <p class="card-desc">Recuperación de saldos para Personas Morales.</p>
     </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 4000, 'Regularización Fiscal PM', 0, '')">
+      <div class="new-badge">Importante</div>
+      <div class="card-check-icon"></div>
+      <div class="card-title">Regularización</div>
+      <span class="card-price-range">Desde $4,000</span>
+      <p class="card-desc">Ponte al corriente y evita multas o cancelaciones.</p>
+    </div>
   </div>
 
   <div class="neumorphic-divider"></div>
 
   <div id="zona-calculadora" class="calculator-section">
     <div class="calc-header">Resumen: <strong><span id="nombre-plan-display">---</span></strong></div>
+
+    <div class="calc-option-card active" id="card-regularizacion" style="display:none;" onclick="event.stopPropagation()">
+      <div style="display:flex; align-items:center;">
+        <div class="option-indicator" style="background:var(--accent-color); color:white;">✓</div>
+        <div class="option-content">
+          <span class="option-title">Periodo a Regularizar</span>
+          <span class="option-subtitle">Entre más meses, mayor descuento.</span>
+          <span id="txt-descuento" class="discount-alert"></span>
+        </div>
+      </div>
+      <div id="wrapper-meses" class="qty-control visible">
+        <button class="qty-btn" onclick="cambiarMeses(-1)">-</button>
+        <input type="number" id="numMesesReg" class="num-input" value="1" readonly>
+        <button class="qty-btn" onclick="cambiarMeses(1)">+</button>
+      </div>
+      <div class="option-price" style="min-width: 80px; text-align: right;">meses</div>
+    </div>
 
     <div class="calc-option-card active" id="card-diagnostico" onclick="toggleOption('checkDiagnostico', 'card-diagnostico')">
       <div style="display:flex; align-items:center;"><div class="option-indicator"></div><div class="option-content"><span class="option-title">Diagnóstico Inicial</span><span class="option-subtitle">Pago único (Bonificable 100%)</span></div></div>
@@ -395,7 +439,7 @@
 
     <div class="calc-option-card" id="card-nomina" onclick="toggleOption('checkNomina', 'card-nomina')">
       <div style="display:flex; align-items:center;"><div class="option-indicator"></div><div class="option-content"><span class="option-title">Nómina / Empleados</span><span class="option-subtitle">¿Tienes personal? ($30 c/u)</span></div></div>
-      <div id="wrapper-contador" class="qty-control" onclick="event.stopPropagation()"><button class="qty-btn" onclick="cambiarEmpleados(-1)">-</button><input type="number" id="numEmpleados" value="1" readonly><button class="qty-btn" onclick="cambiarEmpleados(1)">+</button></div>
+      <div id="wrapper-contador" class="qty-control" onclick="event.stopPropagation()"><button class="qty-btn" onclick="cambiarEmpleados(-1)">-</button><input type="number" id="numEmpleados" class="num-input" value="1" readonly><button class="qty-btn" onclick="cambiarEmpleados(1)">+</button></div>
       <div class="option-price">+ $<span id="costo-nomina">0</span></div>
       <input type="checkbox" id="checkNomina" style="display:none;">
     </div>
@@ -458,7 +502,7 @@
 <script>
   let precioPlanBase = 0; let nombrePlan = ""; let baseDiagnostico = 0;
   let horaSeleccionada = ""; let fechaSeleccionada = "";
-  let textoExtraPrecio = ""; // Para guardar el texto "+ 15%"
+  let textoExtraPrecio = ""; 
 
   const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   let currentDate = new Date();
@@ -511,18 +555,30 @@
     precioPlanBase = prec; 
     nombrePlan = nom; 
     baseDiagnostico = diag;
-    textoExtraPrecio = txtExtra; // Guardar texto extra (ej "+ 15%")
+    textoExtraPrecio = txtExtra;
 
     let cardDiag = document.getElementById('card-diagnostico');
     let cardNom = document.getElementById('card-nomina');
+    let cardReg = document.getElementById('card-regularizacion');
     let checkDiag = document.getElementById('checkDiagnostico');
     let checkNom = document.getElementById('checkNomina');
 
-    // REGLA: Si es Estrategia Fiscal o Servicios Individuales, ocultar Nómina/Diagnóstico
-    const serviciosIndividuales = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM'];
-    const esEstrategia = nom === 'Estrategia Fiscal';
+    // Resetear
+    cardReg.style.display = 'none';
+    document.getElementById('numMesesReg').value = 1; 
+    document.getElementById('txt-descuento').innerText = "";
 
-    if (esEstrategia || serviciosIndividuales.includes(nom)) {
+    const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal'];
+    
+    if (nom.includes('Regularización')) {
+        // MODO REGULARIZACION
+        cardDiag.style.display = 'none';
+        cardNom.style.display = 'none';
+        cardReg.style.display = 'flex'; // Mostrar contador meses
+        checkDiag.checked = false;
+        checkNom.checked = false;
+    } else if (serviciosUnicos.includes(nom)) {
+        // MODO PAGO ÚNICO
         cardDiag.style.display = 'none';
         cardNom.style.display = 'none';
         checkDiag.checked = false;
@@ -530,7 +586,7 @@
         cardDiag.classList.remove('active');
         cardNom.classList.remove('active');
     } else {
-        // Planes mensuales normales
+        // MODO MENSUALIDAD (Normal)
         cardDiag.style.display = 'flex';
         cardNom.style.display = 'flex';
         checkDiag.checked = true;
@@ -567,11 +623,19 @@
     if (val < 1) val = 1; input.value = val; calcularTotal();
   }
 
+  function cambiarMeses(delta) {
+    let input = document.getElementById('numMesesReg');
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1; input.value = val; 
+    calcularTotal();
+  }
+
   function resetearSeleccion() { 
     precioPlanBase = 0; nombrePlan = ""; baseDiagnostico = 0; textoExtraPrecio = "";
     document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected')); 
     document.getElementById('card-diagnostico').style.display = 'flex';
     document.getElementById('card-nomina').style.display = 'flex';
+    document.getElementById('card-regularizacion').style.display = 'none';
   }
 
   function verificarStatus() {
@@ -599,32 +663,59 @@
   }
 
   function calcularTotal() {
-    let chkDiag = document.getElementById('checkDiagnostico');
-    let montoDiag = baseDiagnostico;
-    document.getElementById('costo-diagnostico').innerText = montoDiag.toLocaleString();
-    
     let totalDisplay = document.getElementById('total-final');
     let labelDisplay = document.getElementById('label-total');
     let notaDisplay = document.getElementById('nota-diagnostico');
+    let totalFinal = 0;
 
-    let chkNom = document.getElementById('checkNomina');
-    let num = parseInt(document.getElementById('numEmpleados').value);
-    let totalNom = chkNom.checked ? num * 30 : 0;
-    document.getElementById('costo-nomina').innerText = totalNom.toLocaleString();
-    
-    let mensualidadEstimada = precioPlanBase + totalNom;
+    // Lógica Específica para Regularización
+    if (nombrePlan.includes('Regularización')) {
+        let meses = parseInt(document.getElementById('numMesesReg').value);
+        let precioBaseMes = precioPlanBase; // 2000 o 4000
+        let subtotal = precioBaseMes * meses;
+        let descuento = 0;
+        let porcentaje = 0;
 
-    // Lógica para mostrar TOTAL o Diagnóstico
-    if(chkDiag.checked) {
-      totalDisplay.innerText = "$" + montoDiag.toLocaleString();
-      labelDisplay.innerText = "Pago Inicial Requerido (Diagnóstico):";
-      notaDisplay.style.display = "block";
-      notaDisplay.innerText = "* Cubriendo este monto iniciamos tu Diagnóstico. La mensualidad de $" + mensualidadEstimada.toLocaleString() + " inicia después.";
+        if (meses >= 12) { porcentaje = 30; }
+        else if (meses >= 6) { porcentaje = 20; }
+        else if (meses >= 3) { porcentaje = 10; }
+
+        descuento = subtotal * (porcentaje / 100);
+        totalFinal = subtotal - descuento;
+
+        if (porcentaje > 0) {
+            document.getElementById('txt-descuento').innerText = `¡${porcentaje}% OFF aplicado! Ahorras $${descuento.toLocaleString()}`;
+        } else {
+            document.getElementById('txt-descuento').innerText = "";
+        }
+
+        totalDisplay.innerText = "$" + totalFinal.toLocaleString();
+        labelDisplay.innerText = `Total por ${meses} meses (Pago Único):`;
+        notaDisplay.style.display = "none";
+
     } else {
-      // Mostrar Precio Base + Texto Extra (para devoluciones)
-      totalDisplay.innerText = "$" + mensualidadEstimada.toLocaleString() + textoExtraPrecio;
-      labelDisplay.innerText = "Inversión Estimada:";
-      notaDisplay.style.display = "none";
+        // Lógica Normal (Mensualidad / Pago Único)
+        let chkDiag = document.getElementById('checkDiagnostico');
+        let montoDiag = baseDiagnostico;
+        document.getElementById('costo-diagnostico').innerText = montoDiag.toLocaleString();
+
+        let chkNom = document.getElementById('checkNomina');
+        let num = parseInt(document.getElementById('numEmpleados').value);
+        let totalNom = chkNom.checked ? num * 30 : 0;
+        document.getElementById('costo-nomina').innerText = totalNom.toLocaleString();
+        
+        let mensualidadEstimada = precioPlanBase + totalNom;
+
+        if(chkDiag.checked) {
+            totalDisplay.innerText = "$" + montoDiag.toLocaleString();
+            labelDisplay.innerText = "Pago Inicial Requerido (Diagnóstico):";
+            notaDisplay.style.display = "block";
+            notaDisplay.innerText = "* Cubriendo este monto iniciamos tu Diagnóstico. La mensualidad de $" + mensualidadEstimada.toLocaleString() + " inicia después.";
+        } else {
+            totalDisplay.innerText = "$" + mensualidadEstimada.toLocaleString() + textoExtraPrecio;
+            labelDisplay.innerText = (textoExtraPrecio !== "") ? "Costo Estimado:" : "Inversión Mensual Estimada:";
+            notaDisplay.style.display = "none";
+        }
     }
     document.getElementById('nombre-plan-display').innerText = nombrePlan;
     actualizarLinks();
@@ -636,7 +727,20 @@
     let chkNom = document.getElementById('checkNomina');
     let num = parseInt(document.getElementById('numEmpleados').value);
     let totalNom = chkNom.checked ? num * 30 : 0;
-    let mensualidadReal = precioPlanBase + totalNom;
+    
+    // Calcular Total Real para el mensaje
+    let totalMensaje = "";
+    if (nombrePlan.includes('Regularización')) {
+        let meses = parseInt(document.getElementById('numMesesReg').value);
+        // Recalcular rápido para el mensaje
+        let sub = precioPlanBase * meses;
+        let porc = (meses >= 12) ? 0.3 : (meses >= 6 ? 0.2 : (meses >= 3 ? 0.1 : 0));
+        let final = sub - (sub * porc);
+        totalMensaje = `$${final.toLocaleString()} por ${meses} meses (Incluye descuento)`;
+    } else {
+        let mens = precioPlanBase + totalNom;
+        totalMensaje = `$${mens.toLocaleString()}${textoExtraPrecio}`;
+    }
 
     let nombre = document.getElementById('clientName').value || "No especificado";
     let giro = document.getElementById('clientGiro').value || "No especificado";
@@ -648,12 +752,12 @@
     let horaTxt = horaSeleccionada ? formatTime(horaSeleccionada) : "Pendiente";
 
     let telefono = "5213329780881"; 
-    let textoEmpleados = chkNom.checked ? ` (+ Nómina de ${num} empleados)` : "";
+    let textoEmpleados = (chkNom.checked && !nombrePlan.includes('Regularización')) ? ` (+ Nómina de ${num} empleados)` : "";
     let textoDiag = checkDiag ? `\n• PAGO INICIAL (Diagnóstico): $${costoDiag}` : "";
     
     let mensaje = `Hola DAFIC, quiero agendar mi cita.\n\n` +
                   `📋 *DATOS DEL CLIENTE*\n• Nombre: ${nombre}\n• Giro: ${giro}\n${infoFiscal}\n\n` +
-                  `📊 *COTIZACIÓN*\n• Plan: ${nombrePlan}\n• Costo Estimado: $${mensualidadReal.toLocaleString()}${textoExtraPrecio}${textoEmpleados}` +
+                  `📊 *COTIZACIÓN*\n• Plan: ${nombrePlan}\n• Costo Total: ${totalMensaje}${textoEmpleados}` +
                   `${textoDiag}\n\n` +
                   `📅 *CITA SOLICITADA*\n• Fecha: ${fechaTxt}\n• Hora: ${horaTxt}`;
 
