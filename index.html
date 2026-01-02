@@ -1,7 +1,7 @@
 <style>
   /* --- ESTILOS GENERALES (FONDO GRIS UNIFICADO) --- */
   body {
-    background-color: #e6e6e6; /* Fondo de toda la página */
+    background-color: #e6e6e6;
     margin: 0;
   }
   .dafic-pricing-container {
@@ -11,15 +11,16 @@
     text-align: center;
     color: #000;
     padding: 20px;
-    background-color: #e6e6e6; /* Fondo del contenedor */
+    background-color: #e6e6e6;
+    min-height: 700px; /* Altura mínima para evitar saltos */
   }
 
-  /* --- LOGO --- */
+  /* --- LOGO (RUTA CORREGIDA) --- */
   .dafic-logo-wrapper {
     margin-bottom: 30px;
   }
   .dafic-logo-img {
-    max-width: 220px;
+    max-width: 250px; /* Tamaño ajustable */
     height: auto;
     display: block;
     margin: 0 auto;
@@ -29,17 +30,18 @@
   .dafic-toggle-wrapper {
     display: inline-flex;
     border: 1px solid #000;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     border-radius: 4px;
     overflow: hidden;
     background-color: #e6e6e6;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   }
   .dafic-toggle-btn {
-    padding: 12px 30px;
+    padding: 15px 40px;
     background: #e6e6e6;
     border: none;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 1px;
     transition: all 0.3s ease;
@@ -47,16 +49,18 @@
     color: #666;
     border-right: 1px solid #ccc;
   }
-  .dafic-toggle-btn:last-child {
-    border-right: none;
-  }
-  .dafic-toggle-btn:hover {
-    background-color: #d4d4d4;
-    color: #000;
-  }
-  .dafic-toggle-btn.active {
-    background-color: #000;
-    color: #fff;
+  .dafic-toggle-btn:last-child { border-right: none; }
+  .dafic-toggle-btn:hover { background-color: #d4d4d4; color: #000; }
+  .dafic-toggle-btn.active { background-color: #000; color: #fff; }
+
+  /* --- INSTRUCCIÓN --- */
+  .selection-instruction {
+    font-size: 18px;
+    color: #555;
+    margin-top: 50px;
+    animation: fadeIn 1s;
+    font-weight: bold;
+    letter-spacing: 0.5px;
   }
 
   /* --- GRID DE TARJETAS --- */
@@ -65,39 +69,36 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    animation: fadeIn 0.5s ease-in-out;
+    animation: slideUp 0.5s ease-out;
     margin-bottom: 40px;
   }
   
-  /* --- TARJETA SELECCIONABLE --- */
+  /* --- TARJETA SELECCIONABLE (FONDO GRIS) --- */
   .dafic-card {
-    background: #e6e6e6; /* MISMO COLOR DE FONDO */
-    border: 1px solid #999; /* Borde gris para que se note la separación */
+    background: #e6e6e6;
+    border: 1px solid #999;
     border-radius: 8px;
-    padding: 20px;
+    padding: 25px;
     width: 240px;
     text-align: left;
-    cursor: pointer; /* Manita al pasar el mouse */
+    cursor: pointer;
     transition: all 0.2s;
     position: relative;
     user-select: none;
   }
-  
-  /* EFECTO HOVER */
   .dafic-card:hover {
     transform: translateY(-3px);
-    border-color: #333;
+    border-color: #000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   }
-
-  /* CLASE CUANDO SELECCIONAS UNA TARJETA */
   .dafic-card.selected {
-    border: 3px solid #000; /* Borde negro grueso */
-    background-color: #dedede; /* Ligeramente más oscuro para feedback */
+    border: 3px solid #000;
+    background-color: #dedede; /* Un gris ligeramente diferente para notar la selección */
     transform: scale(1.02);
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   }
   
-  /* Checkbox visual simulado */
+  /* Checkbox visual */
   .card-check-icon {
     position: absolute;
     top: 15px;
@@ -119,20 +120,22 @@
     display: block;
   }
 
-  /* TEXTOS TARJETA */
   .card-title { font-size: 16px; font-weight: 800; margin: 10px 0; text-transform: uppercase; }
-  .card-price-range { font-size: 18px; font-weight: 800; color: #000; display: block; }
-  .card-desc { font-size: 12px; color: #555; margin-top: 5px; line-height: 1.4; }
+  .card-price-range { font-size: 20px; font-weight: 800; color: #000; display: block; }
+  .card-desc { font-size: 13px; color: #444; margin-top: 8px; line-height: 1.4; }
 
-  /* --- SECCIÓN CALCULADORA (EMPLEADOS) --- */
+  /* --- SECCIÓN CALCULADORA (FONDO GRIS, OCULTA AL INICIO) --- */
   .calculator-section {
     background-color: #e6e6e6;
     border-top: 2px solid #000;
-    padding: 30px 20px;
+    padding: 40px 20px;
     max-width: 800px;
     margin: 0 auto;
     text-align: left;
+    display: none;
+    animation: fadeIn 0.5s;
   }
+  
   .calc-row {
     display: flex;
     justify-content: space-between;
@@ -140,7 +143,10 @@
     margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #bbb;
   }
+  .calc-row:last-child { border-bottom: none; }
   
   /* CONTROLES NUMÉRICOS */
   .qty-control {
@@ -153,7 +159,7 @@
   .qty-btn {
     background: #e6e6e6;
     border: none;
-    padding: 5px 15px;
+    padding: 8px 18px;
     font-size: 18px;
     cursor: pointer;
     font-weight: bold;
@@ -167,17 +173,17 @@
     font-weight: bold;
     background: #fff;
   }
-  /* Quitar flechas del input number */
   input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-  /* --- TOTAL Y BOTONES --- */
+  /* TOTAL Y BOTONES */
   .total-display {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 900;
     text-align: right;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    margin-top: 25px;
   }
-  .total-label { font-size: 14px; font-weight: normal; color: #555; display: block;}
+  .total-label { font-size: 14px; font-weight: normal; color: #444; display: block;}
 
   .action-buttons {
     display: flex;
@@ -200,62 +206,54 @@
     border: none;
     cursor: pointer;
   }
-  
-  .btn-agendar {
-    background-color: #000;
-    color: #fff;
-  }
+  .btn-agendar { background-color: #000; color: #fff; }
   .btn-agendar:hover { background-color: #333; }
-
-  .btn-whatsapp {
-    background-color: #25D366;
-    color: #fff;
-  }
+  .btn-whatsapp { background-color: #25D366; color: #fff; }
   .btn-whatsapp:hover { background-color: #1ebc57; }
 
-  /* UTILIDADES */
-  .hidden { display: none; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .hidden { display: none !important; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 
 <div class="dafic-pricing-container">
 
   <div class="dafic-logo-wrapper">
-    <img src="COTIZADOR/logo.png" alt="DAFIC" class="dafic-logo-img">
+    <img src="COTIZADOR/logo.png" alt="DAFIC Despacho Contable" class="dafic-logo-img">
   </div>
-  
-  <p style="font-size: 14px; color: #444; margin-bottom: 30px;">
-    Selecciona el régimen de tu interés para calcular tu inversión mensual estimada.
+
+  <p style="font-size: 16px; color: #333; margin-bottom: 20px;">
+    Selecciona tu perfil fiscal para ver los planes disponibles.
   </p>
 
   <div class="dafic-toggle-wrapper">
-    <button class="dafic-toggle-btn active" onclick="cambiarTipo('fisica', this)">PERSONA FÍSICA</button>
+    <button class="dafic-toggle-btn" onclick="cambiarTipo('fisica', this)">PERSONA FÍSICA</button>
     <button class="dafic-toggle-btn" onclick="cambiarTipo('moral', this)">PERSONA MORAL</button>
   </div>
 
-  <div id="grid-fisica" class="dafic-cards-grid">
-    
+  <div id="mensaje-inicial" class="selection-instruction">
+    Por favor selecciona una opción (Física o Moral) para comenzar.
+  </div>
+
+  <div id="grid-fisica" class="dafic-cards-grid hidden">
     <div class="dafic-card" onclick="seleccionarPlan(this, 600, 'RESICO', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">RESICO</span>
       <span class="card-price-range">Desde $600</span>
-      <p class="card-desc">Hasta $2,000 según volumen.</p>
+      <p class="card-desc">Hasta $2,000 según facturación.</p>
     </div>
-
-    <div class="dafic-card" onclick="seleccionarPlan(this, 1200, 'Actividad Empresarial', 1000)">
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1200, 'Act. Empresarial', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Act. Empresarial</span>
       <span class="card-price-range">Desde $1,200</span>
       <p class="card-desc">Hasta $6,000 según volumen.</p>
     </div>
-
     <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Plataformas', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Plataformas</span>
       <span class="card-price-range">Desde $1,000</span>
       <p class="card-desc">Uber, Airbnb, Amazon.</p>
     </div>
-
     <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Arrendamiento', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Arrendamiento</span>
@@ -265,14 +263,12 @@
   </div>
 
   <div id="grid-moral" class="dafic-cards-grid hidden">
-    
     <div class="dafic-card" style="width: 280px;" onclick="seleccionarPlan(this, 3000, 'Persona Moral Pyme', 2000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Contabilidad Pyme</span>
       <span class="card-price-range">Desde $3,000</span>
       <p class="card-desc">Sociedades (SA, SC, SAS). Hasta $30,000.</p>
     </div>
-
     <div class="dafic-card" style="width: 280px;" onclick="seleccionarPlan(this, 7000, 'Estrategia Fiscal', 2000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Estrategia Fiscal</span>
@@ -281,52 +277,50 @@
     </div>
   </div>
 
-  <div class="calculator-section">
-    
-    <div class="calc-row" style="border-bottom: 1px solid #ccc; padding-bottom: 15px;">
+  <div id="zona-calculadora" class="calculator-section">
+    <h4 style="margin-top:0; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:10px;">Resumen de Inversión</h4>
+
+    <div class="calc-row">
+      <div><strong>Plan Seleccionado:</strong></div>
+      <div style="font-weight: bold; font-size: 18px;"><span id="nombre-plan-display">---</span></div>
+    </div>
+
+    <div class="calc-row">
       <div>
-        <strong>Diagnóstico Inicial (Bonificable)</strong>
-        <div style="font-size: 12px; color: #666;">Se descuenta de tu primera mensualidad.</div>
+        <strong>Diagnóstico Inicial (Pago Único)</strong>
+        <div style="font-size: 12px; color: #666;">Se bonifica en tu 1ra mensualidad.</div>
       </div>
-      <div style="font-weight: bold;">
-        + $<span id="costo-diagnostico">0</span>
-      </div>
+      <div style="font-weight: bold;">+ $<span id="costo-diagnostico">0</span></div>
     </div>
 
     <div class="calc-row">
       <div>
         <strong>¿Tienes Empleados?</strong>
-        <div style="font-size: 12px; color: #666;">Cálculo de nómina ($30 c/u).</div>
+        <div style="font-size: 12px; color: #666;">Nómina ($30 c/u).</div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" onclick="cambiarEmpleados(-1)">-</button>
         <input type="number" id="numEmpleados" value="0" readonly>
         <button class="qty-btn" onclick="cambiarEmpleados(1)">+</button>
       </div>
-      <div style="font-weight: bold;">
-        + $<span id="costo-nomina">0</span>
-      </div>
+      <div style="font-weight: bold;">+ $<span id="costo-nomina">0</span></div>
     </div>
 
     <div class="total-display">
-      <span class="total-label">Inversión Mensual Estimada (Inicial):</span>
+      <span class="total-label">Primer Pago Estimado (Diagnóstico + Mensualidad):</span>
       $<span id="total-final">0</span> MXN
     </div>
 
     <div class="action-buttons">
-      
       <a href="#" id="btn-whatsapp-link" target="_blank" class="btn-action btn-whatsapp">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
-        Enviar por WhatsApp
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
+        Confirmar por WhatsApp
       </a>
-
       <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="btn-action btn-agendar">
         Agendar Cita
       </a>
-      
     </div>
   </div>
-
 </div>
 
 <script>
@@ -336,7 +330,8 @@
   let numEmpleados = 0;
 
   function cambiarTipo(tipo, btn) {
-    // Resetear valores al cambiar de pestaña
+    document.getElementById('mensaje-inicial').style.display = 'none';
+    document.getElementById('zona-calculadora').style.display = 'none';
     resetearSeleccion();
 
     document.getElementById('grid-fisica').classList.add('hidden');
@@ -348,22 +343,23 @@
       document.getElementById('grid-moral').classList.remove('hidden');
     }
 
-    // Estilo botones
     document.querySelectorAll('.dafic-toggle-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
 
   function seleccionarPlan(elemento, precio, nombre, costoDiag) {
-    // Quitar selección a todos
     document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
-    
-    // Seleccionar el clickeado
     elemento.classList.add('selected');
 
-    // Actualizar datos
     precioPlanBase = precio;
     nombrePlan = nombre;
-    costoDiagnostico = costoDiag; // 1000 o 2000
+    costoDiagnostico = costoDiag; 
+
+    document.getElementById('zona-calculadora').style.display = 'block';
+    
+    setTimeout(() => {
+        document.getElementById('zona-calculadora').scrollIntoView({behavior: "smooth", block: "nearest"});
+    }, 100);
 
     calcularTotal();
   }
@@ -382,35 +378,28 @@
     nombrePlan = "";
     costoDiagnostico = 0;
     document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
-    calcularTotal();
   }
 
   function calcularTotal() {
-    // Calculos
     let totalNomina = numEmpleados * 30;
     let granTotal = precioPlanBase + totalNomina + costoDiagnostico;
 
-    // Actualizar pantalla (Visual)
+    document.getElementById('nombre-plan-display').innerText = nombrePlan;
     document.getElementById('costo-diagnostico').innerText = costoDiagnostico.toLocaleString();
     document.getElementById('costo-nomina').innerText = totalNomina.toLocaleString();
     document.getElementById('total-final').innerText = granTotal.toLocaleString();
 
-    // Actualizar Link de WhatsApp
     actualizarWhatsApp(granTotal);
   }
 
   function actualizarWhatsApp(total) {
-    let telefono = "521XXXXXXXXXX"; // <<< PON AQUÍ TU NÚMERO A 10 DÍGITOS
-    let mensaje = "";
-
-    if (precioPlanBase === 0) {
-      mensaje = "Hola, me interesa agendar una cita de diagnóstico.";
-    } else {
-      mensaje = `Hola DAFIC, me interesa el plan *${nombrePlan}*. ` +
-                `Calculé un estimado de *$${total.toLocaleString()}* ` +
-                `(incluye ${numEmpleados} empleados y el diagnóstico). ` +
-                `¿Podemos agendar?`;
-    }
+    // NÚMERO CORRECTO
+    let telefono = "5213329780881"; 
+    
+    let mensaje = `Hola DAFIC, me interesa el plan *${nombrePlan}*. \n` +
+                  `Mi cálculo estimado es de *$${total.toLocaleString()}* ` +
+                  `(Incluye ${numEmpleados} empleados y el Diagnóstico). \n` +
+                  `¿Me ayudan a formalizar?`;
 
     let url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     document.getElementById('btn-whatsapp-link').href = url;
