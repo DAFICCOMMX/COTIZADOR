@@ -1,107 +1,113 @@
 <style>
-  /* --- ESTILOS GENERALES (PALETA ESTRICTA BLANCO/GRIS #e6e6e6) --- */
+  /* --- ESTILOS GENERALES --- */
   body {
-    background-color: #e6e6e6; /* Fondo base gris */
+    background-color: #e6e6e6; /* Fondo de la ventana GRIS */
     margin: 0;
-    color: #333; /* Texto oscuro necesario para legibilidad */
-  }
-  .dafic-pricing-container {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    max-width: 1100px;
+  }
+  
+  .dafic-pricing-container {
+    max-width: 1000px;
     margin: 40px auto;
     text-align: center;
-    padding: 40px;
-    background-color: #ffffff; /* Contenedor principal BLANCO */
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Sombra suave para separar del fondo */
+    padding: 50px;
+    /* CONTENEDOR NEGRO PARA QUE LAS LETRAS BLANCAS SE VEAN */
+    background-color: #000000; 
+    border-radius: 0; /* Bordes rectos para elegancia */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3); /* Sombra fuerte para resaltar del gris */
     min-height: 700px;
+    color: #ffffff; /* LETRAS BLANCAS */
   }
 
-  /* --- LOGO --- */
+  /* --- LOGO (INVERTIDO A BLANCO) --- */
   .dafic-logo-wrapper {
     margin-bottom: 40px;
   }
   .dafic-logo-img {
-    max-width: 250px;
+    max-width: 260px;
     height: auto;
     display: block;
     margin: 0 auto;
+    /* TRUCO PRO: Invierte el color del logo de negro a blanco */
+    filter: invert(1) brightness(2); 
   }
 
-  /* --- PESTAÑAS (SWITCH) ALTO CONTRASTE --- */
+  /* --- PESTAÑAS (SWITCH) --- */
   .dafic-toggle-wrapper {
     display: inline-flex;
-    background-color: #e6e6e6; /* Fondo del switch gris */
-    border-radius: 30px; /* Redondeado moderno */
-    padding: 5px;
+    border: 1px solid #333; /* Borde sutil */
     margin-bottom: 50px;
+    background-color: #000;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .dafic-toggle-btn {
-    padding: 12px 35px;
-    background: transparent;
+    padding: 15px 25px;
+    background: #000;
     border: none;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     transition: all 0.3s ease;
     outline: none;
-    color: #777; /* Texto gris medio para inactivos */
-    border-radius: 25px;
+    color: #888; /* Gris oscuro para inactivos */
+    border-right: 1px solid #333;
+    text-transform: uppercase;
   }
-  .dafic-toggle-btn:hover { color: #333; }
+  .dafic-toggle-btn:last-child { border-right: none; }
+  .dafic-toggle-btn:hover { color: #fff; }
   
-  /* Botón activo: Blanco sobre fondo gris */
+  /* Botón activo: Blanco brillante */
   .dafic-toggle-btn.active {
-    background-color: #ffffff;
-    color: #000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: #222;
+    color: #fff;
+    border-bottom: 2px solid #fff;
   }
 
   /* --- INSTRUCCIÓN --- */
   .selection-instruction {
-    font-size: 20px;
-    color: #999;
-    margin-top: 80px;
-    animation: fadeIn 1s;
+    font-size: 18px;
+    color: #aaa;
+    margin-top: 60px;
     font-weight: 300;
+    letter-spacing: 1px;
   }
 
   /* --- GRID DE TARJETAS --- */
   .dafic-cards-grid {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
     flex-wrap: wrap;
-    animation: slideUp 0.5s ease-out;
+    animation: fadeIn 0.5s ease-out;
     margin-bottom: 50px;
   }
   
-  /* --- TARJETA (Estilo "Hoja Blanca") --- */
+  /* --- TARJETA (Estilo Dark) --- */
   .dafic-card {
-    background: #ffffff; /* Tarjeta Blanca */
-    border: 2px solid transparent; /* Sin borde visible por defecto */
-    border-radius: 12px;
+    background: #111; /* Un poco más claro que el fondo negro */
+    border: 1px solid #333;
     padding: 30px;
-    width: 240px;
+    width: 260px;
     text-align: left;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s;
     position: relative;
     user-select: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03); /* Sombra muy sutil */
   }
   .dafic-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    border-color: #fff; /* Al pasar mouse, borde blanco */
+    background: #1a1a1a;
   }
   
-  /* --- TARJETA SELECCIONADA (Inversión de color para contraste) --- */
+  /* TARJETA SELECCIONADA */
   .dafic-card.selected {
-    background-color: #e6e6e6; /* Se vuelve GRIS al seleccionar */
-    border: 2px solid #d4d4d4; /* Borde gris un poco más oscuro para definir */
+    background-color: #fff; /* INVERSIÓN: Se vuelve BLANCA */
+    color: #000; /* Letras NEGRAS */
     transform: scale(1.02);
-    box-shadow: none;
+    border: none;
   }
   
   /* Checkbox visual */
@@ -109,119 +115,125 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 24px;
-    height: 24px;
-    background: #fff;
-    border: 2px solid #e6e6e6;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #555;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
   }
-  /* Cuando está seleccionada, el check se oscurece */
+  /* Cuando tarjeta es blanca (selected), el check es negro */
   .dafic-card.selected .card-check-icon {
-    border-color: #333;
-    background: #333;
+    border-color: #000;
+    background: #000;
   }
   .dafic-card.selected .card-check-icon::after {
-    content: "✓";
-    color: #fff;
-    font-size: 14px;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
   }
 
-  .card-title { font-size: 18px; font-weight: 800; margin: 15px 0; text-transform: uppercase; letter-spacing: 0.5px;}
-  .card-price-range { font-size: 22px; font-weight: 800; color: #000; display: block; }
-  .card-desc { font-size: 14px; color: #555; margin-top: 10px; line-height: 1.5; }
+  .card-title { font-size: 16px; font-weight: 700; margin: 15px 0; text-transform: uppercase; letter-spacing: 1px;}
+  
+  /* Precio: Blanco normal, Negro al seleccionar */
+  .card-price-range { font-size: 20px; font-weight: 700; display: block; margin-bottom: 10px; }
+  
+  .card-desc { font-size: 13px; color: #888; line-height: 1.4; }
+  .dafic-card.selected .card-desc { color: #444; } /* Texto descuro en fondo blanco */
 
-  /* --- SECCIÓN CALCULADORA (Fondo Gris para contrastar con el contenedor blanco) --- */
+  /* --- SECCIÓN CALCULADORA --- */
   .calculator-section {
-    background-color: #e6e6e6; /* FONDO GRIS */
-    border-radius: 12px;
+    background-color: #111;
+    border: 1px solid #333;
     padding: 40px;
-    max-width: 850px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: left;
     display: none;
-    animation: fadeIn 0.5s;
+    animation: slideUp 0.5s;
   }
   
-  /* Filas de opciones (Blanco sobre fondo gris) */
+  .calc-header {
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* Filas de opciones */
   .calc-option-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    padding: 20px;
-    background: #ffffff; /* BLANCO */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    padding: 15px 0;
+    border-bottom: 1px solid #222;
   }
 
-  /* Checkbox Estilizado */
   .option-check-wrapper {
     display: flex;
     align-items: center;
     gap: 15px;
   }
+  /* Checkbox personalizado blanco/negro */
   .option-checkbox {
-    width: 22px;
-    height: 22px;
-    accent-color: #333; /* Color oscuro para el check */
+    width: 20px;
+    height: 20px;
+    accent-color: #fff; 
     cursor: pointer;
+    filter: invert(1); /* Truco para que se vea bien en negro */
   }
   
-  /* Controles Numéricos (Estilo limpio) */
   .qty-control {
     display: flex;
     align-items: center;
-    border: 2px solid #e6e6e6;
-    border-radius: 6px;
-    background: #fff;
+    border: 1px solid #555;
+    background: #000;
     margin-left: 15px;
     visibility: hidden;
-    overflow: hidden;
   }
   .qty-control.visible { visibility: visible; }
+  
   .qty-btn {
-    background: #f4f4f4;
+    background: #000;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 15px;
     font-size: 18px;
     cursor: pointer;
-    font-weight: bold;
-    color: #333;
+    color: #fff;
   }
-  .qty-btn:hover { background: #e6e6e6; }
+  .qty-btn:hover { background: #333; }
   #numEmpleados {
-    width: 50px;
+    width: 40px;
     text-align: center;
     border: none;
-    border-left: 1px solid #e6e6e6;
-    border-right: 1px solid #e6e6e6;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
-    background: #fff;
-    color: #000;
+    background: #000;
+    color: #fff;
   }
-  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
   /* TOTAL Y BOTONES */
   .total-display {
     font-size: 36px;
-    font-weight: 900;
+    font-weight: 300;
     text-align: right;
-    margin-bottom: 5px;
-    margin-top: 40px;
-    color: #000;
+    margin-top: 30px;
+    color: #fff;
   }
-  .total-label { font-size: 14px; font-weight: 600; color: #777; display: block; text-transform: uppercase; letter-spacing: 1px;}
+  .total-label { font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1px;}
   
   .subtotal-note {
     text-align: right;
-    font-size: 13px;
-    color: #777;
+    font-size: 12px;
+    color: #666;
     margin-bottom: 30px;
+    font-style: italic;
   }
 
   .action-buttons {
@@ -229,122 +241,135 @@
     gap: 20px;
     justify-content: flex-end;
     flex-wrap: wrap;
-    padding-top: 20px;
-    border-top: 2px solid #d4d4d4;
+    margin-top: 20px;
   }
 
-  /* Botones Minimalistas (Blanco con borde grueso) */
   .btn-action {
     padding: 15px 35px;
     text-decoration: none;
     font-weight: 700;
     text-transform: uppercase;
-    border-radius: 50px; /* Botones píldora */
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: 1px solid #fff;
     transition: all 0.3s;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-size: 14px;
-    cursor: pointer;
-    border: 3px solid #e6e6e6; /* Borde grueso gris */
-    background: #fff;
-    color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   }
   
-  /* Hover: Invertir colores */
-  .btn-action:hover {
-    background-color: #e6e6e6;
-    border-color: #e6e6e6;
-    transform: translateY(-3px);
+  .btn-whatsapp {
+    background: transparent;
+    color: #fff;
   }
-
-  /* Diferenciación sutil para WhatsApp */
-  .btn-whatsapp { border-color: #e6e6e6; }
-  /* Diferenciación para Agendar (más oscuro el borde) */
-  .btn-agendar { border-color: #ccc; color: #000; }
+  .btn-whatsapp:hover {
+    background: #fff;
+    color: #000;
+  }
+  
+  .btn-agendar {
+    background: #fff;
+    color: #000;
+  }
+  .btn-agendar:hover {
+    background: #ccc;
+  }
 
   .hidden { display: none !important; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); opacity: 0; } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 
 <div class="dafic-pricing-container">
 
   <div class="dafic-logo-wrapper">
-    <img src="COTIZADOR/logo.png" alt="DAFIC Despacho Contable" class="dafic-logo-img">
+    <img src="COTIZADOR/logo.png" alt="DAFIC" class="dafic-logo-img">
   </div>
 
-  <p style="font-size: 18px; color: #555; margin-bottom: 30px; font-weight: 300;">
-    Selecciona tu perfil fiscal para configurar tu plan.
+  <p style="font-size: 16px; color: #ccc; margin-bottom: 40px; font-weight: 300;">
+    Estrategia Fiscal y Contable de Alto Nivel
   </p>
 
   <div class="dafic-toggle-wrapper">
     <button class="dafic-toggle-btn" onclick="cambiarTipo('fisica', this)">PERSONA FÍSICA</button>
     <button class="dafic-toggle-btn" onclick="cambiarTipo('moral', this)">PERSONA MORAL</button>
+    <button class="dafic-toggle-btn" onclick="cambiarTipo('asesoria', this)">SOLO ASESORÍA</button>
   </div>
 
   <div id="mensaje-inicial" class="selection-instruction">
-    ↑ Selecciona una opción arriba para comenzar.
+    Selecciona una categoría arriba para cotizar
   </div>
 
   <div id="grid-fisica" class="dafic-cards-grid hidden">
     <div class="dafic-card" onclick="seleccionarPlan(this, 600, 'RESICO', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">RESICO</span>
-      <span class="card-price-range">Desde $600</span>
-      <p class="card-desc">Hasta $2,000 según facturación.</p>
+      <span class="card-price-range">$600 - $2,000</span>
+      <p class="card-desc">Régimen Simplificado. Ideal para ventas al público.</p>
     </div>
     <div class="dafic-card" onclick="seleccionarPlan(this, 1200, 'Act. Empresarial', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Act. Empresarial</span>
-      <span class="card-price-range">Desde $1,200</span>
-      <p class="card-desc">Hasta $6,000 según volumen.</p>
+      <span class="card-price-range">$1,200 - $6,000</span>
+      <p class="card-desc">Negocios, Honorarios y Profesionales.</p>
     </div>
     <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Plataformas', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Plataformas</span>
-      <span class="card-price-range">Desde $1,000</span>
-      <p class="card-desc">Uber, Airbnb, Amazon.</p>
+      <span class="card-price-range">$1,000 - $7,000</span>
+      <p class="card-desc">Uber, Airbnb, Amazon, Mercado Libre.</p>
     </div>
     <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Arrendamiento', 1000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Arrendamiento</span>
-      <span class="card-price-range">Desde $1,000</span>
-      <p class="card-desc">Rentas de inmuebles.</p>
+      <span class="card-price-range">$1,000 - $9,000</span>
+      <p class="card-desc">Renta de casa habitación o locales.</p>
     </div>
   </div>
 
   <div id="grid-moral" class="dafic-cards-grid hidden">
-    <div class="dafic-card" style="width: 280px;" onclick="seleccionarPlan(this, 3000, 'Persona Moral Pyme', 2000)">
+    <div class="dafic-card" onclick="seleccionarPlan(this, 3000, 'Persona Moral Pyme', 2000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Contabilidad Pyme</span>
-      <span class="card-price-range">Desde $3,000</span>
-      <p class="card-desc">Sociedades (SA, SC, SAS). Hasta $30,000.</p>
+      <span class="card-price-range">$3,000 - $30,000</span>
+      <p class="card-desc">Sociedades Mercantiles (SA, SC, SAS, SRL).</p>
     </div>
-    <div class="dafic-card" style="width: 280px;" onclick="seleccionarPlan(this, 7000, 'Estrategia Fiscal', 2000)">
+    <div class="dafic-card" onclick="seleccionarPlan(this, 7000, 'Estrategia Fiscal', 2000)">
       <div class="card-check-icon"></div>
       <span class="card-title">Estrategia Fiscal</span>
-      <span class="card-price-range">Desde $7,000</span>
-      <p class="card-desc">Análisis profundo y reingeniería.</p>
+      <span class="card-price-range">$7,000 - $35,000</span>
+      <p class="card-desc">Análisis profundo y reingeniería fiscal.</p>
+    </div>
+  </div>
+
+  <div id="grid-asesoria" class="dafic-cards-grid hidden">
+    <div class="dafic-card" style="width: 350px; border-color: #fff;" onclick="seleccionarPlan(this, 7000, 'Estrategia Fiscal Master', 2000)">
+      <div class="card-check-icon"></div>
+      <span class="card-title" style="font-size: 20px;">Estrategia Fiscal Master</span>
+      <span class="card-price-range" style="font-size: 26px;">$7,000 - $35,000</span>
+      <p class="card-desc">
+        Servicio exclusivo de reingeniería financiera y fiscal. 
+        Incluye análisis de riesgos, blindaje patrimonial y optimización de carga tributaria.
+      </p>
     </div>
   </div>
 
   <div id="zona-calculadora" class="calculator-section">
-    <h4 style="margin-top:0; text-transform:uppercase; margin-bottom:25px; color: #000;">
-      Configuración: <span id="nombre-plan-display" style="color:#555;">---</span>
-    </h4>
+    <div class="calc-header">
+      Plan: <span id="nombre-plan-display" style="color:#fff;">---</span>
+    </div>
 
     <div class="calc-option-row">
       <div class="option-check-wrapper">
         <input type="checkbox" id="checkDiagnostico" class="option-checkbox" checked onchange="calcularTotal()">
         <div>
           <strong style="font-size: 15px;">Diagnóstico Inicial (Nuevo Cliente)</strong>
-          <div style="font-size: 13px; color: #777;">Pago único. Se bonifica en la 1ra mensualidad.</div>
+          <div style="font-size: 13px; color: #888;">Pago único. Se bonifica en la 1ra mensualidad.</div>
         </div>
       </div>
-      <div style="font-weight: bold; font-size: 18px;">
-        + $<span id="costo-diagnostico">0</span> <span style="font-size:11px; font-weight:normal; color:#777;">(Único)</span>
+      <div style="font-weight: bold; font-size: 16px;">
+        + $<span id="costo-diagnostico">0</span>
       </div>
     </div>
 
@@ -353,7 +378,7 @@
         <input type="checkbox" id="checkNomina" class="option-checkbox" onchange="toggleNomina()">
         <div>
           <strong style="font-size: 15px;">Servicio de Nómina</strong>
-          <div style="font-size: 13px; color: #777;">¿Tienes empleados? ($30 c/u).</div>
+          <div style="font-size: 13px; color: #888;">¿Tienes empleados? ($30 c/u).</div>
         </div>
       </div>
       
@@ -363,23 +388,23 @@
         <button class="qty-btn" onclick="cambiarEmpleados(1)">+</button>
       </div>
 
-      <div style="font-weight: bold; font-size: 18px;">
-        + $<span id="costo-nomina">0</span> <span style="font-size:11px; font-weight:normal; color:#777;">/mes</span>
+      <div style="font-weight: bold; font-size: 16px;">
+        + $<span id="costo-nomina">0</span> <span style="font-size:11px; font-weight:normal; color:#888;">/mes</span>
       </div>
     </div>
 
     <div class="total-display">
       <span class="total-label">Inversión Mensual Estimada:</span>
-      $<span id="total-final">0</span> <span style="font-size: 20px;">MXN</span>
+      $<span id="total-final">0</span> MXN
     </div>
     
     <div id="nota-diagnostico" class="subtotal-note">
-      * No incluye el Pago Único del Diagnóstico ($<span id="txt-diag-note">0</span>) ya que se bonifica.
+      * Pago de Diagnóstico ($<span id="txt-diag-note">0</span>) no incluido en mensualidad (se bonifica).
     </div>
 
     <div class="action-buttons">
       <a href="#" id="btn-whatsapp-link" target="_blank" class="btn-action btn-whatsapp">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#333" style="margin-right:8px;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right:5px;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
         Confirmar por WhatsApp
       </a>
       <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="btn-action btn-agendar">
@@ -399,13 +424,18 @@
     document.getElementById('zona-calculadora').style.display = 'none';
     resetearSeleccion();
 
+    // Ocultar todos
     document.getElementById('grid-fisica').classList.add('hidden');
     document.getElementById('grid-moral').classList.add('hidden');
+    document.getElementById('grid-asesoria').classList.add('hidden');
 
+    // Mostrar el seleccionado
     if (tipo === 'fisica') {
       document.getElementById('grid-fisica').classList.remove('hidden');
-    } else {
+    } else if (tipo === 'moral') {
       document.getElementById('grid-moral').classList.remove('hidden');
+    } else if (tipo === 'asesoria') {
+      document.getElementById('grid-asesoria').classList.remove('hidden');
     }
 
     document.querySelectorAll('.dafic-toggle-btn').forEach(b => b.classList.remove('active'));
@@ -459,6 +489,7 @@
   }
 
   function calcularTotal() {
+    // Diagnóstico
     let checkDiag = document.getElementById('checkDiagnostico');
     let montoDiag = checkDiag.checked ? baseDiagnostico : 0;
     document.getElementById('costo-diagnostico').innerText = montoDiag.toLocaleString();
@@ -471,6 +502,7 @@
       nota.style.display = 'none';
     }
 
+    // Nómina
     let checkNomina = document.getElementById('checkNomina');
     let num = parseInt(document.getElementById('numEmpleados').value);
     let totalNomina = 0;
@@ -479,6 +511,7 @@
     }
     document.getElementById('costo-nomina').innerText = totalNomina.toLocaleString();
 
+    // Total Mensual
     let granTotalMensual = precioPlanBase + totalNomina;
     document.getElementById('total-final').innerText = granTotalMensual.toLocaleString();
 
