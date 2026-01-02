@@ -1,170 +1,180 @@
 <style>
-  .dafic-cotizador-wrapper {
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    padding: 30px;
-    border-radius: 8px;
-    max-width: 600px;
-    margin: 0 auto;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+  /* ESTILOS GENERALES */
+  .dafic-pricing-container {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    max-width: 1000px;
+    margin: 40px auto;
+    text-align: center;
     color: #000;
   }
-  .dafic-title {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .dafic-group {
-    margin-bottom: 20px;
-  }
-  .dafic-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 14px;
-  }
-  .dafic-select {
-    width: 100%;
-    padding: 12px;
+
+  /* BOTONES SUPERIORES (PESTAÑAS) */
+  .dafic-toggle-wrapper {
+    display: inline-flex;
     border: 1px solid #000;
-    background: #fff;
-    font-size: 15px;
+    margin-bottom: 40px;
     border-radius: 4px;
+    overflow: hidden;
+  }
+  .dafic-toggle-btn {
+    padding: 12px 30px;
+    background: #fff;
+    border: none;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
   }
-  /* Resultado Oculto por defecto */
-  #resultado-precio {
-    display: none;
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #ccc;
-    animation: fadeIn 0.5s;
+  .dafic-toggle-btn:hover {
+    background-color: #f4f4f4;
   }
-  .precio-grande {
-    font-size: 32px;
-    font-weight: bold;
-    display: block;
-    margin: 10px 0;
-  }
-  .btn-agendar-final {
+  /* Clase para el botón activo (Negro) */
+  .dafic-toggle-btn.active {
     background-color: #000;
     color: #fff;
-    padding: 15px 30px;
-    text-decoration: none;
+  }
+
+  /* CONTENEDOR DE TARJETAS */
+  .dafic-cards-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* DISEÑO DE CADA TARJETA */
+  .dafic-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 30px;
+    width: 280px; /* Ancho de la tarjeta */
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .dafic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: #000;
+  }
+  
+  /* TEXTOS DENTRO DE LA TARJETA */
+  .card-regimen {
+    font-size: 14px;
     text-transform: uppercase;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .card-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.2;
+  }
+  .card-price-range {
+    font-size: 26px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .card-price-detail {
+    font-size: 13px;
+    font-weight: normal;
+    color: #555;
+  }
+  
+  /* LISTA DE BENEFICIOS */
+  .card-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #333;
+  }
+  .card-features li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+  }
+  .card-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  /* BOTÓN DE ACCIÓN */
+  .dafic-card-btn {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
     font-weight: bold;
     border-radius: 4px;
-    display: inline-block;
-    margin-top: 10px;
+    text-transform: uppercase;
+    font-size: 14px;
     transition: background 0.3s;
   }
-  .btn-agendar-final:hover {
+  .dafic-card-btn:hover {
     background-color: #333;
   }
+
+  /* UTILIDAD PARA OCULTAR */
+  .hidden { display: none; }
+  
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
 
-<div class="dafic-cotizador-wrapper">
-  <h3 class="dafic-title">Cotizador de Servicios DAFIC</h3>
+<div class="dafic-pricing-container">
 
-  <div class="dafic-group">
-    <label class="dafic-label">1. ¿Qué tipo de contribuyente eres?</label>
-    <select id="tipoPersona" class="dafic-select" onchange="mostrarOpciones()">
-      <option value="">-- Selecciona una opción --</option>
-      <option value="fisica">Persona Física (Individuo)</option>
-      <option value="moral">Persona Moral (Empresa)</option>
-    </select>
+  <div class="dafic-toggle-wrapper">
+    <button class="dafic-toggle-btn active" onclick="mostrarFisica(this)">PERSONA FÍSICA</button>
+    <button class="dafic-toggle-btn" onclick="mostrarMoral(this)">PERSONA MORAL</button>
   </div>
 
-  <div id="opcionesFisica" class="dafic-group" style="display:none;">
-    <label class="dafic-label">2. ¿Cuál es tu Régimen o Actividad?</label>
-    <select id="regimenFisica" class="dafic-select" onchange="calcularPrecio()">
-      <option value="">-- Selecciona --</option>
-      <option value="resico">RESICO (Simplificado de Confianza)</option>
-      <option value="actividad">Actividad Empresarial / Honorarios</option>
-      <option value="plataformas">Plataformas Digitales (Uber, Airbnb, etc.)</option>
-      <option value="arrendamiento">Arrendamiento (Renta de inmuebles)</option>
-    </select>
-  </div>
-
-  <div id="opcionesMoral" class="dafic-group" style="display:none;">
-    <label class="dafic-label">2. ¿Cuál es el rango de facturación mensual estimado?</label>
-    <select id="ingresoMoral" class="dafic-select" onchange="calcularPrecio()">
-      <option value="">-- Selecciona --</option>
-      <option value="startup">Emprendimiento (0 - $100k mxn)</option>
-      <option value="pyme">Pyme en crecimiento ($100k - $500k mxn)</option>
-      <option value="empresa">Empresa Consolidada (+$500k mxn)</option>
-    </select>
-  </div>
-
-  <div id="resultado-precio">
-    <p style="font-size: 14px; text-transform: uppercase;">Tu inversión mensual estimada:</p>
-    <span id="precio-final" class="precio-grande">$0 MXN</span>
-    <p style="font-size: 12px; color: #666; margin-bottom: 20px;">*Incluye declaraciones y opinión de cumplimiento.</p>
+  <div id="grid-fisica" class="dafic-cards-grid">
     
-    <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="btn-agendar-final">
-      Formalizar Propuesta
-    </a>
+    <div class="dafic-card">
+      <div>
+        <span class="card-regimen">Régimen Simplificado</span>
+        <h3 class="card-title">RESICO / Sueldos</h3>
+        <span class="card-price-range">$1,500 <span class="card-price-detail">MXN/mes</span></span>
+        <ul class="card-features">
+          <li>Cálculo de ISR e IVA</li>
+          <li>Opinión de Cumplimiento</li>
+          <li>Ideal para ventas al público</li>
+        </ul>
+      </div>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar</a>
+    </div>
+
+    <div class="dafic-card">
+      <div>
+        <span class="card-regimen">Profesional / Negocio</span>
+        <h3 class="card-title">Actividad Empresarial</h3>
+        <span class="card-price-range">$2,500 - $3,500 <span class="card-price-detail">MXN/mes</span></span>
+        <ul class="card-features">
+          <li>Deducciones personales</li>
+          <li>Plataformas (Uber/Airbnb)</li>
+          <li>Contabilidad completa</li>
+        </ul>
+      </div>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar</a>
+    </div>
   </div>
 
-</div>
-
-<script>
-  function mostrarOpciones() {
-    var tipo = document.getElementById("tipoPersona").value;
-    var divFisica = document.getElementById("opcionesFisica");
-    var divMoral = document.getElementById("opcionesMoral");
-    var resultado = document.getElementById("resultado-precio");
-
-    // Resetear vistas
-    divFisica.style.display = "none";
-    divMoral.style.display = "none";
-    resultado.style.display = "none";
-
-    // Resetear selects internos
-    document.getElementById("regimenFisica").value = "";
-    document.getElementById("ingresoMoral").value = "";
-
-    if (tipo === "fisica") {
-      divFisica.style.display = "block";
-    } else if (tipo === "moral") {
-      divMoral.style.display = "block";
-    }
-  }
-
-  function calcularPrecio() {
-    var tipo = document.getElementById("tipoPersona").value;
-    var precioTexto = "";
-    var mostrar = false;
-
-    if (tipo === "fisica") {
-      var regimen = document.getElementById("regimenFisica").value;
-      if (regimen === "resico") precioTexto = "$1,500 MXN + IVA";
-      else if (regimen === "actividad") precioTexto = "$2,500 MXN + IVA";
-      else if (regimen === "plataformas") precioTexto = "$2,000 MXN + IVA";
-      else if (regimen === "arrendamiento") precioTexto = "$1,200 MXN + IVA";
-      
-      if (regimen !== "") mostrar = true;
-    } 
-    else if (tipo === "moral") {
-      var ingreso = document.getElementById("ingresoMoral").value;
-      if (ingreso === "startup") precioTexto = "$4,500 MXN + IVA";
-      else if (ingreso === "pyme") precioTexto = "$7,000 MXN + IVA";
-      else if (ingreso === "empresa") precioTexto = "Cotización Especial";
-      
-      if (ingreso !== "") mostrar = true;
-    }
-
-    if (mostrar) {
-      document.getElementById("precio-final").innerText = precioTexto;
-      document.getElementById("resultado-precio").style.display = "block";
-    }
-  }
-</script>
-
+  <div id="grid-moral" class="dafic-cards-grid hidden">
