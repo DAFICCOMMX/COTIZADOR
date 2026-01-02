@@ -1,10 +1,10 @@
 <style>
-  /* --- ESTILOS GENERALES (BASE) --- */
+  /* --- ESTILOS GENERALES --- */
   body {
-    background-color: #e6e6e6;
+    background-color: #e6e6e6; /* Fondo de la página GRIS CLARO */
     margin: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #333; /* Gris oscuro elegante para textos */
+    color: #333;
     -webkit-font-smoothing: antialiased;
   }
   
@@ -13,7 +13,7 @@
     margin: 0 auto;
     text-align: center;
     padding: 60px 20px;
-    background-color: #e6e6e6; 
+    background-color: #e6e6e6; /* Contenedor transparente/gris */
     min-height: 900px;
   }
 
@@ -27,25 +27,23 @@
     height: auto;
     display: block;
     margin: 0 auto;
-    /* Sombra suave al logo para que no se vea plano */
-    filter: drop-shadow(5px 5px 10px rgba(163,177,198,0.6));
+    /* Sombra suave */
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
   }
 
-  /* --- MENU DE PESTAÑAS (NEUMORFISMO) --- */
+  /* --- SWITCH DE NAVEGACIÓN (DARK STYLE) --- */
   .dafic-toggle-wrapper {
     display: inline-flex;
-    background-color: #e6e6e6;
+    background-color: #1a1a1a; /* Fondo oscuro para el switch */
     border-radius: 50px;
-    padding: 10px;
+    padding: 8px;
     margin-bottom: 60px;
-    gap: 20px;
-    /* EFECTO DE PROFUNDIDAD (HUNDIDO) */
-    box-shadow: inset 6px 6px 12px #c5c5c5, 
-                inset -6px -6px 12px #ffffff;
+    gap: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
   
   .dafic-toggle-btn {
-    padding: 15px 40px;
+    padding: 12px 35px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -54,177 +52,189 @@
     letter-spacing: 1px;
     transition: all 0.3s ease;
     outline: none;
-    color: #777;
+    color: #888; /* Texto gris apagado */
     border-radius: 40px;
     text-transform: uppercase;
   }
-  .dafic-toggle-btn:hover { color: #333; }
+  .dafic-toggle-btn:hover { color: #fff; }
   
-  /* ESTADO ACTIVO: BOTÓN SALIENTE (POPPED OUT) */
+  /* ESTADO ACTIVO: BLANCO */
   .dafic-toggle-btn.active {
     color: #000;
-    background-color: #e6e6e6;
-    box-shadow:  6px 6px 12px #c5c5c5, 
-                -6px -6px 12px #ffffff;
-    transform: scale(1.02);
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transform: scale(1.05);
   }
 
   .selection-instruction {
-    font-size: 16px; color: #888; margin-top: 50px; font-weight: 300; letter-spacing: 1px; animation: fadeIn 2s;
+    font-size: 16px; color: #666; margin-top: 50px; font-weight: 400; letter-spacing: 1px; animation: fadeIn 2s;
   }
 
   /* --- GRID DE TARJETAS --- */
   .dafic-cards-grid {
-    display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; margin-bottom: 60px;
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px;
   }
   
-  /* --- TARJETA NEUMÓRFICA (FLOTANTE SOBRE MISMO COLOR) --- */
+  /* --- TARJETA DARK LUXURY (NEGRA CON TEXTO BLANCO) --- */
   .dafic-card {
-    background-color: #e6e6e6; /* MISMO COLOR DE FONDO */
-    border-radius: 25px;
+    background-color: #1a1a1a; /* FONDO NEGRO */
+    border-radius: 20px;
     padding: 35px 25px;
     width: 260px;
     text-align: left;
     cursor: pointer;
     position: relative;
     user-select: none;
-    border: 1px solid rgba(255,255,255,0.2); /* Borde sutil luz */
     
-    /* LA MAGIA DEL NEUMORFISMO (SOMBRAS SUAVES) */
-    box-shadow:  12px 12px 24px #c5c5c5, 
-                -12px -12px 24px #ffffff;
-                
+    /* Sombra para separarla del fondo gris */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    border: 1px solid #333; /* Borde sutil */
+    
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     opacity: 0;
     animation: fadeInUp 0.6s forwards;
   }
   
-  /* Animación escalonada */
   .dafic-card:nth-child(1) { animation-delay: 0.1s; }
   .dafic-card:nth-child(2) { animation-delay: 0.2s; }
   .dafic-card:nth-child(3) { animation-delay: 0.3s; }
   .dafic-card:nth-child(4) { animation-delay: 0.4s; }
 
-  /* HOVER: SE ELEVA MÁS */
   .dafic-card:hover {
-    transform: translateY(-5px);
-    box-shadow:  18px 18px 36px #c5c5c5, 
-                -18px -18px 36px #ffffff;
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    border-color: #555;
   }
   
-  /* SELECCIONADO: EFECTO "PRESIONADO" (HUNDIDO) */
+  /* SELECCIONADO: BORDE BLANCO BRILLANTE */
   .dafic-card.selected {
-    /* Invertimos las sombras para que parezca presionado */
-    box-shadow: inset 8px 8px 16px #c5c5c5, 
-                inset -8px -8px 16px #ffffff;
-    transform: scale(0.98);
-    border: 1px solid transparent;
+    border: 2px solid #ffffff;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
   }
   
-  /* Check Icon */
   .card-check-icon {
     position: absolute; top: 25px; right: 25px; width: 24px; height: 24px;
     border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
-    background: #e6e6e6;
-    box-shadow:  3px 3px 6px #c5c5c5, -3px -3px 6px #ffffff; /* Pequeño botón flotante */
+    background: #333; border: 1px solid #555;
   }
   
   .dafic-card.selected .card-check-icon {
-    background: #333; /* Oscuro al seleccionar */
-    color: #fff;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5); /* Sombra interna */
+    background: #fff;
+    color: #000;
+    border-color: #fff;
   }
-  .dafic-card.selected .card-check-icon::after { content: "✓"; font-size: 14px; }
+  .dafic-card.selected .card-check-icon::after { content: "✓"; font-size: 14px; font-weight: bold; }
 
-  .card-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 1px; color: #777; }
-  .card-price-range { font-size: 24px; font-weight: 800; color: #333; display: block; margin-bottom: 15px; letter-spacing: -0.5px; }
-  .card-desc { font-size: 13px; color: #555; line-height: 1.6; }
+  /* TEXTOS EN BLANCO */
+  .card-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 1px; color: #aaa; }
+  .card-price-range { font-size: 24px; font-weight: 800; color: #ffffff; display: block; margin-bottom: 15px; letter-spacing: -0.5px; }
+  .card-desc { font-size: 13px; color: #ccc; line-height: 1.6; }
 
-  /* --- CALCULADORA (PANEL GRANDE) --- */
+  /* --- CALCULADORA (PANEL NEGRO) --- */
   .calculator-section {
-    background-color: #e6e6e6;
-    border-radius: 30px;
+    background-color: #1a1a1a; /* Fondo Negro */
+    border-radius: 25px;
     padding: 50px;
     max-width: 800px;
     margin: 0 auto;
     text-align: left;
     display: none;
-    /* Panel flotante grande */
-    box-shadow:  20px 20px 60px #c5c5c5, 
-                -20px -20px 60px #ffffff;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
     animation: slideUpFade 0.6s ease-out;
+    color: #fff;
+    border: 1px solid #333;
   }
   
   .calc-header {
-    margin-bottom: 30px; font-size: 22px; font-weight: 300; color: #333;
-    border-bottom: 1px solid #d1d1d1; padding-bottom: 20px;
+    margin-bottom: 30px; font-size: 22px; font-weight: 300; color: #fff;
+    border-bottom: 1px solid #333; padding-bottom: 20px;
   }
-  .calc-header strong { font-weight: 800; }
+  .calc-header strong { font-weight: 800; color: #fff; }
 
-  .calc-option-row {
+  /* TARJETAS DE OPCIÓN (DARK) */
+  .calc-option-card {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; padding: 20px; border-radius: 15px;
-    /* Efecto sutil de surco/fila */
-    box-shadow: inset 4px 4px 8px #d9d9d9, inset -4px -4px 8px #f3f3f3;
+    margin-bottom: 25px; padding: 25px; border-radius: 15px;
+    background-color: #222; /* Gris muy oscuro */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
   }
 
-  .option-check-wrapper { display: flex; align-items: center; gap: 20px; }
-  .option-checkbox { width: 22px; height: 22px; accent-color: #333; cursor: pointer; }
-  
-  /* Controles Numéricos */
-  .qty-control {
-    display: flex; align-items: center; background: #e6e6e6; border-radius: 30px;
-    padding: 5px; margin-left: 15px; visibility: hidden;
-    box-shadow:  4px 4px 8px #c5c5c5, -4px -4px 8px #ffffff;
+  .calc-option-card:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-2px);
   }
-  .qty-control.visible { visibility: visible; animation: fadeIn 0.3s; }
+
+  .calc-option-card.active {
+    background-color: #000;
+    border: 1px solid #fff; /* Borde blanco al activar */
+  }
+
+  .option-indicator {
+    width: 24px; height: 24px; border-radius: 50%; 
+    background: #333; border: 1px solid #555;
+    display: flex; align-items: center; justify-content: center;
+    margin-right: 20px; transition: all 0.3s; color: transparent;
+  }
+  
+  .calc-option-card.active .option-indicator {
+    background: #fff; color: #000; border-color: #fff;
+  }
+  .calc-option-card.active .option-indicator::after { content: "✓"; font-size: 14px; font-weight: bold;}
+
+  .option-title { display: block; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+  .option-subtitle { font-size: 13px; color: #aaa; }
+  .option-price { font-size: 18px; font-weight: 800; color: #fff; }
+
+  /* Controles Numéricos (Estilo Dark) */
+  .qty-control {
+    display: flex; align-items: center; background: #333; border-radius: 30px;
+    padding: 3px; margin-left: 20px; visibility: hidden; opacity: 0; transition: all 0.3s;
+  }
+  .qty-control.visible { visibility: visible; opacity: 1; }
   
   .qty-btn {
-    background: #e6e6e6; border: none; width: 32px; height: 32px; border-radius: 50%;
-    font-size: 18px; cursor: pointer; color: #333; 
-    box-shadow:  2px 2px 5px #c5c5c5, -2px -2px 5px #ffffff;
-    transition: all 0.2s;
+    background: transparent; border: none; width: 32px; height: 32px; border-radius: 50%;
+    font-size: 18px; cursor: pointer; color: #fff; display: flex; align-items: center; justify-content: center;
   }
-  .qty-btn:active { box-shadow: inset 2px 2px 5px #c5c5c5, inset -2px -2px 5px #ffffff; }
+  .qty-btn:hover { background: #555; }
 
   #numEmpleados {
     width: 40px; text-align: center; border: none; font-size: 16px; 
-    font-weight: bold; background: transparent; color: #333;
+    font-weight: bold; background: transparent; color: #fff;
   }
 
   .total-display {
-    font-size: 42px; font-weight: 800; text-align: right; margin-top: 40px; color: #333; letter-spacing: -1px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    font-size: 42px; font-weight: 800; text-align: right; margin-top: 40px; color: #fff; letter-spacing: -1px;
   }
-  .total-label { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 2px;}
+  .total-label { font-size: 12px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 2px;}
   
-  .subtotal-note { text-align: right; font-size: 12px; color: #999; margin-bottom: 40px; }
+  .subtotal-note { text-align: right; font-size: 12px; color: #777; margin-bottom: 40px; }
 
   .action-buttons {
-    display: flex; gap: 25px; justify-content: flex-end; flex-wrap: wrap;
-    margin-top: 40px; padding-top: 30px; border-top: 1px solid #d1d1d1;
+    display: flex; gap: 20px; justify-content: flex-end; flex-wrap: wrap;
+    margin-top: 40px; padding-top: 30px; border-top: 1px solid #333;
   }
 
   .btn-action {
-    padding: 18px 40px; text-decoration: none; font-weight: 700; text-transform: uppercase;
-    font-size: 12px; letter-spacing: 2px; cursor: pointer; border-radius: 50px;
-    transition: all 0.3s; display: inline-flex; align-items: center; gap: 12px;
+    padding: 18px 30px; text-decoration: none; font-weight: 700; text-transform: uppercase;
+    font-size: 12px; letter-spacing: 1px; cursor: pointer; border-radius: 50px;
+    transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px;
   }
   
-  /* Botón WhatsApp: Neumórfico Saliente */
+  /* WhatsApp: Verde Brillante */
   .btn-whatsapp {
-    background-color: #e6e6e6; color: #25D366;
-    box-shadow:  6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
-    border: 1px solid rgba(255,255,255,0.1);
+    background-color: #25D366; color: #000; border: none;
   }
-  .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 10px 10px 20px #c5c5c5, -10px -10px 20px #ffffff; }
+  .btn-whatsapp:hover { background-color: #1ebc57; transform: scale(1.05); }
   
-  /* Botón Agendar: Estilo Oscuro/Negro para contraste */
+  /* Agendar: Blanco */
   .btn-agendar {
-    background: #333; color: #fff;
-    box-shadow:  6px 6px 12px #999, -6px -6px 12px #ffffff;
+    background: #ffffff; color: #000; border: none;
   }
-  .btn-agendar:hover { background: #000; transform: translateY(-3px); }
+  .btn-agendar:hover { background: #ccc; transform: scale(1.05); }
 
   .hidden { display: none !important; }
   
@@ -296,37 +306,35 @@
       Resumen: <strong><span id="nombre-plan-display">---</span></strong>
     </div>
 
-    <div class="calc-option-row">
-      <div class="option-check-wrapper">
-        <input type="checkbox" id="checkDiagnostico" class="option-checkbox" checked onchange="calcularTotal()">
-        <div>
-          <strong style="font-size: 15px; display:block;">Diagnóstico Inicial</strong>
-          <span style="font-size: 13px; color: #888;">Pago único (Bonificable 100%)</span>
+    <div class="calc-option-card active" id="card-diagnostico" onclick="toggleOption('checkDiagnostico', 'card-diagnostico')">
+      <div style="display:flex; align-items:center;">
+        <div class="option-indicator"></div>
+        <div class="option-content">
+          <span class="option-title">Diagnóstico Inicial</span>
+          <span class="option-subtitle">Pago único (Bonificable 100%)</span>
         </div>
       </div>
-      <div style="font-weight: 700; font-size: 18px;">
-        + $<span id="costo-diagnostico">0</span>
-      </div>
+      <div class="option-price">+ $<span id="costo-diagnostico">0</span></div>
+      <input type="checkbox" id="checkDiagnostico" style="display:none;" checked>
     </div>
 
-    <div class="calc-option-row">
-      <div class="option-check-wrapper">
-        <input type="checkbox" id="checkNomina" class="option-checkbox" onchange="toggleNomina()">
-        <div>
-          <strong style="font-size: 15px; display:block;">Nómina</strong>
-          <span style="font-size: 13px; color: #888;">Gestión de empleados ($30 c/u)</span>
+    <div class="calc-option-card" id="card-nomina" onclick="toggleOption('checkNomina', 'card-nomina')">
+      <div style="display:flex; align-items:center;">
+        <div class="option-indicator"></div>
+        <div class="option-content">
+          <span class="option-title">Nómina / Empleados</span>
+          <span class="option-subtitle">¿Tienes personal? ($30 c/u)</span>
         </div>
       </div>
       
-      <div id="wrapper-contador" class="qty-control">
+      <div id="wrapper-contador" class="qty-control" onclick="event.stopPropagation()">
         <button class="qty-btn" onclick="cambiarEmpleados(-1)">-</button>
         <input type="number" id="numEmpleados" value="1" readonly>
         <button class="qty-btn" onclick="cambiarEmpleados(1)">+</button>
       </div>
 
-      <div style="font-weight: 700; font-size: 18px;">
-        + $<span id="costo-nomina">0</span> <span style="font-size:12px; font-weight:400; color:#999;">/mes</span>
-      </div>
+      <div class="option-price">+ $<span id="costo-nomina">0</span></div>
+      <input type="checkbox" id="checkNomina" style="display:none;">
     </div>
 
     <div class="total-display">
@@ -341,11 +349,11 @@
     <div class="action-buttons">
       <a href="#" id="btn-whatsapp-link" target="_blank" class="btn-action btn-whatsapp">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
-        Formalizar en WhatsApp
+        1. Enviar Detalles (WhatsApp)
       </a>
       
       <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="btn-action btn-agendar">
-        Agendar Cita en Calendario
+        2. Reservar Hora (Calendar)
       </a>
     </div>
   </div>
@@ -382,9 +390,14 @@
     nombrePlan = nombre;
     baseDiagnostico = costoDiag; 
 
+    // Resetear opciones visualmente
     document.getElementById('checkDiagnostico').checked = true;
+    document.getElementById('card-diagnostico').classList.add('active');
+    
     document.getElementById('checkNomina').checked = false;
-    toggleNomina();
+    document.getElementById('card-nomina').classList.remove('active');
+    
+    updateNominaVisibility();
 
     document.getElementById('zona-calculadora').style.display = 'block';
     setTimeout(() => {
@@ -394,7 +407,26 @@
     calcularTotal();
   }
 
-  function toggleNomina() {
+  function toggleOption(checkboxId, cardId) {
+    let check = document.getElementById(checkboxId);
+    let card = document.getElementById(cardId);
+    
+    check.checked = !check.checked;
+    
+    if (check.checked) {
+      card.classList.add('active');
+    } else {
+      card.classList.remove('active');
+    }
+
+    if(checkboxId === 'checkNomina') {
+      updateNominaVisibility();
+    }
+
+    calcularTotal();
+  }
+
+  function updateNominaVisibility() {
     let check = document.getElementById('checkNomina');
     let wrapper = document.getElementById('wrapper-contador');
     if (check.checked) {
@@ -402,7 +434,6 @@
     } else {
       wrapper.classList.remove('visible');
     }
-    calcularTotal();
   }
 
   function cambiarEmpleados(delta) {
@@ -459,7 +490,7 @@
                   `• Mensualidad Estimada: *$${mensual.toLocaleString()}*${textoEmpleados}` +
                   `${textoDiag}\n` +
                   `--------------------------------\n` +
-                  `Me gustaría formalizar esta propuesta.`;
+                  `Envío estos detalles para proceder a AGENDAR MI CITA.`;
 
     let url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     document.getElementById('btn-whatsapp-link').href = url;
