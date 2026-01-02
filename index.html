@@ -2,55 +2,79 @@
   /* ESTILOS GENERALES */
   .dafic-pricing-container {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 40px auto;
     text-align: center;
     color: #000;
+    padding: 20px;
   }
 
-  /* BOTONES SUPERIORES (PESTAÑAS) */
+  /* --- LOGO --- */
+  .dafic-logo-wrapper {
+    margin-bottom: 30px;
+  }
+  .dafic-logo-img {
+    max-width: 220px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* --- TEXTOS INTRODUCTORIOS --- */
+  .dafic-intro-text {
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  /* --- PESTAÑAS (SWITCH) --- */
   .dafic-toggle-wrapper {
     display: inline-flex;
     border: 1px solid #000;
     margin-bottom: 40px;
     border-radius: 4px;
     overflow: hidden;
+    background-color: #e6e6e6; /* Fondo gris pedido */
   }
   .dafic-toggle-btn {
     padding: 12px 30px;
-    background: #fff;
+    background: #e6e6e6; /* Fondo gris pedido */
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 1px;
     transition: all 0.3s ease;
+    outline: none;
+    color: #666;
   }
   .dafic-toggle-btn:hover {
-    background-color: #f4f4f4;
+    background-color: #d4d4d4;
+    color: #000;
   }
-  /* Clase para el botón activo (Negro) */
   .dafic-toggle-btn.active {
     background-color: #000;
-    color: #fff;
+    color: #fff; /* Texto blanco sobre fondo negro */
   }
 
-  /* CONTENEDOR DE TARJETAS */
+  /* --- GRID DE TARJETAS --- */
   .dafic-cards-grid {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
     flex-wrap: wrap;
     animation: fadeIn 0.5s ease-in-out;
   }
   
-  /* DISEÑO DE CADA TARJETA */
+  /* --- TARJETA INDIVIDUAL --- */
   .dafic-card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
+    background: #e6e6e6; /* COLOR DE FONDO ACTUALIZADO */
+    border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 30px;
-    width: 280px; /* Ancho de la tarjeta */
+    padding: 25px;
+    width: 240px;
     text-align: left;
     transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
@@ -63,59 +87,57 @@
     border-color: #000;
   }
   
-  /* TEXTOS DENTRO DE LA TARJETA */
+  /* TIPOGRAFÍA DENTRO DE TARJETA */
   .card-regimen {
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
-    color: #666;
+    color: #555;
     margin-bottom: 5px;
-    font-weight: bold;
-    letter-spacing: 1px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
   }
   .card-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
     line-height: 1.2;
+    min-height: 44px; /* Para alinear alturas */
   }
   .card-price-range {
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 800;
     color: #000;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: block;
   }
   .card-price-detail {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal;
-    color: #555;
+    color: #444;
+    display: block;
   }
   
-  /* LISTA DE BENEFICIOS */
-  .card-features {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 25px;
-    font-size: 14px;
+  .card-desc {
+    font-size: 13px;
+    margin-bottom: 15px;
     color: #333;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
   }
-  .card-features li {
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
-  }
-  .card-features li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    font-weight: bold;
+
+  /* NOTAS DE PIE DE TARJETA */
+  .card-notes {
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 15px;
+    font-style: italic;
   }
 
   /* BOTÓN DE ACCIÓN */
   .dafic-card-btn {
     display: block;
     width: 100%;
-    padding: 12px 0;
+    padding: 10px 0;
     text-align: center;
     background-color: #000;
     color: #fff;
@@ -123,14 +145,40 @@
     font-weight: bold;
     border-radius: 4px;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 12px;
+    letter-spacing: 1px;
     transition: background 0.3s;
   }
   .dafic-card-btn:hover {
     background-color: #333;
   }
 
-  /* UTILIDAD PARA OCULTAR */
+  /* SECCIÓN INFORMATIVA EXTRA (Empleados y Asesoría) */
+  .dafic-info-banner {
+    background-color: #e6e6e6;
+    border: 1px solid #000;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .info-block {
+    flex: 1;
+    min-width: 250px;
+  }
+  .info-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+  }
+
   .hidden { display: none; }
   
   @keyframes fadeIn {
@@ -140,6 +188,16 @@
 </style>
 
 <div class="dafic-pricing-container">
+
+  <div class="dafic-logo-wrapper">
+    <img src="TU_RUTA_DE_IMAGEN_AQUI" alt="DAFIC Despacho Contable" class="dafic-logo-img">
+  </div>
+  
+  <p class="dafic-intro-text">
+    Soluciones fiscales integrales diseñadas para darte tranquilidad. 
+    Desde el cumplimiento básico hasta estrategias complejas, nuestros precios incluyen IVA 
+    y se adaptan al tamaño de tu operación.
+  </p>
 
   <div class="dafic-toggle-wrapper">
     <button class="dafic-toggle-btn active" onclick="mostrarFisica(this)">PERSONA FÍSICA</button>
@@ -151,30 +209,115 @@
     <div class="dafic-card">
       <div>
         <span class="card-regimen">Régimen Simplificado</span>
-        <h3 class="card-title">RESICO / Sueldos</h3>
-        <span class="card-price-range">$1,500 <span class="card-price-detail">MXN/mes</span></span>
-        <ul class="card-features">
-          <li>Cálculo de ISR e IVA</li>
-          <li>Opinión de Cumplimiento</li>
-          <li>Ideal para ventas al público</li>
-        </ul>
+        <h3 class="card-title">RESICO</h3>
+        <span class="card-price-range">$600 - $2,000 <span class="card-price-detail">MXN / Neto (IVA Incluido)</span></span>
+        <p class="card-desc">Ideal para emprendedores con tasas preferenciales.</p>
+        <div class="card-notes">+ $30 pesos por cada empleado.</div>
       </div>
-      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar</a>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar Cita</a>
     </div>
 
     <div class="dafic-card">
       <div>
-        <span class="card-regimen">Profesional / Negocio</span>
+        <span class="card-regimen">Negocio / Profesional</span>
         <h3 class="card-title">Actividad Empresarial</h3>
-        <span class="card-price-range">$2,500 - $3,500 <span class="card-price-detail">MXN/mes</span></span>
-        <ul class="card-features">
-          <li>Deducciones personales</li>
-          <li>Plataformas (Uber/Airbnb)</li>
-          <li>Contabilidad completa</li>
-        </ul>
+        <span class="card-price-range">$1,200 - $6,000 <span class="card-price-detail">MXN / Neto (IVA Incluido)</span></span>
+        <p class="card-desc">Contabilidad completa con deducciones autorizadas.</p>
+        <div class="card-notes">+ $30 pesos por cada empleado.</div>
       </div>
-      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar</a>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar Cita</a>
+    </div>
+
+    <div class="dafic-card">
+      <div>
+        <span class="card-regimen">Digital</span>
+        <h3 class="card-title">Plataformas Tecnológicas</h3>
+        <span class="card-price-range">$1,000 - $7,000 <span class="card-price-detail">MXN / Neto (IVA Incluido)</span></span>
+        <p class="card-desc">Uber, Airbnb, Mercado Libre, Amazon.</p>
+        <div class="card-notes">+ $30 pesos por cada empleado.</div>
+      </div>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar Cita</a>
+    </div>
+
+    <div class="dafic-card">
+      <div>
+        <span class="card-regimen">Rentas</span>
+        <h3 class="card-title">Arrendamiento</h3>
+        <span class="card-price-range">$1,000 - $9,000 <span class="card-price-detail">MXN / Neto (IVA Incluido)</span></span>
+        <p class="card-desc">Gestión fiscal para dueños de inmuebles.</p>
+        <div class="card-notes">+ $30 pesos por cada empleado.</div>
+      </div>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar Cita</a>
     </div>
   </div>
 
   <div id="grid-moral" class="dafic-cards-grid hidden">
+    
+    <div class="dafic-card" style="width: 300px;">
+      <div>
+        <span class="card-regimen">Empresas</span>
+        <h3 class="card-title">Contabilidad Mensual</h3>
+        <span class="card-price-range">$3,000 - $30,000 <span class="card-price-detail">MXN / Neto (IVA Incluido)</span></span>
+        <p class="card-desc">Cumplimiento total para sociedades (SA, SC, SAS).</p>
+        <div class="card-notes">+ $30 pesos por cada empleado.</div>
+      </div>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Cotizar Empresa</a>
+    </div>
+
+    <div class="dafic-card" style="width: 300px; border: 2px solid #000;">
+      <div>
+        <span class="card-regimen" style="color:#000;">Consultoría Especializada</span>
+        <h3 class="card-title">Análisis y Estrategia Fiscal</h3>
+        <span class="card-price-range">$7,000 - $35,000 <span class="card-price-detail">Pago Único / Proyecto</span></span>
+        <p class="card-desc">Reingeniería fiscal para optimizar carga tributaria y blindaje legal.</p>
+      </div>
+      <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn">Agendar Estrategia</a>
+    </div>
+  </div>
+
+  <div class="dafic-info-banner">
+    <div class="info-block">
+      <span class="info-title">Asesoría de Entrada (Diagnóstico)</span>
+      <p style="font-size:14px; margin:0;">
+        Requerida para nuevos clientes. Se realiza un análisis profundo de su situación actual.<br><br>
+        <strong>• Persona Física:</strong> $1,000 MXN<br>
+        <strong>• Persona Moral:</strong> $2,000 MXN<br>
+        <em style="font-size:12px;">* Este monto se bonifica (descuenta) de tu primera mensualidad al contratar.</em>
+      </p>
+    </div>
+    <div class="info-block" style="border-left: 1px solid #ccc; padding-left: 20px;">
+      <span class="info-title">Nómina y Empleados</span>
+      <p style="font-size:14px; margin:0;">
+        Nuestros planes base incluyen la gestión fiscal del negocio.<br>
+        El cálculo y timbrado de nómina tiene un costo adicional de:<br><br>
+        <strong>$30 MXN</strong> por cada empleado / mes.
+      </p>
+      <div style="margin-top: 15px;">
+         <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="dafic-card-btn" style="display:inline-block; width:auto; padding: 10px 30px;">Agendar Cita Ahora</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function mostrarFisica(btn) {
+    document.getElementById('grid-fisica').classList.remove('hidden');
+    document.getElementById('grid-moral').classList.add('hidden');
+    actualizarBotones(btn);
+  }
+
+  function mostrarMoral(btn) {
+    document.getElementById('grid-fisica').classList.add('hidden');
+    document.getElementById('grid-moral').classList.remove('hidden');
+    actualizarBotones(btn);
+  }
+
+  function actualizarBotones(btnActivo) {
+    var botones = document.querySelectorAll('.dafic-toggle-btn');
+    botones.forEach(function(b) {
+      b.classList.remove('active');
+    });
+    btnActivo.classList.add('active');
+  }
+</script>
