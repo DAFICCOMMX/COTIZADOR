@@ -1,23 +1,25 @@
 <style>
-  /* --- ESTILOS GENERALES (FONDO GRIS #e6e6e6) --- */
+  /* --- ESTILOS GENERALES (PALETA ESTRICTA BLANCO/GRIS #e6e6e6) --- */
   body {
-    background-color: #e6e6e6;
+    background-color: #e6e6e6; /* Fondo base gris */
     margin: 0;
+    color: #333; /* Texto oscuro necesario para legibilidad */
   }
   .dafic-pricing-container {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     max-width: 1100px;
     margin: 40px auto;
     text-align: center;
-    color: #000;
-    padding: 20px;
-    background-color: #e6e6e6;
+    padding: 40px;
+    background-color: #ffffff; /* Contenedor principal BLANCO */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Sombra suave para separar del fondo */
     min-height: 700px;
   }
 
-  /* --- LOGO (RUTA RELATIVA ORIGINAL) --- */
+  /* --- LOGO --- */
   .dafic-logo-wrapper {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
   .dafic-logo-img {
     max-width: 250px;
@@ -26,125 +28,134 @@
     margin: 0 auto;
   }
 
-  /* --- PESTAÑAS (SWITCH) --- */
+  /* --- PESTAÑAS (SWITCH) ALTO CONTRASTE --- */
   .dafic-toggle-wrapper {
     display: inline-flex;
-    border: 1px solid #000;
-    margin-bottom: 40px;
-    border-radius: 4px;
-    overflow: hidden;
-    background-color: #e6e6e6;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    background-color: #e6e6e6; /* Fondo del switch gris */
+    border-radius: 30px; /* Redondeado moderno */
+    padding: 5px;
+    margin-bottom: 50px;
   }
   .dafic-toggle-btn {
-    padding: 15px 40px;
-    background: #e6e6e6;
+    padding: 12px 35px;
+    background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 1px;
     transition: all 0.3s ease;
     outline: none;
-    color: #666;
-    border-right: 1px solid #ccc;
+    color: #777; /* Texto gris medio para inactivos */
+    border-radius: 25px;
   }
-  .dafic-toggle-btn:last-child { border-right: none; }
-  .dafic-toggle-btn:hover { background-color: #d4d4d4; color: #000; }
-  .dafic-toggle-btn.active { background-color: #000; color: #fff; }
+  .dafic-toggle-btn:hover { color: #333; }
+  
+  /* Botón activo: Blanco sobre fondo gris */
+  .dafic-toggle-btn.active {
+    background-color: #ffffff;
+    color: #000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
 
   /* --- INSTRUCCIÓN --- */
   .selection-instruction {
-    font-size: 18px;
-    color: #555;
-    margin-top: 50px;
+    font-size: 20px;
+    color: #999;
+    margin-top: 80px;
     animation: fadeIn 1s;
-    font-weight: bold;
-    letter-spacing: 0.5px;
+    font-weight: 300;
   }
 
   /* --- GRID DE TARJETAS --- */
   .dafic-cards-grid {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
     flex-wrap: wrap;
     animation: slideUp 0.5s ease-out;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
   }
   
+  /* --- TARJETA (Estilo "Hoja Blanca") --- */
   .dafic-card {
-    background: #e6e6e6;
-    border: 1px solid #999;
-    border-radius: 8px;
-    padding: 25px;
+    background: #ffffff; /* Tarjeta Blanca */
+    border: 2px solid transparent; /* Sin borde visible por defecto */
+    border-radius: 12px;
+    padding: 30px;
     width: 240px;
     text-align: left;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     user-select: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03); /* Sombra muy sutil */
   }
   .dafic-card:hover {
-    transform: translateY(-3px);
-    border-color: #000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  }
-  .dafic-card.selected {
-    border: 3px solid #000;
-    background-color: #dedede;
-    transform: scale(1.02);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
   }
   
-  /* Checkbox visual en tarjeta */
+  /* --- TARJETA SELECCIONADA (Inversión de color para contraste) --- */
+  .dafic-card.selected {
+    background-color: #e6e6e6; /* Se vuelve GRIS al seleccionar */
+    border: 2px solid #d4d4d4; /* Borde gris un poco más oscuro para definir */
+    transform: scale(1.02);
+    box-shadow: none;
+  }
+  
+  /* Checkbox visual */
   .card-check-icon {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #000;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border: 2px solid #e6e6e6;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s;
+  }
+  /* Cuando está seleccionada, el check se oscurece */
+  .dafic-card.selected .card-check-icon {
+    border-color: #333;
+    background: #333;
   }
   .dafic-card.selected .card-check-icon::after {
-    content: "";
-    width: 12px;
-    height: 12px;
-    background: #000;
-    border-radius: 50%;
-    display: block;
+    content: "✓";
+    color: #fff;
+    font-size: 14px;
   }
 
-  .card-title { font-size: 16px; font-weight: 800; margin: 10px 0; text-transform: uppercase; }
-  .card-price-range { font-size: 20px; font-weight: 800; color: #000; display: block; }
-  .card-desc { font-size: 13px; color: #444; margin-top: 8px; line-height: 1.4; }
+  .card-title { font-size: 18px; font-weight: 800; margin: 15px 0; text-transform: uppercase; letter-spacing: 0.5px;}
+  .card-price-range { font-size: 22px; font-weight: 800; color: #000; display: block; }
+  .card-desc { font-size: 14px; color: #555; margin-top: 10px; line-height: 1.5; }
 
-  /* --- SECCIÓN CALCULADORA --- */
+  /* --- SECCIÓN CALCULADORA (Fondo Gris para contrastar con el contenedor blanco) --- */
   .calculator-section {
-    background-color: #e6e6e6;
-    border-top: 2px solid #000;
-    padding: 40px 20px;
-    max-width: 800px;
+    background-color: #e6e6e6; /* FONDO GRIS */
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 850px;
     margin: 0 auto;
     text-align: left;
     display: none;
     animation: fadeIn 0.5s;
   }
   
-  /* Filas de opciones */
+  /* Filas de opciones (Blanco sobre fondo gris) */
   .calc-option-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    padding: 15px;
-    background: #dedede;
-    border-radius: 6px;
-    border: 1px solid #bbb;
+    padding: 20px;
+    background: #ffffff; /* BLANCO */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
   }
 
   /* Checkbox Estilizado */
@@ -154,91 +165,108 @@
     gap: 15px;
   }
   .option-checkbox {
-    width: 20px;
-    height: 20px;
-    accent-color: #000;
+    width: 22px;
+    height: 22px;
+    accent-color: #333; /* Color oscuro para el check */
     cursor: pointer;
   }
   
-  /* Controles Numéricos */
+  /* Controles Numéricos (Estilo limpio) */
   .qty-control {
     display: flex;
     align-items: center;
-    border: 1px solid #000;
-    border-radius: 4px;
+    border: 2px solid #e6e6e6;
+    border-radius: 6px;
     background: #fff;
     margin-left: 15px;
-    visibility: hidden; /* Oculto por defecto hasta activar checkbox */
+    visibility: hidden;
+    overflow: hidden;
   }
-  .qty-control.visible {
-    visibility: visible;
-  }
+  .qty-control.visible { visibility: visible; }
   .qty-btn {
-    background: #e6e6e6;
+    background: #f4f4f4;
     border: none;
-    padding: 5px 12px;
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 18px;
     cursor: pointer;
     font-weight: bold;
+    color: #333;
   }
-  .qty-btn:hover { background: #ccc; }
+  .qty-btn:hover { background: #e6e6e6; }
   #numEmpleados {
-    width: 40px;
+    width: 50px;
     text-align: center;
     border: none;
-    font-size: 15px;
+    border-left: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
+    font-size: 16px;
     font-weight: bold;
     background: #fff;
+    color: #000;
   }
   input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
   /* TOTAL Y BOTONES */
   .total-display {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 900;
     text-align: right;
-    margin-bottom: 10px;
-    margin-top: 30px;
+    margin-bottom: 5px;
+    margin-top: 40px;
+    color: #000;
   }
-  .total-label { font-size: 14px; font-weight: normal; color: #444; display: block;}
+  .total-label { font-size: 14px; font-weight: 600; color: #777; display: block; text-transform: uppercase; letter-spacing: 1px;}
   
   .subtotal-note {
     text-align: right;
     font-size: 13px;
-    color: #666;
-    margin-bottom: 25px;
-    font-style: italic;
+    color: #777;
+    margin-bottom: 30px;
   }
 
   .action-buttons {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     justify-content: flex-end;
     flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 2px solid #d4d4d4;
   }
 
+  /* Botones Minimalistas (Blanco con borde grueso) */
   .btn-action {
-    padding: 15px 30px;
+    padding: 15px 35px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
-    border-radius: 4px;
-    transition: transform 0.2s;
+    border-radius: 50px; /* Botones píldora */
+    transition: all 0.3s;
     display: inline-flex;
     align-items: center;
     gap: 10px;
     font-size: 14px;
-    border: none;
     cursor: pointer;
+    border: 3px solid #e6e6e6; /* Borde grueso gris */
+    background: #fff;
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   }
-  .btn-agendar { background-color: #000; color: #fff; }
-  .btn-agendar:hover { background-color: #333; }
-  .btn-whatsapp { background-color: #25D366; color: #fff; }
-  .btn-whatsapp:hover { background-color: #1ebc57; }
+  
+  /* Hover: Invertir colores */
+  .btn-action:hover {
+    background-color: #e6e6e6;
+    border-color: #e6e6e6;
+    transform: translateY(-3px);
+  }
+
+  /* Diferenciación sutil para WhatsApp */
+  .btn-whatsapp { border-color: #e6e6e6; }
+  /* Diferenciación para Agendar (más oscuro el borde) */
+  .btn-agendar { border-color: #ccc; color: #000; }
 
   .hidden { display: none !important; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); opacity: 0; } to { opacity: 1; transform: translateY(0); } }
 </style>
 
 <div class="dafic-pricing-container">
@@ -247,8 +275,8 @@
     <img src="COTIZADOR/logo.png" alt="DAFIC Despacho Contable" class="dafic-logo-img">
   </div>
 
-  <p style="font-size: 16px; color: #333; margin-bottom: 20px;">
-    Selecciona tu perfil fiscal para ver los planes disponibles.
+  <p style="font-size: 18px; color: #555; margin-bottom: 30px; font-weight: 300;">
+    Selecciona tu perfil fiscal para configurar tu plan.
   </p>
 
   <div class="dafic-toggle-wrapper">
@@ -257,7 +285,7 @@
   </div>
 
   <div id="mensaje-inicial" class="selection-instruction">
-    Por favor selecciona una opción (Física o Moral) para comenzar.
+    ↑ Selecciona una opción arriba para comenzar.
   </div>
 
   <div id="grid-fisica" class="dafic-cards-grid hidden">
@@ -303,20 +331,20 @@
   </div>
 
   <div id="zona-calculadora" class="calculator-section">
-    <h4 style="margin-top:0; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:10px; margin-bottom:20px;">
-      Configura tu Plan: <span id="nombre-plan-display" style="color:#666;">---</span>
+    <h4 style="margin-top:0; text-transform:uppercase; margin-bottom:25px; color: #000;">
+      Configuración: <span id="nombre-plan-display" style="color:#555;">---</span>
     </h4>
 
     <div class="calc-option-row">
       <div class="option-check-wrapper">
         <input type="checkbox" id="checkDiagnostico" class="option-checkbox" checked onchange="calcularTotal()">
         <div>
-          <strong>Diagnóstico Inicial (Soy Nuevo Cliente)</strong>
-          <div style="font-size: 12px; color: #666;">Pago único. Se bonifica en la 1ra mensualidad.</div>
+          <strong style="font-size: 15px;">Diagnóstico Inicial (Nuevo Cliente)</strong>
+          <div style="font-size: 13px; color: #777;">Pago único. Se bonifica en la 1ra mensualidad.</div>
         </div>
       </div>
-      <div style="font-weight: bold;">
-        + $<span id="costo-diagnostico">0</span> <span style="font-size:10px; font-weight:normal;">(Pago Único)</span>
+      <div style="font-weight: bold; font-size: 18px;">
+        + $<span id="costo-diagnostico">0</span> <span style="font-size:11px; font-weight:normal; color:#777;">(Único)</span>
       </div>
     </div>
 
@@ -324,8 +352,8 @@
       <div class="option-check-wrapper">
         <input type="checkbox" id="checkNomina" class="option-checkbox" onchange="toggleNomina()">
         <div>
-          <strong>Servicio de Nómina</strong>
-          <div style="font-size: 12px; color: #666;">¿Tienes empleados? ($30 c/u).</div>
+          <strong style="font-size: 15px;">Servicio de Nómina</strong>
+          <div style="font-size: 13px; color: #777;">¿Tienes empleados? ($30 c/u).</div>
         </div>
       </div>
       
@@ -335,23 +363,23 @@
         <button class="qty-btn" onclick="cambiarEmpleados(1)">+</button>
       </div>
 
-      <div style="font-weight: bold;">
-        + $<span id="costo-nomina">0</span> <span style="font-size:10px; font-weight:normal;">/mes</span>
+      <div style="font-weight: bold; font-size: 18px;">
+        + $<span id="costo-nomina">0</span> <span style="font-size:11px; font-weight:normal; color:#777;">/mes</span>
       </div>
     </div>
 
     <div class="total-display">
       <span class="total-label">Inversión Mensual Estimada:</span>
-      $<span id="total-final">0</span> MXN
+      $<span id="total-final">0</span> <span style="font-size: 20px;">MXN</span>
     </div>
     
     <div id="nota-diagnostico" class="subtotal-note">
-      * No incluye el Pago Único del Diagnóstico ($<span id="txt-diag-note">0</span>) ya que este monto se bonifica.
+      * No incluye el Pago Único del Diagnóstico ($<span id="txt-diag-note">0</span>) ya que se bonifica.
     </div>
 
     <div class="action-buttons">
       <a href="#" id="btn-whatsapp-link" target="_blank" class="btn-action btn-whatsapp">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#333" style="margin-right:8px;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
         Confirmar por WhatsApp
       </a>
       <a href="https://calendar.app.google/KzNEUy2w66BTVHgM8" target="_blank" class="btn-action btn-agendar">
@@ -364,7 +392,7 @@
 <script>
   let precioPlanBase = 0;
   let nombrePlan = "";
-  let baseDiagnostico = 0; // Valor base del diagnóstico ($1000 o $2000)
+  let baseDiagnostico = 0; 
   
   function cambiarTipo(tipo, btn) {
     document.getElementById('mensaje-inicial').style.display = 'none';
@@ -392,10 +420,9 @@
     nombrePlan = nombre;
     baseDiagnostico = costoDiag; 
 
-    // Resetear checkboxes visualmente
     document.getElementById('checkDiagnostico').checked = true;
     document.getElementById('checkNomina').checked = false;
-    toggleNomina(); // Para ocultar el contador si estaba abierto
+    toggleNomina();
 
     document.getElementById('zona-calculadora').style.display = 'block';
     setTimeout(() => {
@@ -419,7 +446,7 @@
   function cambiarEmpleados(delta) {
     let input = document.getElementById('numEmpleados');
     let nuevoValor = parseInt(input.value) + delta;
-    if (nuevoValor < 1) nuevoValor = 1; // Mínimo 1 si está activo
+    if (nuevoValor < 1) nuevoValor = 1;
     input.value = nuevoValor;
     calcularTotal();
   }
@@ -432,12 +459,10 @@
   }
 
   function calcularTotal() {
-    // 1. Calcular Diagnóstico (Solo visual, NO se suma al mensual)
     let checkDiag = document.getElementById('checkDiagnostico');
     let montoDiag = checkDiag.checked ? baseDiagnostico : 0;
     document.getElementById('costo-diagnostico').innerText = montoDiag.toLocaleString();
     
-    // Nota al pie
     let nota = document.getElementById('nota-diagnostico');
     if(checkDiag.checked) {
       nota.style.display = 'block';
@@ -446,17 +471,14 @@
       nota.style.display = 'none';
     }
 
-    // 2. Calcular Nómina (Se suma al mensual)
     let checkNomina = document.getElementById('checkNomina');
     let num = parseInt(document.getElementById('numEmpleados').value);
     let totalNomina = 0;
-    
     if (checkNomina.checked) {
       totalNomina = num * 30;
     }
     document.getElementById('costo-nomina').innerText = totalNomina.toLocaleString();
 
-    // 3. Gran Total (Plan + Nómina) -> OJO: NO SUMAMOS DIAGNÓSTICO AQUÍ
     let granTotalMensual = precioPlanBase + totalNomina;
     document.getElementById('total-final').innerText = granTotalMensual.toLocaleString();
 
