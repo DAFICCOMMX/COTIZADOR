@@ -1,10 +1,10 @@
 <style>
-  /* --- ESTILOS GENERALES (LUJO MINIMALISTA CLARO) --- */
+  /* --- ESTILOS GENERALES --- */
   body {
-    background-color: #e6e6e6; /* Fondo solicitado */
+    background-color: #e6e6e6; /* FONDO BASE */
     margin: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #1a1a1a; /* Letras Oscuras (antes color de recuadro) */
+    color: #333; /* Texto oscuro para lectura perfecta */
     -webkit-font-smoothing: antialiased;
   }
   
@@ -13,7 +13,7 @@
     margin: 0 auto;
     text-align: center;
     padding: 60px 20px;
-    background-color: #e6e6e6; 
+    background-color: #e6e6e6; /* Contenedor mismo color */
     min-height: 900px;
   }
 
@@ -27,23 +27,25 @@
     height: auto;
     display: block;
     margin: 0 auto;
-    /* Sombra suave */
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));
+    /* Sombra suave al logo */
+    filter: drop-shadow(5px 5px 10px rgba(163,177,198,0.4));
   }
 
-  /* --- MENU DE PESTAÑAS (PILMORA BLANCA) --- */
+  /* --- MENU DE PESTAÑAS (NEUMORFISMO) --- */
   .dafic-toggle-wrapper {
     display: inline-flex;
-    background-color: #e0e0e0; /* Un poco más oscuro que el fondo para contraste */
+    background-color: #e6e6e6;
     border-radius: 50px;
-    padding: 6px;
+    padding: 10px;
     margin-bottom: 60px;
-    gap: 10px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    gap: 25px;
+    /* Efecto "Hundido" para el contenedor de botones */
+    box-shadow: inset 5px 5px 10px #c3c3c3, 
+                inset -5px -5px 10px #ffffff;
   }
   
   .dafic-toggle-btn {
-    padding: 14px 40px;
+    padding: 15px 40px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -58,11 +60,13 @@
   }
   .dafic-toggle-btn:hover { color: #333; }
   
-  /* ACTIVO: BLANCO SOBRE GRIS */
+  /* Botón Activo: "Sale" hacia afuera */
   .dafic-toggle-btn.active {
     color: #000;
-    background-color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background-color: #e6e6e6;
+    /* Sombra externa (Relieve) */
+    box-shadow:  5px 5px 10px #c3c3c3, 
+                -5px -5px 10px #ffffff;
     transform: scale(1.02);
   }
 
@@ -72,13 +76,13 @@
 
   /* --- GRID DE TARJETAS --- */
   .dafic-cards-grid {
-    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px;
+    display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; margin-bottom: 60px;
   }
   
-  /* --- TARJETA BLANCA (CLEAN LUXURY) --- */
+  /* --- TARJETA PRINCIPAL (FONDO #e6e6e6 CON SOMBRAS) --- */
   .dafic-card {
-    background-color: #ffffff; /* Tarjeta Blanca para contraste limpio */
-    border-radius: 20px;
+    background-color: #e6e6e6; /* MISMO COLOR DE FONDO */
+    border-radius: 25px;
     padding: 35px 25px;
     width: 260px;
     text-align: left;
@@ -86,11 +90,14 @@
     position: relative;
     user-select: none;
     
-    /* Sombra elegante */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    border: 1px solid transparent;
+    /* Borde luz muy fino para definición */
+    border: 1px solid rgba(255,255,255,0.4);
     
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* SOMBRAS NEUMÓRFICAS (RELIEVE 3D) */
+    box-shadow:  9px 9px 18px #c3c3c3, 
+                -9px -9px 18px #ffffff;
+                
+    transition: all 0.3s ease;
     opacity: 0;
     animation: fadeInUp 0.6s forwards;
   }
@@ -100,147 +107,165 @@
   .dafic-card:nth-child(3) { animation-delay: 0.3s; }
   .dafic-card:nth-child(4) { animation-delay: 0.4s; }
 
-  /* HOVER */
+  /* HOVER: Se eleva más */
   .dafic-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    box-shadow:  14px 14px 28px #c3c3c3, 
+                -14px -14px 28px #ffffff;
   }
   
-  /* SELECCIONADO: Borde Negro Fino */
+  /* SELECCIONADO: Se "hunde" (presionado) */
   .dafic-card.selected {
-    border: 2px solid #000;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    transform: scale(1.02);
+    /* Sombras invertidas (Inset) */
+    box-shadow: inset 5px 5px 10px #c3c3c3, 
+                inset -5px -5px 10px #ffffff;
+    border: 1px solid transparent; /* Sin borde de luz al estar hundido */
+    transform: scale(0.98);
   }
   
   /* Check Icon */
   .card-check-icon {
     position: absolute; top: 25px; right: 25px; width: 24px; height: 24px;
     border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
-    background: #f5f5f5;
+    background: #e6e6e6;
+    /* Botoncito con relieve */
+    box-shadow:  3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
   }
   
   .dafic-card.selected .card-check-icon {
-    background: #000;
-    color: #fff;
+    background: #e6e6e6;
+    color: #000;
+    /* Botoncito hundido */
+    box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff;
   }
-  .dafic-card.selected .card-check-icon::after { content: "✓"; font-size: 14px; }
+  .dafic-card.selected .card-check-icon::after { content: "✓"; font-size: 14px; font-weight: bold; }
 
-  /* TEXTOS OSCUROS */
-  .card-title { font-size: 13px; font-weight: 700; margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 1px; color: #999; }
-  .card-price-range { font-size: 24px; font-weight: 800; color: #000; display: block; margin-bottom: 15px; letter-spacing: -0.5px; }
-  .card-desc { font-size: 14px; color: #555; line-height: 1.5; }
+  .card-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 1px; color: #777; }
+  .card-price-range { font-size: 24px; font-weight: 800; color: #333; display: block; margin-bottom: 15px; letter-spacing: -0.5px; }
+  .card-desc { font-size: 13px; color: #555; line-height: 1.6; }
 
-  /* --- CALCULADORA (PANEL BLANCO) --- */
+  /* --- CALCULADORA (PANEL GRANDE #e6e6e6) --- */
   .calculator-section {
-    background-color: #ffffff;
+    background-color: #e6e6e6; /* MISMO COLOR */
     border-radius: 30px;
     padding: 50px;
     max-width: 800px;
     margin: 0 auto;
     text-align: left;
     display: none;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    /* Relieve muy marcado para separar del fondo */
+    box-shadow:  15px 15px 30px #c3c3c3, 
+                -15px -15px 30px #ffffff;
     animation: slideUpFade 0.6s ease-out;
   }
   
   .calc-header {
-    margin-bottom: 30px; font-size: 22px; font-weight: 300; color: #000;
-    border-bottom: 1px solid #f0f0f0; padding-bottom: 20px;
+    margin-bottom: 30px; font-size: 22px; font-weight: 300; color: #333;
+    border-bottom: 1px solid #d1d1d1; padding-bottom: 20px;
   }
   .calc-header strong { font-weight: 800; }
 
-  /* TARJETAS DE OPCIÓN (TOGGLES) */
+  /* --- OPCIONES TOGGLE (Los botones rectangulares) --- */
   .calc-option-card {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; padding: 20px; border-radius: 15px;
-    background-color: #fff; /* Blanco */
-    border: 1px solid #eee;
-    cursor: pointer; transition: all 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    margin-bottom: 25px; padding: 25px; border-radius: 20px;
+    background-color: #e6e6e6; /* MISMO COLOR */
+    cursor: pointer; transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.4);
+    /* Relieve */
+    box-shadow:  6px 6px 12px #c3c3c3, 
+                -6px -6px 12px #ffffff;
   }
 
   .calc-option-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-    border-color: #ddd;
+    box-shadow:  8px 8px 16px #c3c3c3, 
+                -8px -8px 16px #ffffff;
   }
 
-  /* Estado Activo: Borde Negro */
+  /* Estado Activo: Hundido */
   .calc-option-card.active {
-    background-color: #fcfcfc;
-    border: 2px solid #000;
-    transform: translateY(0);
-    box-shadow: none;
+    box-shadow: inset 5px 5px 10px #c3c3c3, 
+                inset -5px -5px 10px #ffffff;
+    background-color: #e6e6e6;
+    border: 1px solid transparent;
+    transform: translateY(1px);
   }
 
   .option-indicator {
     width: 24px; height: 24px; border-radius: 50%; 
-    background: #f0f0f0;
+    background: #e6e6e6;
+    box-shadow: 3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
     display: flex; align-items: center; justify-content: center;
     margin-right: 20px; transition: all 0.3s; color: transparent;
   }
   
   .calc-option-card.active .option-indicator {
-    background: #000; color: #fff;
+    background: #e6e6e6; color: #000;
+    box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff;
   }
   .calc-option-card.active .option-indicator::after { content: "✓"; font-size: 14px; font-weight: bold; }
 
-  .option-title { display: block; font-size: 16px; font-weight: 700; color: #000; margin-bottom: 5px; }
-  .option-subtitle { font-size: 13px; color: #888; }
-  .option-price { font-size: 18px; font-weight: 800; color: #000; }
+  .option-title { display: block; font-size: 16px; font-weight: 700; color: #333; margin-bottom: 5px; }
+  .option-subtitle { font-size: 13px; color: #777; }
+  .option-price { font-size: 18px; font-weight: 800; color: #333; }
 
   /* Controles Numéricos */
   .qty-control {
-    display: flex; align-items: center; background: #f0f0f0; border-radius: 30px;
-    padding: 4px; margin-left: 20px; visibility: hidden; opacity: 0; transition: all 0.3s;
+    display: flex; align-items: center; background: #e6e6e6; border-radius: 30px;
+    padding: 5px; margin-left: 20px; visibility: hidden; opacity: 0; transition: all 0.3s;
+    /* Surco hundido para los controles */
+    box-shadow: inset 3px 3px 6px #c3c3c3, inset -3px -3px 6px #ffffff;
   }
   .qty-control.visible { visibility: visible; opacity: 1; }
   
   .qty-btn {
-    background: #fff; border: none; width: 30px; height: 30px; border-radius: 50%;
-    font-size: 18px; cursor: pointer; color: #000; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: #e6e6e6; border: none; width: 32px; height: 32px; border-radius: 50%;
+    font-size: 18px; cursor: pointer; color: #333; 
+    /* Botoncito saliente */
+    box-shadow:  3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
     transition: all 0.2s; display: flex; align-items: center; justify-content: center;
   }
-  .qty-btn:hover { transform: scale(1.1); }
+  .qty-btn:active { box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff; }
 
   #numEmpleados {
     width: 40px; text-align: center; border: none; font-size: 16px; 
-    font-weight: bold; background: transparent; color: #000;
+    font-weight: bold; background: transparent; color: #333;
   }
 
   .total-display {
-    font-size: 42px; font-weight: 800; text-align: right; margin-top: 40px; color: #000; letter-spacing: -1px;
+    font-size: 42px; font-weight: 800; text-align: right; margin-top: 40px; color: #333; letter-spacing: -1px;
+    text-shadow: 1px 1px 0px #fff; /* Efecto grabado sutil */
   }
   .total-label { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 2px;}
   
   .subtotal-note { text-align: right; font-size: 12px; color: #999; margin-bottom: 40px; }
 
   .action-buttons {
-    display: flex; gap: 20px; justify-content: flex-end; flex-wrap: wrap;
-    margin-top: 40px; padding-top: 30px; border-top: 1px solid #f0f0f0;
+    display: flex; gap: 25px; justify-content: flex-end; flex-wrap: wrap;
+    margin-top: 40px; padding-top: 30px; border-top: 1px solid #d1d1d1;
   }
 
   .btn-action {
     padding: 18px 40px; text-decoration: none; font-weight: 700; text-transform: uppercase;
-    font-size: 12px; letter-spacing: 1px; cursor: pointer; border-radius: 50px;
-    transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: 2px; cursor: pointer; border-radius: 50px;
+    transition: all 0.3s; display: inline-flex; align-items: center; gap: 12px;
   }
   
-  /* WhatsApp */
+  /* Botón WhatsApp */
   .btn-whatsapp {
-    background-color: #25D366; color: #fff; border: none;
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    background-color: #e6e6e6; color: #25D366;
+    box-shadow:  6px 6px 12px #c3c3c3, -6px -6px 12px #ffffff;
+    border: 1px solid rgba(255,255,255,0.5);
   }
-  .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5); }
+  .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 10px 10px 20px #c3c3c3, -10px -10px 20px #ffffff; }
   
-  /* Agendar */
+  /* Botón Agendar (Contraste oscuro para acción principal) */
   .btn-agendar {
-    background: #000; color: #fff; border: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: #333; color: #fff;
+    box-shadow:  5px 5px 15px #c3c3c3;
   }
-  .btn-agendar:hover { background: #333; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+  .btn-agendar:hover { background: #000; transform: translateY(-3px); }
 
   .hidden { display: none !important; }
   
@@ -396,6 +421,7 @@
     nombrePlan = nombre;
     baseDiagnostico = costoDiag; 
 
+    // Resetear opciones visualmente
     document.getElementById('checkDiagnostico').checked = true;
     document.getElementById('card-diagnostico').classList.add('active');
     
