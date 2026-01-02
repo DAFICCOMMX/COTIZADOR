@@ -17,7 +17,7 @@
     --shadow-light: rgba(255, 255, 255, 0.8);
     --shadow-dark: rgba(163, 177, 198, 0.6);
     --accent-color: #222;
-    --promo-color: #d32f2f; /* Rojo para ofertas */
+    --promo-color: #d32f2f;
   }
 
   body {
@@ -79,34 +79,56 @@
   .dafic-cards-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
   
   .dafic-card {
-    background-color: var(--bg-color); border-radius: 25px; padding: 35px 25px; width: 260px;
+    background-color: var(--bg-color); border-radius: 25px; 
+    /* AJUSTE: Más padding superior para espacio de la etiqueta */
+    padding: 50px 25px 35px 25px; 
+    width: 260px;
     text-align: left; cursor: pointer; position: relative; user-select: none;
     border: 1px solid rgba(255,255,255,0.3);
     box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0; animation: fadeInUp 0.6s forwards; overflow: hidden;
+    opacity: 0; animation: fadeInUp 0.6s forwards; 
+    overflow: hidden; /* Necesario para el brillo, causaba el corte */
   }
   
+  /* SHEEN EFECTO */
+  .dafic-card::before {
+    content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+    transform: skewX(-25deg); transition: all 0.7s ease; display: block; z-index: 1; pointer-events: none;
+  }
+  .dafic-card:hover::before { left: 150%; }
+
   .dafic-card:hover { transform: translateY(-8px); box-shadow: 18px 18px 30px var(--shadow-dark), -18px -18px 30px var(--shadow-light); }
   .dafic-card.selected { box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); border-color: transparent; transform: scale(0.98); }
   
-  /* BADGES */
+  /* BADGES CORREGIDOS */
   .popular-badge {
-    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    position: absolute; 
+    top: 0; /* AJUSTE: Pegado al borde superior */
+    left: 50%; transform: translateX(-50%);
     background: var(--accent-color); color: var(--bg-color);
     font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-    padding: 5px 15px; border-radius: 20px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 2;
+    padding: 6px 15px; 
+    border-radius: 0 0 15px 15px; /* AJUSTE: Solo redondeado abajo para parecer etiqueta colgante */
+    box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
   }
   .promo-badge {
-    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    position: absolute; 
+    top: 0; /* AJUSTE: Pegado al borde superior */
+    left: 50%; transform: translateX(-50%);
     background: var(--promo-color); color: #fff;
     font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-    padding: 5px 15px; border-radius: 20px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 2;
-    width: 100%; text-align: center; max-width: 80%;
+    padding: 6px 15px; 
+    border-radius: 0 0 15px 15px; /* AJUSTE: Solo redondeado abajo */
+    box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
+    width: auto; text-align: center; white-space: nowrap;
   }
 
   .card-check-icon {
-    position: absolute; top: 25px; right: 25px; width: 24px; height: 24px;
+    position: absolute; 
+    top: 35px; /* AJUSTE: Bajado un poco para no chocar con la etiqueta */
+    right: 25px; width: 24px; height: 24px;
     border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
     background: var(--bg-color); z-index: 2;
     box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
@@ -246,11 +268,14 @@
 
   .hidden { display: none !important; }
   .dafic-card { opacity: 0; animation: fadeInUp 0.6s forwards; }
+  /* Animación escalonada para más tarjetas */
   .dafic-card:nth-child(1) { animation-delay: 0.1s; } 
   .dafic-card:nth-child(2) { animation-delay: 0.15s; }
   .dafic-card:nth-child(3) { animation-delay: 0.2s; } 
   .dafic-card:nth-child(4) { animation-delay: 0.25s; }
   .dafic-card:nth-child(5) { animation-delay: 0.3s; }
+  .dafic-card:nth-child(6) { animation-delay: 0.35s; }
+  .dafic-card:nth-child(7) { animation-delay: 0.4s; }
   
   @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
