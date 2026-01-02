@@ -1,5 +1,5 @@
 <style>
-  /* --- ESTILOS GENERALES (FONDO GRIS UNIFICADO) --- */
+  /* --- ESTILOS GENERALES (FONDO GRIS #e6e6e6) --- */
   body {
     background-color: #e6e6e6;
     margin: 0;
@@ -12,15 +12,15 @@
     color: #000;
     padding: 20px;
     background-color: #e6e6e6;
-    min-height: 700px; /* Altura mínima para evitar saltos */
+    min-height: 700px;
   }
 
-  /* --- LOGO (RUTA CORREGIDA) --- */
+  /* --- LOGO (RUTA RELATIVA ORIGINAL) --- */
   .dafic-logo-wrapper {
     margin-bottom: 30px;
   }
   .dafic-logo-img {
-    max-width: 250px; /* Tamaño ajustable */
+    max-width: 250px;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -73,7 +73,6 @@
     margin-bottom: 40px;
   }
   
-  /* --- TARJETA SELECCIONABLE (FONDO GRIS) --- */
   .dafic-card {
     background: #e6e6e6;
     border: 1px solid #999;
@@ -93,12 +92,12 @@
   }
   .dafic-card.selected {
     border: 3px solid #000;
-    background-color: #dedede; /* Un gris ligeramente diferente para notar la selección */
+    background-color: #dedede;
     transform: scale(1.02);
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   }
   
-  /* Checkbox visual */
+  /* Checkbox visual en tarjeta */
   .card-check-icon {
     position: absolute;
     top: 15px;
@@ -124,7 +123,7 @@
   .card-price-range { font-size: 20px; font-weight: 800; color: #000; display: block; }
   .card-desc { font-size: 13px; color: #444; margin-top: 8px; line-height: 1.4; }
 
-  /* --- SECCIÓN CALCULADORA (FONDO GRIS, OCULTA AL INICIO) --- */
+  /* --- SECCIÓN CALCULADORA --- */
   .calculator-section {
     background-color: #e6e6e6;
     border-top: 2px solid #000;
@@ -136,40 +135,58 @@
     animation: fadeIn 0.5s;
   }
   
-  .calc-row {
+  /* Filas de opciones */
+  .calc-option-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #bbb;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #dedede;
+    border-radius: 6px;
+    border: 1px solid #bbb;
   }
-  .calc-row:last-child { border-bottom: none; }
+
+  /* Checkbox Estilizado */
+  .option-check-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .option-checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #000;
+    cursor: pointer;
+  }
   
-  /* CONTROLES NUMÉRICOS */
+  /* Controles Numéricos */
   .qty-control {
     display: flex;
     align-items: center;
     border: 1px solid #000;
     border-radius: 4px;
     background: #fff;
+    margin-left: 15px;
+    visibility: hidden; /* Oculto por defecto hasta activar checkbox */
+  }
+  .qty-control.visible {
+    visibility: visible;
   }
   .qty-btn {
     background: #e6e6e6;
     border: none;
-    padding: 8px 18px;
-    font-size: 18px;
+    padding: 5px 12px;
+    font-size: 16px;
     cursor: pointer;
     font-weight: bold;
   }
   .qty-btn:hover { background: #ccc; }
   #numEmpleados {
-    width: 50px;
+    width: 40px;
     text-align: center;
     border: none;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     background: #fff;
   }
@@ -180,10 +197,18 @@
     font-size: 32px;
     font-weight: 900;
     text-align: right;
-    margin-bottom: 25px;
-    margin-top: 25px;
+    margin-bottom: 10px;
+    margin-top: 30px;
   }
   .total-label { font-size: 14px; font-weight: normal; color: #444; display: block;}
+  
+  .subtotal-note {
+    text-align: right;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 25px;
+    font-style: italic;
+  }
 
   .action-buttons {
     display: flex;
@@ -278,37 +303,50 @@
   </div>
 
   <div id="zona-calculadora" class="calculator-section">
-    <h4 style="margin-top:0; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:10px;">Resumen de Inversión</h4>
+    <h4 style="margin-top:0; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:10px; margin-bottom:20px;">
+      Configura tu Plan: <span id="nombre-plan-display" style="color:#666;">---</span>
+    </h4>
 
-    <div class="calc-row">
-      <div><strong>Plan Seleccionado:</strong></div>
-      <div style="font-weight: bold; font-size: 18px;"><span id="nombre-plan-display">---</span></div>
+    <div class="calc-option-row">
+      <div class="option-check-wrapper">
+        <input type="checkbox" id="checkDiagnostico" class="option-checkbox" checked onchange="calcularTotal()">
+        <div>
+          <strong>Diagnóstico Inicial (Soy Nuevo Cliente)</strong>
+          <div style="font-size: 12px; color: #666;">Pago único. Se bonifica en la 1ra mensualidad.</div>
+        </div>
+      </div>
+      <div style="font-weight: bold;">
+        + $<span id="costo-diagnostico">0</span> <span style="font-size:10px; font-weight:normal;">(Pago Único)</span>
+      </div>
     </div>
 
-    <div class="calc-row">
-      <div>
-        <strong>Diagnóstico Inicial (Pago Único)</strong>
-        <div style="font-size: 12px; color: #666;">Se bonifica en tu 1ra mensualidad.</div>
+    <div class="calc-option-row">
+      <div class="option-check-wrapper">
+        <input type="checkbox" id="checkNomina" class="option-checkbox" onchange="toggleNomina()">
+        <div>
+          <strong>Servicio de Nómina</strong>
+          <div style="font-size: 12px; color: #666;">¿Tienes empleados? ($30 c/u).</div>
+        </div>
       </div>
-      <div style="font-weight: bold;">+ $<span id="costo-diagnostico">0</span></div>
-    </div>
-
-    <div class="calc-row">
-      <div>
-        <strong>¿Tienes Empleados?</strong>
-        <div style="font-size: 12px; color: #666;">Nómina ($30 c/u).</div>
-      </div>
-      <div class="qty-control">
+      
+      <div id="wrapper-contador" class="qty-control">
         <button class="qty-btn" onclick="cambiarEmpleados(-1)">-</button>
-        <input type="number" id="numEmpleados" value="0" readonly>
+        <input type="number" id="numEmpleados" value="1" readonly>
         <button class="qty-btn" onclick="cambiarEmpleados(1)">+</button>
       </div>
-      <div style="font-weight: bold;">+ $<span id="costo-nomina">0</span></div>
+
+      <div style="font-weight: bold;">
+        + $<span id="costo-nomina">0</span> <span style="font-size:10px; font-weight:normal;">/mes</span>
+      </div>
     </div>
 
     <div class="total-display">
-      <span class="total-label">Primer Pago Estimado (Diagnóstico + Mensualidad):</span>
+      <span class="total-label">Inversión Mensual Estimada:</span>
       $<span id="total-final">0</span> MXN
+    </div>
+    
+    <div id="nota-diagnostico" class="subtotal-note">
+      * No incluye el Pago Único del Diagnóstico ($<span id="txt-diag-note">0</span>) ya que este monto se bonifica.
     </div>
 
     <div class="action-buttons">
@@ -326,9 +364,8 @@
 <script>
   let precioPlanBase = 0;
   let nombrePlan = "";
-  let costoDiagnostico = 0;
-  let numEmpleados = 0;
-
+  let baseDiagnostico = 0; // Valor base del diagnóstico ($1000 o $2000)
+  
   function cambiarTipo(tipo, btn) {
     document.getElementById('mensaje-inicial').style.display = 'none';
     document.getElementById('zona-calculadora').style.display = 'none';
@@ -353,10 +390,14 @@
 
     precioPlanBase = precio;
     nombrePlan = nombre;
-    costoDiagnostico = costoDiag; 
+    baseDiagnostico = costoDiag; 
+
+    // Resetear checkboxes visualmente
+    document.getElementById('checkDiagnostico').checked = true;
+    document.getElementById('checkNomina').checked = false;
+    toggleNomina(); // Para ocultar el contador si estaba abierto
 
     document.getElementById('zona-calculadora').style.display = 'block';
-    
     setTimeout(() => {
         document.getElementById('zona-calculadora').scrollIntoView({behavior: "smooth", block: "nearest"});
     }, 100);
@@ -364,42 +405,76 @@
     calcularTotal();
   }
 
+  function toggleNomina() {
+    let check = document.getElementById('checkNomina');
+    let wrapper = document.getElementById('wrapper-contador');
+    if (check.checked) {
+      wrapper.classList.add('visible');
+    } else {
+      wrapper.classList.remove('visible');
+    }
+    calcularTotal();
+  }
+
   function cambiarEmpleados(delta) {
     let input = document.getElementById('numEmpleados');
     let nuevoValor = parseInt(input.value) + delta;
-    if (nuevoValor < 0) nuevoValor = 0;
+    if (nuevoValor < 1) nuevoValor = 1; // Mínimo 1 si está activo
     input.value = nuevoValor;
-    numEmpleados = nuevoValor;
     calcularTotal();
   }
 
   function resetearSeleccion() {
     precioPlanBase = 0;
     nombrePlan = "";
-    costoDiagnostico = 0;
+    baseDiagnostico = 0;
     document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
   }
 
   function calcularTotal() {
-    let totalNomina = numEmpleados * 30;
-    let granTotal = precioPlanBase + totalNomina + costoDiagnostico;
+    // 1. Calcular Diagnóstico (Solo visual, NO se suma al mensual)
+    let checkDiag = document.getElementById('checkDiagnostico');
+    let montoDiag = checkDiag.checked ? baseDiagnostico : 0;
+    document.getElementById('costo-diagnostico').innerText = montoDiag.toLocaleString();
+    
+    // Nota al pie
+    let nota = document.getElementById('nota-diagnostico');
+    if(checkDiag.checked) {
+      nota.style.display = 'block';
+      document.getElementById('txt-diag-note').innerText = montoDiag.toLocaleString();
+    } else {
+      nota.style.display = 'none';
+    }
 
-    document.getElementById('nombre-plan-display').innerText = nombrePlan;
-    document.getElementById('costo-diagnostico').innerText = costoDiagnostico.toLocaleString();
+    // 2. Calcular Nómina (Se suma al mensual)
+    let checkNomina = document.getElementById('checkNomina');
+    let num = parseInt(document.getElementById('numEmpleados').value);
+    let totalNomina = 0;
+    
+    if (checkNomina.checked) {
+      totalNomina = num * 30;
+    }
     document.getElementById('costo-nomina').innerText = totalNomina.toLocaleString();
-    document.getElementById('total-final').innerText = granTotal.toLocaleString();
 
-    actualizarWhatsApp(granTotal);
+    // 3. Gran Total (Plan + Nómina) -> OJO: NO SUMAMOS DIAGNÓSTICO AQUÍ
+    let granTotalMensual = precioPlanBase + totalNomina;
+    document.getElementById('total-final').innerText = granTotalMensual.toLocaleString();
+
+    actualizarWhatsApp(granTotalMensual, montoDiag, checkNomina.checked ? num : 0);
   }
 
-  function actualizarWhatsApp(total) {
-    // NÚMERO CORRECTO
+  function actualizarWhatsApp(mensual, diagnostico, empleados) {
     let telefono = "5213329780881"; 
     
-    let mensaje = `Hola DAFIC, me interesa el plan *${nombrePlan}*. \n` +
-                  `Mi cálculo estimado es de *$${total.toLocaleString()}* ` +
-                  `(Incluye ${numEmpleados} empleados y el Diagnóstico). \n` +
-                  `¿Me ayudan a formalizar?`;
+    let textoEmpleados = empleados > 0 ? ` (+ Nómina de ${empleados} empleados)` : "";
+    let textoDiag = diagnostico > 0 ? `\n• Diagnóstico Inicial (Pago Único): $${diagnostico.toLocaleString()}` : "";
+    
+    let mensaje = `Hola DAFIC, me interesa el plan *${nombrePlan}*.\n` +
+                  `--------------------------------\n` +
+                  `• Mensualidad Estimada: *$${mensual.toLocaleString()}*${textoEmpleados}` +
+                  `${textoDiag}\n` +
+                  `--------------------------------\n` +
+                  `¿Podemos agendar para iniciar?`;
 
     let url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     document.getElementById('btn-whatsapp-link').href = url;
