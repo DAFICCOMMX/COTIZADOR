@@ -14,55 +14,33 @@
     text-align: center;
     padding: 60px 20px;
     background-color: #e6e6e6; 
-    min-height: 1200px; /* Aumentamos altura para el formulario */
+    min-height: 1400px; /* Más altura por el calendario */
   }
 
-  /* --- LOGO --- */
-  .dafic-logo-wrapper {
-    margin-bottom: 50px;
-    animation: fadeInDown 1s ease-out;
-  }
+  /* LOGO */
+  .dafic-logo-wrapper { margin-bottom: 50px; animation: fadeInDown 1s ease-out; }
   .dafic-logo-img {
-    max-width: 240px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+    max-width: 240px; height: auto; display: block; margin: 0 auto;
     filter: drop-shadow(5px 5px 10px rgba(163,177,198,0.4));
   }
 
-  /* --- NAVEGACIÓN --- */
+  /* NAVEGACIÓN */
   .dafic-toggle-wrapper {
-    display: inline-flex;
-    background-color: #e6e6e6;
-    border-radius: 50px;
-    padding: 10px;
-    margin-bottom: 60px;
-    gap: 25px;
-    box-shadow: inset 5px 5px 10px #c3c3c3, 
-                inset -5px -5px 10px #ffffff;
+    display: inline-flex; background-color: #e6e6e6; border-radius: 50px;
+    padding: 10px; margin-bottom: 60px; gap: 25px;
+    box-shadow: inset 5px 5px 10px #c3c3c3, inset -5px -5px 10px #ffffff;
   }
   
   .dafic-toggle-btn {
-    padding: 15px 40px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    outline: none;
-    color: #777;
-    border-radius: 40px;
-    text-transform: uppercase;
+    padding: 15px 40px; background: transparent; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 700; letter-spacing: 1px; transition: all 0.3s ease;
+    outline: none; color: #777; border-radius: 40px; text-transform: uppercase;
   }
   .dafic-toggle-btn:hover { color: #333; }
   
   .dafic-toggle-btn.active {
-    color: #000;
-    background-color: #e6e6e6;
-    box-shadow:  5px 5px 10px #c3c3c3, 
-                -5px -5px 10px #ffffff;
+    color: #000; background-color: #e6e6e6;
+    box-shadow:  5px 5px 10px #c3c3c3, -5px -5px 10px #ffffff;
     transform: scale(1.02);
   }
 
@@ -70,120 +48,61 @@
     font-size: 16px; color: #888; margin-top: 50px; font-weight: 300; letter-spacing: 1px; animation: fadeIn 2s;
   }
 
-  /* --- GRID DE TARJETAS --- */
-  .dafic-cards-grid {
-    display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; margin-bottom: 60px;
-  }
+  /* GRID TARJETAS */
+  .dafic-cards-grid { display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; margin-bottom: 60px; }
   
   .dafic-card {
-    background-color: #e6e6e6;
-    border-radius: 25px;
-    padding: 35px 25px;
-    width: 260px;
-    text-align: left;
-    cursor: pointer;
-    position: relative;
-    user-select: none;
+    background-color: #e6e6e6; border-radius: 25px; padding: 35px 25px; width: 260px;
+    text-align: left; cursor: pointer; position: relative; user-select: none;
     border: 1px solid rgba(255,255,255,0.4);
-    box-shadow:  9px 9px 18px #c3c3c3, 
-                -9px -9px 18px #ffffff;
-    transition: all 0.3s ease;
-    opacity: 0;
-    animation: fadeInUp 0.6s forwards;
+    box-shadow:  9px 9px 18px #c3c3c3, -9px -9px 18px #ffffff;
+    transition: all 0.3s ease; opacity: 0; animation: fadeInUp 0.6s forwards;
   }
-  
-  .dafic-card:nth-child(1) { animation-delay: 0.1s; }
-  .dafic-card:nth-child(2) { animation-delay: 0.2s; }
-  .dafic-card:nth-child(3) { animation-delay: 0.3s; }
-  .dafic-card:nth-child(4) { animation-delay: 0.4s; }
+  .dafic-card:nth-child(1) { animation-delay: 0.1s; } .dafic-card:nth-child(2) { animation-delay: 0.2s; }
+  .dafic-card:nth-child(3) { animation-delay: 0.3s; } .dafic-card:nth-child(4) { animation-delay: 0.4s; }
 
-  .dafic-card:hover {
-    transform: translateY(-5px);
-    box-shadow:  14px 14px 28px #c3c3c3, 
-                -14px -14px 28px #ffffff;
-  }
-  
-  .dafic-card.selected {
-    box-shadow: inset 5px 5px 10px #c3c3c3, 
-                inset -5px -5px 10px #ffffff;
-    border: 1px solid transparent;
-    transform: scale(0.98);
-  }
+  .dafic-card:hover { transform: translateY(-5px); box-shadow: 14px 14px 28px #c3c3c3, -14px -14px 28px #ffffff; }
+  .dafic-card.selected { box-shadow: inset 5px 5px 10px #c3c3c3, inset -5px -5px 10px #ffffff; border: 1px solid transparent; transform: scale(0.98); }
   
   .card-check-icon {
     position: absolute; top: 25px; right: 25px; width: 24px; height: 24px;
     border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
-    background: #e6e6e6;
-    box-shadow:  3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
+    background: #e6e6e6; box-shadow: 3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
   }
-  
-  .dafic-card.selected .card-check-icon {
-    background: #e6e6e6;
-    color: #000;
-    box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff;
-  }
+  .dafic-card.selected .card-check-icon { background: #e6e6e6; color: #000; box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff; }
   .dafic-card.selected .card-check-icon::after { content: "✓"; font-size: 14px; font-weight: bold; }
 
   .card-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 1px; color: #777; }
   .card-price-range { font-size: 24px; font-weight: 800; color: #333; display: block; margin-bottom: 15px; letter-spacing: -0.5px; }
   .card-desc { font-size: 13px; color: #555; line-height: 1.6; }
 
-  /* --- CALCULADORA Y FORMULARIO (PANEL GRANDE) --- */
+  /* CALCULADORA Y FORMULARIO */
   .calculator-section {
-    background-color: #e6e6e6;
-    border-radius: 30px;
-    padding: 50px;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
-    display: none;
-    box-shadow:  15px 15px 40px #c3c3c3, 
-                -15px -15px 40px #ffffff;
+    background-color: #e6e6e6; border-radius: 30px; padding: 50px; max-width: 800px;
+    margin: 0 auto; text-align: left; display: none;
+    box-shadow: 15px 15px 40px #c3c3c3, -15px -15px 40px #ffffff;
     animation: slideUpFade 0.6s ease-out;
   }
   
-  .calc-header {
-    margin-bottom: 30px; font-size: 22px; font-weight: 300; color: #333;
-    border-bottom: 1px solid #d1d1d1; padding-bottom: 20px;
-  }
+  .calc-header { margin-bottom: 30px; font-size: 22px; font-weight: 300; color: #333; border-bottom: 1px solid #d1d1d1; padding-bottom: 20px; }
   .calc-header strong { font-weight: 800; }
 
-  /* TARJETAS DE OPCIÓN */
   .calc-option-card {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 25px; padding: 25px; border-radius: 20px;
     background-color: #e6e6e6; cursor: pointer; transition: all 0.3s ease;
     border: 1px solid rgba(255,255,255,0.4);
-    box-shadow:  6px 6px 12px #c3c3c3, 
-                -6px -6px 12px #ffffff;
+    box-shadow: 6px 6px 12px #c3c3c3, -6px -6px 12px #ffffff;
   }
-
-  .calc-option-card:hover {
-    transform: translateY(-2px);
-    box-shadow:  8px 8px 16px #c3c3c3, 
-                -8px -8px 16px #ffffff;
-  }
-
-  .calc-option-card.active {
-    box-shadow: inset 5px 5px 10px #c3c3c3, 
-                inset -5px -5px 10px #ffffff;
-    background-color: #e6e6e6;
-    border: 1px solid transparent;
-    transform: translateY(1px);
-  }
+  .calc-option-card:hover { transform: translateY(-2px); box-shadow: 8px 8px 16px #c3c3c3, -8px -8px 16px #ffffff; }
+  .calc-option-card.active { box-shadow: inset 5px 5px 10px #c3c3c3, inset -5px -5px 10px #ffffff; background-color: #e6e6e6; border: 1px solid transparent; transform: translateY(1px); }
 
   .option-indicator {
-    width: 24px; height: 24px; border-radius: 50%; 
-    background: #e6e6e6;
+    width: 24px; height: 24px; border-radius: 50%; background: #e6e6e6;
     box-shadow: 3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
-    display: flex; align-items: center; justify-content: center;
-    margin-right: 20px; transition: all 0.3s; color: transparent;
+    display: flex; align-items: center; justify-content: center; margin-right: 20px; transition: all 0.3s; color: transparent;
   }
-  
-  .calc-option-card.active .option-indicator {
-    background: #e6e6e6; color: #000;
-    box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff;
-  }
+  .calc-option-card.active .option-indicator { background: #e6e6e6; color: #000; box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff; }
   .calc-option-card.active .option-indicator::after { content: "✓"; font-size: 14px; font-weight: bold; }
 
   .option-title { display: block; font-size: 16px; font-weight: 700; color: #333; margin-bottom: 5px; }
@@ -196,123 +115,109 @@
     box-shadow: inset 3px 3px 6px #c3c3c3, inset -3px -3px 6px #ffffff;
   }
   .qty-control.visible { visibility: visible; opacity: 1; }
-  
   .qty-btn {
     background: #e6e6e6; border: none; width: 32px; height: 32px; border-radius: 50%;
-    font-size: 18px; cursor: pointer; color: #333; 
-    box-shadow:  3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
+    font-size: 18px; cursor: pointer; color: #333; box-shadow: 3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
     transition: all 0.2s; display: flex; align-items: center; justify-content: center;
   }
   .qty-btn:active { box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff; }
-
   #numEmpleados { width: 40px; text-align: center; border: none; font-size: 16px; font-weight: bold; background: transparent; color: #333; }
 
-  .total-display {
-    font-size: 42px; font-weight: 800; text-align: right; margin-top: 40px; color: #333; letter-spacing: -1px;
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
-  }
+  .total-display { font-size: 42px; font-weight: 800; text-align: right; margin-top: 40px; color: #333; letter-spacing: -1px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5); }
   .total-label { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 2px;}
   .subtotal-note { text-align: right; font-size: 12px; color: #999; margin-bottom: 40px; }
 
-  /* --- NUEVOS ESTILOS PARA FORMULARIO Y CALENDARIO --- */
-  .form-section {
-    margin-top: 40px;
-    padding-top: 40px;
-    border-top: 1px solid #d1d1d1;
-  }
-  
+  /* --- FORMULARIO --- */
+  .form-section { margin-top: 40px; padding-top: 40px; border-top: 1px solid #d1d1d1; }
   .form-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; color: #555; }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 25px;
-  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
   
-  /* Inputs Neumórficos (Hundidos) */
   .form-input, .form-select {
-    width: 100%;
-    padding: 15px;
-    border-radius: 15px;
-    border: none;
-    background: #e6e6e6;
+    width: 100%; padding: 15px; border-radius: 15px; border: none; background: #e6e6e6;
     box-shadow: inset 4px 4px 8px #c3c3c3, inset -4px -4px 8px #ffffff;
-    color: #333;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box; /* Para que el padding no rompa el ancho */
-  }
-  .form-input:focus, .form-select:focus {
-    box-shadow: inset 6px 6px 10px #b0b0b0, inset -6px -6px 10px #ffffff;
-  }
-
-  /* Cuadrícula de Horas */
-  .time-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 15px;
-    margin-top: 15px;
+    color: #333; font-size: 14px; outline: none; box-sizing: border-box;
   }
   
-  .time-btn {
-    padding: 10px;
-    border-radius: 10px;
+  /* --- CALENDARIO PERSONALIZADO (Nuevo) --- */
+  .custom-calendar {
     background: #e6e6e6;
-    border: none;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    color: #555;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 6px 6px 12px #c3c3c3, -6px -6px 12px #ffffff; /* Relieve hacia afuera */
+    margin-bottom: 20px;
+  }
+  .calendar-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;
+  }
+  .month-label { font-weight: 800; text-transform: uppercase; color: #333; }
+  .cal-nav {
+    background: #e6e6e6; border: none; cursor: pointer; width: 30px; height: 30px;
+    border-radius: 50%; box-shadow: 3px 3px 6px #c3c3c3, -3px -3px 6px #ffffff;
+    font-weight: bold; color: #555;
+  }
+  .cal-nav:hover { box-shadow: 5px 5px 10px #c3c3c3, -5px -5px 10px #ffffff; }
+  
+  .calendar-weekdays {
+    display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 10px; text-align: center;
+    font-size: 12px; font-weight: bold; color: #777;
+  }
+  .calendar-days {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+  }
+  .day-cell {
+    height: 35px; display: flex; align-items: center; justify-content: center;
+    border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .day-cell:hover:not(.disabled):not(.selected) {
+    background: #dedede;
+  }
+  
+  /* Día Disponible */
+  .day-cell.available {
+    /* No tiene estilo especial, solo hereda */
+  }
+  
+  /* Día Seleccionado (Hundido) */
+  .day-cell.selected {
+    background: #e6e6e6; color: #000;
+    box-shadow: inset 2px 2px 5px #c3c3c3, inset -2px -2px 5px #ffffff;
+  }
+  
+  /* Domingo / Pasado (Deshabilitado) */
+  .day-cell.disabled {
+    color: #bbb; cursor: not-allowed;
+  }
+
+  /* Selector de Hora */
+  .time-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 15px; margin-top: 15px; }
+  .time-btn {
+    padding: 10px; border-radius: 10px; background: #e6e6e6; border: none; cursor: pointer;
+    font-size: 13px; font-weight: 600; color: #555;
     box-shadow: 4px 4px 8px #c3c3c3, -4px -4px 8px #ffffff;
     transition: all 0.2s;
   }
   .time-btn:hover { transform: translateY(-2px); }
   .time-btn.selected {
-    background: #e6e6e6;
-    color: #000;
+    background: #e6e6e6; color: #000;
     box-shadow: inset 3px 3px 6px #c3c3c3, inset -3px -3px 6px #ffffff;
-    border: 1px solid transparent;
   }
 
   .full-width { grid-column: span 2; }
-  
-  @media (max-width: 600px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .full-width { grid-column: span 1; }
-  }
+  @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
 
-  /* BOTÓN FINAL */
-  .action-buttons {
-    display: flex; justify-content: center; margin-top: 40px;
-  }
-
+  .action-buttons { display: flex; justify-content: center; margin-top: 40px; }
   .btn-whatsapp-big {
-    padding: 20px 60px;
-    text-decoration: none;
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 16px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    border-radius: 50px;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 15px;
-    background-color: #e6e6e6; 
-    color: #25D366;
-    box-shadow:  8px 8px 16px #c3c3c3, -8px -8px 16px #ffffff;
+    padding: 20px 60px; text-decoration: none; font-weight: 800; text-transform: uppercase;
+    font-size: 16px; letter-spacing: 1px; cursor: pointer; border-radius: 50px;
+    transition: all 0.3s; display: inline-flex; align-items: center; gap: 15px;
+    background-color: #e6e6e6; color: #25D366;
+    box-shadow: 8px 8px 16px #c3c3c3, -8px -8px 16px #ffffff;
     border: 1px solid rgba(255,255,255,0.5);
   }
-  .btn-whatsapp-big:hover { 
-    transform: translateY(-3px); 
-    box-shadow: 12px 12px 24px #c3c3c3, -12px -12px 24px #ffffff; 
-    color: #1ebc57;
-  }
+  .btn-whatsapp-big:hover { transform: translateY(-3px); box-shadow: 12px 12px 24px #c3c3c3, -12px -12px 24px #ffffff; color: #1ebc57; }
 
   .hidden { display: none !important; }
-  
   @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes slideUpFade { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -422,15 +327,12 @@
       <div class="form-title">Información para tu Cita</div>
       <div class="form-grid">
         <input type="text" id="clientName" class="form-input" placeholder="Nombre Completo" oninput="actualizarWhatsApp()">
-        
-        <input type="text" id="clientGiro" class="form-input" placeholder="Giro del Negocio (ej. Restaurante)" oninput="actualizarWhatsApp()">
-        
+        <input type="text" id="clientGiro" class="form-input" placeholder="Giro del Negocio" oninput="actualizarWhatsApp()">
         <select id="clientStatus" class="form-select" onchange="verificarStatus()">
           <option value="" disabled selected>¿Estás dado de alta en el SAT?</option>
           <option value="No">No, aún no</option>
           <option value="Si">Sí, ya estoy dado de alta</option>
         </select>
-
         <div id="divAtraso" style="display:none;">
           <select id="clientAtraso" class="form-select" onchange="actualizarWhatsApp()">
             <option value="" disabled selected>¿Tienes meses de atraso?</option>
@@ -444,25 +346,32 @@
     <div class="form-section">
       <div class="form-title">Agenda tu Cita (Lun-Sab | 6:30PM - 11:30PM)</div>
       
-      <div style="margin-bottom:15px;">
-        <label style="font-size:12px; font-weight:bold; color:#555; margin-bottom:5px; display:block;">Selecciona el Día:</label>
-        <input type="date" id="citaFecha" class="form-input" onchange="verificarFecha()">
-        <div id="errorFecha" style="color:red; font-size:12px; margin-top:5px; display:none;">Los domingos no laboramos.</div>
+      <div class="custom-calendar">
+        <div class="calendar-header">
+          <button class="cal-nav" onclick="prevMonth()"><</button>
+          <span class="month-label" id="calendar-month-year"></span>
+          <button class="cal-nav" onclick="nextMonth()">></button>
+        </div>
+        <div class="calendar-weekdays">
+          <div>Do</div><div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sa</div>
+        </div>
+        <div class="calendar-days" id="calendar-days">
+          </div>
       </div>
-
-      <label style="font-size:12px; font-weight:bold; color:#555; margin-bottom:5px; display:block;">Selecciona la Hora:</label>
+      
+      <label style="font-size:12px; font-weight:bold; color:#555; display:block;">Selecciona Hora (Hora Seleccionada: <span id="txt-hora-sel">--</span>)</label>
       <div class="time-grid" id="timeGrid">
-        <button class="time-btn" onclick="seleccionarHora('18:30')">06:30 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('19:00')">07:00 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('19:30')">07:30 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('20:00')">08:00 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('20:30')">08:30 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('21:00')">09:00 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('21:30')">09:30 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('22:00')">10:00 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('22:30')">10:30 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('23:00')">11:00 PM</button>
-        <button class="time-btn" onclick="seleccionarHora('23:30')">11:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('18:30', this)">06:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('19:00', this)">07:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('19:30', this)">07:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('20:00', this)">08:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('20:30', this)">08:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('21:00', this)">09:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('21:30', this)">09:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('22:00', this)">10:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('22:30', this)">10:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('23:00', this)">11:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('23:30', this)">11:30 PM</button>
       </div>
     </div>
 
@@ -480,21 +389,85 @@
   let nombrePlan = "";
   let baseDiagnostico = 0;
   let horaSeleccionada = "";
-  
+  let fechaSeleccionada = "";
+
+  /* --- CALENDARIO LOGIC --- */
+  const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  let currentDate = new Date();
+  let currMonth = currentDate.getMonth();
+  let currYear = currentDate.getFullYear();
+
+  function renderCalendar() {
+    const firstDay = new Date(currYear, currMonth, 1).getDay(); // 0 Dom, 6 Sab
+    const daysInMonth = new Date(currYear, currMonth + 1, 0).getDate();
+    const calendarDays = document.getElementById('calendar-days');
+    const monthYearLabel = document.getElementById('calendar-month-year');
+    
+    calendarDays.innerHTML = "";
+    monthYearLabel.innerText = `${monthNames[currMonth]} ${currYear}`;
+
+    // Rellenar espacios vacíos antes del 1ro
+    for (let i = 0; i < firstDay; i++) {
+        let emptyDiv = document.createElement('div');
+        calendarDays.appendChild(emptyDiv);
+    }
+
+    // Días del mes
+    for (let i = 1; i <= daysInMonth; i++) {
+        let dayDiv = document.createElement('div');
+        dayDiv.innerText = i;
+        dayDiv.classList.add('day-cell');
+        
+        // Verificar día de la semana (0 = Domingo)
+        let checkDate = new Date(currYear, currMonth, i);
+        let dayOfWeek = checkDate.getDay();
+
+        if (dayOfWeek === 0) {
+            dayDiv.classList.add('disabled'); // Deshabilitar Domingos
+        } else {
+            dayDiv.onclick = function() { seleccionarFecha(i, this); };
+        }
+        
+        calendarDays.appendChild(dayDiv);
+    }
+  }
+
+  function prevMonth() {
+    currMonth--;
+    if(currMonth < 0) { currMonth = 11; currYear--; }
+    renderCalendar();
+  }
+  function nextMonth() {
+    currMonth++;
+    if(currMonth > 11) { currMonth = 0; currYear++; }
+    renderCalendar();
+  }
+
+  function seleccionarFecha(dia, elemento) {
+    // Quitar seleccion previa
+    let dias = document.querySelectorAll('.day-cell');
+    dias.forEach(d => d.classList.remove('selected'));
+    
+    // Marcar nuevo
+    elemento.classList.add('selected');
+    
+    // Formato fecha
+    fechaSeleccionada = `${dia} de ${monthNames[currMonth]} ${currYear}`;
+    actualizarWhatsApp();
+  }
+
+  /* --- INICIALIZAR --- */
+  renderCalendar();
+
+  /* --- LOGICA ORIGINAL --- */
   function cambiarTipo(tipo, btn) {
     document.getElementById('mensaje-inicial').style.display = 'none';
     document.getElementById('zona-calculadora').style.display = 'none';
     resetearSeleccion();
-
     document.getElementById('grid-fisica').classList.add('hidden');
     document.getElementById('grid-moral').classList.add('hidden');
-
-    if (tipo === 'fisica') {
-      document.getElementById('grid-fisica').classList.remove('hidden');
-    } else if (tipo === 'moral') {
-      document.getElementById('grid-moral').classList.remove('hidden');
-    }
-
+    if (tipo === 'fisica') document.getElementById('grid-fisica').classList.remove('hidden');
+    else document.getElementById('grid-moral').classList.remove('hidden');
     document.querySelectorAll('.dafic-toggle-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
@@ -502,54 +475,32 @@
   function seleccionarPlan(elemento, precio, nombre, costoDiag) {
     document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
     elemento.classList.add('selected');
-
     precioPlanBase = precio;
     nombrePlan = nombre;
     baseDiagnostico = costoDiag; 
-
-    // Resetear opciones
     document.getElementById('checkDiagnostico').checked = true;
     document.getElementById('card-diagnostico').classList.add('active');
     document.getElementById('checkNomina').checked = false;
     document.getElementById('card-nomina').classList.remove('active');
-    
     updateNominaVisibility();
-
     document.getElementById('zona-calculadora').style.display = 'block';
-    setTimeout(() => {
-        document.getElementById('zona-calculadora').scrollIntoView({behavior: "smooth", block: "center"});
-    }, 100);
-
+    setTimeout(() => { document.getElementById('zona-calculadora').scrollIntoView({behavior: "smooth", block: "center"}); }, 100);
     calcularTotal();
   }
 
   function toggleOption(checkboxId, cardId) {
     let check = document.getElementById(checkboxId);
     let card = document.getElementById(cardId);
-    
     check.checked = !check.checked;
-    
-    if (check.checked) {
-      card.classList.add('active');
-    } else {
-      card.classList.remove('active');
-    }
-
-    if(checkboxId === 'checkNomina') {
-      updateNominaVisibility();
-    }
-
+    if (check.checked) card.classList.add('active'); else card.classList.remove('active');
+    if(checkboxId === 'checkNomina') updateNominaVisibility();
     calcularTotal();
   }
 
   function updateNominaVisibility() {
     let check = document.getElementById('checkNomina');
     let wrapper = document.getElementById('wrapper-contador');
-    if (check.checked) {
-      wrapper.classList.add('visible');
-    } else {
-      wrapper.classList.remove('visible');
-    }
+    if (check.checked) wrapper.classList.add('visible'); else wrapper.classList.remove('visible');
   }
 
   function cambiarEmpleados(delta) {
@@ -561,65 +512,24 @@
   }
 
   function resetearSeleccion() {
-    precioPlanBase = 0;
-    nombrePlan = "";
-    baseDiagnostico = 0;
+    precioPlanBase = 0; nombrePlan = ""; baseDiagnostico = 0;
     document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
   }
-
-  /* --- LÓGICA DEL FORMULARIO Y CALENDARIO --- */
 
   function verificarStatus() {
     let status = document.getElementById('clientStatus').value;
     let divAtraso = document.getElementById('divAtraso');
-    
-    if (status === 'Si') {
-      divAtraso.style.display = 'block';
-    } else {
-      divAtraso.style.display = 'none';
-      document.getElementById('clientAtraso').value = ""; // Limpiar si oculta
-    }
+    if (status === 'Si') divAtraso.style.display = 'block';
+    else { divAtraso.style.display = 'none'; document.getElementById('clientAtraso').value = ""; }
     actualizarWhatsApp();
   }
 
-  function verificarFecha() {
-    let inputFecha = document.getElementById('citaFecha');
-    let errorMsg = document.getElementById('errorFecha');
-    let fecha = new Date(inputFecha.value);
-    
-    // getDay(): 0 = Domingo, 6 = Sábado
-    if(fecha.getDay() === 6) { // Ajuste por zona horaria a veces da dia anterior, pero probemos directo
-       // Nota: input date string es YYYY-MM-DD. Al crear Date puede variar por timezone.
-       // Mejor usar tecnica segura:
-       let day = new Date(inputFecha.value.replace(/-/g, '\/')).getDay();
-       if(day === 0) { // 0 es Domingo
-         errorMsg.style.display = 'block';
-         inputFecha.value = ""; // Borrar
-         return;
-       }
-    }
-    errorMsg.style.display = 'none';
-    actualizarWhatsApp();
-  }
-
-  function seleccionarHora(hora) {
+  function seleccionarHora(hora, btn) {
     horaSeleccionada = hora;
-    // Estilo visual botones
+    document.getElementById('txt-hora-sel').innerText = hora;
     let btns = document.querySelectorAll('.time-btn');
     btns.forEach(b => b.classList.remove('selected'));
-    
-    // Encontrar el botón clickeado (truco simple por texto)
-    // Pero mejor pasamos 'this' en el onclick en el futuro. Por ahora buscamos por texto o re-generamos
-    // Iteramos para encontrar cual tiene el texto
-    btns.forEach(b => {
-        if(b.innerText.includes(hora) || b.onclick.toString().includes(hora)) {
-            // Un poco hacky, mejor usamos event.target si reescribiera HTML, 
-            // pero para simplificar, usaremos un loop simple:
-        }
-    });
-    // Mejor enfoque: asignar clase al clickear
-    event.target.classList.add('selected');
-    
+    btn.classList.add('selected');
     actualizarWhatsApp();
   }
 
@@ -627,72 +537,43 @@
     let checkDiag = document.getElementById('checkDiagnostico');
     let montoDiag = checkDiag.checked ? baseDiagnostico : 0;
     document.getElementById('costo-diagnostico').innerText = montoDiag.toLocaleString();
-    
     let nota = document.getElementById('nota-diagnostico');
-    if(checkDiag.checked) {
-      nota.style.display = 'block';
-      document.getElementById('txt-diag-note').innerText = montoDiag.toLocaleString();
-    } else {
-      nota.style.display = 'none';
-    }
+    if(checkDiag.checked) { nota.style.display = 'block'; document.getElementById('txt-diag-note').innerText = montoDiag.toLocaleString(); } 
+    else { nota.style.display = 'none'; }
 
     let checkNomina = document.getElementById('checkNomina');
     let num = parseInt(document.getElementById('numEmpleados').value);
-    let totalNomina = 0;
-    if (checkNomina.checked) {
-      totalNomina = num * 30;
-    }
+    let totalNomina = checkNomina.checked ? num * 30 : 0;
     document.getElementById('costo-nomina').innerText = totalNomina.toLocaleString();
 
     let granTotalMensual = precioPlanBase + totalNomina;
     document.getElementById('total-final').innerText = granTotalMensual.toLocaleString();
-
     document.getElementById('nombre-plan-display').innerText = nombrePlan;
     actualizarWhatsApp();
   }
 
   function actualizarWhatsApp() {
-    // 1. Datos Calculadora
     let totalMensual = document.getElementById('total-final').innerText;
     let checkDiag = document.getElementById('checkDiagnostico').checked;
     let costoDiag = document.getElementById('costo-diagnostico').innerText;
     let empleados = document.getElementById('checkNomina').checked ? document.getElementById('numEmpleados').value : 0;
 
-    // 2. Datos Cliente
     let nombre = document.getElementById('clientName').value || "No especificado";
     let giro = document.getElementById('clientGiro').value || "No especificado";
     let status = document.getElementById('clientStatus').value || "No especificado";
     let atraso = document.getElementById('clientAtraso').value;
     
-    let infoFiscal = "";
-    if(status === 'Si') {
-        infoFiscal = `• Alta SAT: SÍ\n• Estatus: ${atraso || "Sin especificar"}`;
-    } else {
-        infoFiscal = `• Alta SAT: ${status}`;
-    }
-
-    // 3. Datos Cita
-    let fecha = document.getElementById('citaFecha').value || "Pendiente";
+    let infoFiscal = status === 'Si' ? `• Alta SAT: SÍ\n• Estatus: ${atraso || "Sin especificar"}` : `• Alta SAT: ${status}`;
+    let fecha = fechaSeleccionada || "Pendiente";
     let hora = horaSeleccionada || "Pendiente";
-
-    // 4. Armar Mensaje
     let telefono = "5213329780881"; 
-    
     let textoEmpleados = empleados > 0 ? ` (+ Nómina de ${empleados} empleados)` : "";
     let textoDiag = checkDiag ? `\n• Diagnóstico Inicial: $${costoDiag} (Pago Único)` : "";
     
     let mensaje = `Hola DAFIC, quiero agendar mi cita.\n\n` +
-                  `📋 *DATOS DEL CLIENTE*\n` +
-                  `• Nombre: ${nombre}\n` +
-                  `• Giro: ${giro}\n` +
-                  `${infoFiscal}\n\n` +
-                  `📊 *COTIZACIÓN PRELIMINAR*\n` +
-                  `• Plan: ${nombrePlan}\n` +
-                  `• Mensualidad: $${totalMensual}${textoEmpleados}` +
-                  `${textoDiag}\n\n` +
-                  `📅 *SOLICITUD DE CITA*\n` +
-                  `• Fecha: ${fecha}\n` +
-                  `• Hora: ${hora}`;
+                  `📋 *DATOS DEL CLIENTE*\n• Nombre: ${nombre}\n• Giro: ${giro}\n${infoFiscal}\n\n` +
+                  `📊 *COTIZACIÓN*\n• Plan: ${nombrePlan}\n• Mensualidad: $${totalMensual}${textoEmpleados}${textoDiag}\n\n` +
+                  `📅 *CITA SOLICITADA*\n• Fecha: ${fecha}\n• Hora: ${hora}`;
 
     let url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     document.getElementById('btn-whatsapp-link').href = url;
