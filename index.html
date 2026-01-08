@@ -1,225 +1,267 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador DAFIC | Servicios Integrales</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizador DAFIC | Servicios Integrales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --bg-color: #e6e6e6;
-            --text-main: #1a1a1a;
-            --text-light: #666;
-            --shadow-light: rgba(255, 255, 255, 0.9);
-            --shadow-dark: rgba(163, 177, 198, 0.5);
-            --accent-color: #000000;
-            --promo-color: #d32f2f;
-            --discount-text: #FF0000; 
-        }
+<style>
+  /* --- ESTILOS GENERALES --- */
+  :root {
+    --bg-color: #e6e6e6;
+    --text-main: #333;
+    --text-light: #777;
+    --shadow-light: rgba(255, 255, 255, 0.8);
+    --shadow-dark: rgba(163, 177, 198, 0.6);
+    --accent-color: #222;
+    --promo-color: #d32f2f;
+    --new-color: #2E7D32;
+    --discount-text: #FF0000; 
+  }
 
-        body {
-            background-color: var(--bg-color);
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-main);
-            -webkit-font-smoothing: antialiased;
-        }
+  body {
+    background-color: var(--bg-color);
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 
-        .dafic-pricing-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 60px 20px;
-        }
+  /* MEJORA: Títulos con Cinzel para mayor profesionalismo */
+  h1, .month-label, .form-title {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 2px;
+  }
 
-        /* Títulos Cinzel Premium */
-        h1, h3 {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+  .dafic-pricing-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 20px;
+    min-height: 100vh;
+  }
 
-        h1 { font-size: 2.2rem; margin-bottom: 40px; font-weight: 700; }
-        h3 { font-size: 1.2rem; margin-bottom: 20px; border-bottom: 2px solid var(--accent-color); display: inline-block; padding-bottom: 5px; }
+  /* LOGO */
+  .dafic-logo-wrapper { margin-bottom: 60px; animation: fadeInDown 1s ease-out; }
+  .dafic-logo-img {
+    max-width: 250px; height: auto; display: block; margin: 0 auto;
+    filter: drop-shadow(8px 8px 15px var(--shadow-dark));
+    transition: transform 0.3s ease;
+  }
+  .dafic-logo-img:hover { transform: scale(1.02); }
 
-        .dafic-logo-wrapper { margin-bottom: 40px; animation: fadeInDown 0.8s ease-out; }
-        .dafic-logo-img { max-width: 220px; height: auto; filter: drop-shadow(4px 4px 10px var(--shadow-dark)); transition: 0.3s; }
-        .dafic-logo-img:hover { transform: scale(1.05); }
+  /* NAVEGACIÓN NEUMÓRFICA */
+  .dafic-toggle-wrapper {
+    display: inline-flex; background-color: var(--bg-color); border-radius: 50px;
+    padding: 8px; margin-bottom: 60px; gap: 20px;
+    box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+  }
+  .dafic-toggle-btn {
+    padding: 15px 40px; background: transparent; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); outline: none; color: var(--text-light);
+    border-radius: 40px; text-transform: uppercase;
+  }
+  .dafic-toggle-btn.active {
+    color: var(--accent-color); background-color: var(--bg-color);
+    box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    transform: scale(1.03);
+  }
 
-        /* Navegación Neumórfica */
-        .dafic-toggle-wrapper {
-            display: inline-flex; background: var(--bg-color); border-radius: 50px;
-            padding: 10px; margin-bottom: 40px; gap: 15px;
-            box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
-        }
+  .selection-instruction {
+    font-size: 15px; color: #888; margin-top: 50px; font-weight: 500; letter-spacing: 0.5px; animation: fadeIn 2s;
+  }
 
-        .dafic-toggle-btn {
-            padding: 12px 30px; border: none; cursor: pointer;
-            font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800;
-            transition: 0.3s; color: var(--text-light); border-radius: 40px; background: transparent;
-        }
+  /* GRID TARJETAS */
+  .dafic-cards-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
+  
+  .dafic-card {
+    background-color: var(--bg-color); border-radius: 25px; padding: 50px 25px 35px 25px; width: 260px;
+    text-align: left; cursor: pointer; position: relative; user-select: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0; animation: fadeInUp 0.6s forwards; overflow: hidden;
+  }
+  
+  .dafic-card:hover { transform: translateY(-8px); box-shadow: 18px 18px 30px var(--shadow-dark), -18px -18px 30px var(--shadow-light); }
+  .dafic-card.selected { box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); border-color: transparent; transform: scale(0.98); }
+  
+  .popular-badge, .promo-badge, .new-badge {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    color: #fff; font-size: 10px; font-weight: 800; text-transform: uppercase;
+    padding: 6px 15px; border-radius: 0 0 15px 15px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
+  }
+  .popular-badge { background: var(--accent-color); }
+  .promo-badge { background: var(--promo-color); }
+  .new-badge { background: var(--new-color); }
 
-        .dafic-toggle-btn.active {
-            color: white; background: var(--accent-color);
-            box-shadow: 4px 4px 10px var(--shadow-dark);
-        }
+  .card-price-range { font-size: 22px; font-weight: 800; color: #222; display: block; margin-bottom: 15px; }
 
-        /* Cards Grid */
-        .dafic-cards-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-bottom: 50px; }
+  /* CALCULADORA */
+  .calculator-section {
+    background-color: var(--bg-color); border-radius: 40px; padding: 50px; max-width: 850px;
+    margin: 0 auto; text-align: left; display: none;
+    box-shadow: 20px 20px 60px var(--shadow-dark), -20px -20px 60px var(--shadow-light);
+  }
 
-        .dafic-card {
-            background: var(--bg-color); border-radius: 20px; padding: 40px 20px 25px; width: 240px;
-            text-align: left; cursor: pointer; position: relative;
-            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid transparent;
-        }
+  .calc-option-card {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 25px; padding: 25px 30px; border-radius: 20px;
+    box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+    transition: 0.3s ease;
+  }
+  .calc-option-card.active { box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); }
 
-        .dafic-card:hover { transform: translateY(-10px); box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
-        .dafic-card.selected { border: 2px solid var(--accent-color); box-shadow: inset 4px 4px 8px var(--shadow-dark); }
+  /* BOTÓN WHATSAPP MEJORADO */
+  .btn-whatsapp-big {
+    padding: 22px 65px; text-decoration: none; font-weight: 800; text-transform: uppercase;
+    font-size: 15px; cursor: pointer; border-radius: 60px;
+    display: inline-flex; align-items: center; gap: 15px;
+    background-color: var(--bg-color); color: #25D366;
+    box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+    transition: 0.3s;
+  }
+  .btn-whatsapp-big:hover { transform: translateY(-5px); box-shadow: 15px 15px 30px var(--shadow-dark); }
 
-        .card-title { font-size: 11px; font-weight: 800; color: var(--text-light); text-transform: uppercase; margin-bottom: 8px; }
-        .card-price-range { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; display: block; }
-        .card-desc { font-size: 12px; color: #444; line-height: 1.4; }
-
-        /* Calculadora Section */
-        .calculator-section {
-            background: var(--bg-color); border-radius: 30px; padding: 40px; max-width: 800px;
-            margin: 40px auto; box-shadow: 15px 15px 35px var(--shadow-dark), -15px -15px 35px var(--shadow-light);
-            display: none; text-align: left;
-        }
-
-        .calc-option-card {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px; border-radius: 15px; margin-bottom: 15px;
-            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
-            cursor: pointer; transition: 0.3s;
-        }
-
-        .calc-option-card.active { background: #f0f0f0; box-shadow: inset 3px 3px 6px var(--shadow-dark); }
-
-        .total-display { font-size: 3rem; font-weight: 800; text-align: right; margin-top: 30px; letter-spacing: -2px; }
-
-        /* Botón WhatsApp */
-        .btn-whatsapp-big {
-            padding: 20px 40px; text-decoration: none; font-weight: 800; border-radius: 50px;
-            display: inline-flex; align-items: center; gap: 10px; font-size: 14px;
-            background: var(--bg-color); color: #25D366;
-            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
-            transition: 0.3s; max-width: 400px; justify-content: center;
-        }
-
-        .btn-whatsapp-big:hover { transform: scale(1.05); box-shadow: 12px 12px 24px var(--shadow-dark); }
-
-        .hidden { display: none !important; }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+  .hidden { display: none !important; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+</style>
 </head>
 <body>
 
 <div class="dafic-pricing-container">
-    <div class="dafic-logo-wrapper">
-        <img src="https://raw.githubusercontent.com/DAFICCOMMX/COTIZADOR/main/logo.png" alt="DAFIC" class="dafic-logo-img">
+  
+  <div class="dafic-logo-wrapper">
+    <img src="https://raw.githubusercontent.com/DAFICCOMMX/COTIZADOR/main/logo.png" alt="DAFIC" class="dafic-logo-img">
+  </div>
+  
+  <div class="dafic-toggle-wrapper">
+    <button class="dafic-toggle-btn" onclick="cambiarTipo('fisica', this)">Persona Física</button>
+    <button class="dafic-toggle-btn" onclick="cambiarTipo('moral', this)">Persona Moral</button>
+  </div>
+
+  <div id="mensaje-inicial" class="selection-instruction">Seleccione su perfil para comenzar</div>
+
+  <div id="grid-fisica" class="dafic-cards-grid hidden">
+    <div class="dafic-card" onclick="seleccionarPlan(this, 600, 'RESICO', 1000, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title" style="font-weight:800; font-size:12px; margin-bottom:10px;">Régimen Simplificado</div>
+      <span class="card-price-range">$600 - $2,000</span>
+      <p class="card-desc">Ideal para emprendedores y ventas al público.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1200, 'Act. Empresarial', 1000, '')">
+      <div class="popular-badge">Más Popular</div>
+      <div class="card-title" style="font-weight:800; font-size:12px; margin-bottom:10px;">Actividad Empresarial</div>
+      <span class="card-price-range">$1,200 - $6,000</span>
+      <p class="card-desc">Profesionales independientes y negocios.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Regularización Fiscal PF', 0, '')">
+      <div class="new-badge">Recomendado</div>
+      <div class="card-title" style="font-weight:800; font-size:12px; margin-bottom:10px;">Regularización</div>
+      <span class="card-price-range">Desde $2,000</span>
+      <p class="card-desc">Ponte al corriente con tus declaraciones.</p>
+    </div>
     </div>
 
-    <h1>Cotizador de Servicios</h1>
+  <div id="grid-moral" class="dafic-cards-grid hidden">
+    <div class="dafic-card" onclick="seleccionarPlan(this, 3000, 'Contabilidad Persona Moral', 2000, '')">
+      <div class="card-title" style="font-weight:800; font-size:12px; margin-bottom:10px;">Contabilidad</div>
+      <span class="card-price-range">$3,000 - $30,000</span>
+      <p class="card-desc">Cumplimiento total para Sociedades.</p>
+    </div>
+  </div>
 
-    <div class="dafic-toggle-wrapper">
-        <button class="dafic-toggle-btn active" onclick="cambiarTipo('fisica', this)">Persona Física</button>
-        <button class="dafic-toggle-btn" onclick="cambiarTipo('moral', this)">Persona Moral</button>
+  <div id="zona-calculadora" class="calculator-section">
+    <div class="calc-header">Resumen: <strong><span id="nombre-plan-display">---</span></strong></div>
+
+    <div class="calc-option-card active" id="card-regularizacion" style="display:none;">
+      <div style="display:flex; align-items:center;">
+        <div class="option-indicator" style="background:var(--accent-color); color:white; border-radius:50%; width:20px; height:20px; text-align:center; line-height:20px; margin-right:10px;">✓</div>
+        <span class="option-title">Meses a Regularizar</span>
+      </div>
+      <div class="qty-control visible" style="display:flex; align-items:center; gap:10px;">
+        <button class="qty-btn" onclick="cambiarMeses(-1)" style="border-radius:50%; width:30px; height:30px; border:none; cursor:pointer;">-</button>
+        <input type="number" id="numMesesReg" class="num-input" value="1" readonly style="width:40px; text-align:center; border:none; background:transparent; font-weight:800;">
+        <button class="qty-btn" onclick="cambiarMeses(1)" style="border-radius:50%; width:30px; height:30px; border:none; cursor:pointer;">+</button>
+      </div>
+      <span id="txt-descuento" class="discount-alert"></span>
     </div>
 
-    <div id="grid-fisica" class="dafic-cards-grid">
-        <div class="dafic-card" onclick="seleccionarPlan(this, 600, 'RESICO', 1000, '')">
-            <div class="card-title">Régimen Simplificado</div>
-            <span class="card-price-range">$600 - $2k</span>
-            <p class="card-desc">Ideal para emprendedores y nuevos negocios.</p>
-        </div>
-        <div class="dafic-card" onclick="seleccionarPlan(this, 1200, 'Act. Empresarial', 1000, '')">
-            <div class="card-title">Actividad Empresarial</div>
-            <span class="card-price-range">$1,200 - $6k</span>
-            <p class="card-desc">Profesionales independientes con alto volumen.</p>
-        </div>
-        <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Declaración Anual', 0, '')">
-            <span style="color:var(--promo-color); font-size: 9px; font-weight: 800;">OFERTA FEBRERO</span>
-            <div class="card-title">Declaración Anual</div>
-            <span class="card-price-range">$1,000.00</span>
-            <p class="card-desc">Sueldos y salarios. Incluye contraseña GRATIS.</p>
-        </div>
+    <div class="total-display">
+      <span class="total-label" id="label-total">Inversión Estimada</span><br>
+      <span id="total-final">$0</span> MXN
     </div>
 
-    <div id="grid-moral" class="dafic-cards-grid hidden">
-        <div class="dafic-card" onclick="seleccionarPlan(this, 3000, 'Contabilidad Moral', 2000, '')">
-            <div class="card-title">Sociedades</div>
-            <span class="card-price-range">Desde $3,000</span>
-            <p class="card-desc">Cumplimiento total y estrategia fiscal.</p>
-        </div>
+    <div class="action-buttons">
+      <a href="#" id="btn-whatsapp-link" target="_blank" class="btn-whatsapp-big">
+        Confirmar Cita por WhatsApp
+      </a>
     </div>
-
-    <div id="zona-calculadora" class="calculator-section">
-        <h3>Resumen: <span id="nombre-plan-display">---</span></h3>
-        
-        <div class="calc-option-card active" id="card-diagnostico" onclick="toggleOption('checkDiagnostico', 'card-diagnostico')">
-            <div>
-                <span style="font-weight: 800;">Diagnóstico Inicial</span><br>
-                <small>Pago único bonificable</small>
-            </div>
-            <div style="font-weight: 800;">+ $<span id="costo-diagnostico">0</span></div>
-            <input type="checkbox" id="checkDiagnostico" style="display:none;" checked>
-        </div>
-
-        <div class="total-display">
-            <small style="font-size: 12px; text-transform: uppercase; color: #999;">Inversión Estimada</small><br>
-            <span id="total-final">$0</span> <small style="font-size: 18px;">MXN</small>
-        </div>
-
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="#" id="btn-whatsapp-link" target="_blank" class="btn-whatsapp-big">
-                Confirmar por WhatsApp
-            </a>
-        </div>
-    </div>
+  </div>
 </div>
 
 <script>
-    let precioPlanBase = 0; 
-    let nombrePlan = ""; 
-    let baseDiagnostico = 0;
+  let precioPlanBase = 0; let nombrePlan = ""; let baseDiagnostico = 0;
+  let horaSeleccionada = ""; let fechaSeleccionada = "";
 
-    function cambiarTipo(tipo, btn) {
-        document.getElementById('grid-fisica').classList.toggle('hidden', tipo !== 'fisica');
-        document.getElementById('grid-moral').classList.toggle('hidden', tipo !== 'moral');
-        document.querySelectorAll('.dafic-toggle-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('zona-calculadora').style.display = 'none';
-    }
+  function cambiarTipo(tipo, btn) {
+    document.getElementById('mensaje-inicial').style.display = 'none';
+    document.getElementById('grid-fisica').classList.add('hidden');
+    document.getElementById('grid-moral').classList.add('hidden');
+    if (tipo === 'fisica') document.getElementById('grid-fisica').classList.remove('hidden');
+    else document.getElementById('grid-moral').classList.remove('hidden');
+    document.querySelectorAll('.dafic-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
 
-    function seleccionarPlan(ele, prec, nom, diag) {
-        document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
-        ele.classList.add('selected');
-        precioPlanBase = prec;
-        nombrePlan = nom;
-        baseDiagnostico = diag;
-        
-        document.getElementById('nombre-plan-display').innerText = nom;
-        document.getElementById('costo-diagnostico').innerText = diag.toLocaleString();
-        document.getElementById('zona-calculadora').style.display = 'block';
-        calcularTotal();
-    }
+  function seleccionarPlan(ele, prec, nom, diag) {
+    document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
+    ele.classList.add('selected');
+    precioPlanBase = prec; nombrePlan = nom;
+    document.getElementById('nombre-plan-display').innerText = nom;
+    document.getElementById('zona-calculadora').style.display = 'block';
 
-    function calcularTotal() {
-        let diag = document.getElementById('checkDiagnostico').checked ? baseDiagnostico : precioPlanBase;
-        document.getElementById('total-final').innerText = "$" + diag.toLocaleString();
-        actualizarLink();
+    if(nom.includes('Regularización')) {
+        document.getElementById('card-regularizacion').style.display = 'flex';
+    } else {
+        document.getElementById('card-regularizacion').style.display = 'none';
     }
+    calcularTotal();
+  }
 
-    function actualizarLink() {
-        let msg = `Hola DAFIC, me interesa el plan ${nombrePlan}.`;
-        document.getElementById('btn-whatsapp-link').href = `https://wa.me/5213329780881?text=${encodeURIComponent(msg)}`;
+  function cambiarMeses(delta) {
+    let input = document.getElementById('numMesesReg');
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1; input.value = val;
+    calcularTotal();
+  }
+
+  function calcularTotal() {
+    let totalDisplay = document.getElementById('total-final');
+    let totalFinal = 0;
+
+    if (nombrePlan.includes('Regularización')) {
+        let meses = parseInt(document.getElementById('numMesesReg').value);
+        let subtotal = precioPlanBase * meses;
+        let porc = meses >= 12 ? 30 : (meses >= 6 ? 20 : (meses >= 3 ? 10 : 0));
+        totalFinal = subtotal - (subtotal * (porc / 100));
+        document.getElementById('txt-descuento').innerText = porc > 0 ? `¡${porc}% OFF!` : "";
+    } else {
+        totalFinal = precioPlanBase;
     }
+    totalDisplay.innerText = "$" + totalFinal.toLocaleString();
+    actualizarLinks(totalFinal);
+  }
+
+  function actualizarLinks(total) {
+    let msg = `Hola DAFIC, me interesa el plan ${nombrePlan} con un total de $${total}.`;
+    document.getElementById('btn-whatsapp-link').href = `https://wa.me/5213329780881?text=${encodeURIComponent(msg)}`;
+  }
 </script>
 </body>
 </html>
