@@ -1,688 +1,778 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador de Servicios Contables - DAFIC</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizador DAFIC | Servicios Integrales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+<style>
+  /* --- ESTILOS GENERALES --- */
+  :root {
+    --bg-color: #e6e6e6;
+    --text-main: #333;
+    --text-light: #777;
+    --shadow-light: rgba(255, 255, 255, 0.8);
+    --shadow-dark: rgba(163, 177, 198, 0.6);
+    --accent-color: #222;
+    --promo-color: #d32f2f;
+    --new-color: #2E7D32;
+    /* CAMBIO AQUÍ: Color rojo para el texto de descuento */
+    --discount-text: #FF0000; 
+  }
 
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 20px;
-            background-color: #e6e6e6;
-            color: black;
-        }
-        .container {
-            max-width: 700px;
-            margin: auto;
-            padding: 25px;
-            background-color: #e6e6e6;
-            border-radius: 8px;
-            box-shadow: none; 
-        }
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            color: black;
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-            /* INICIO CAMBIO 3D */
-            perspective: 1000px; 
-            transition: transform 0.3s ease; 
-            /* FIN CAMBIO 3D */
-        }
-        h1:hover {
-            transform: rotateY(5deg) scale(1.02);
-        }
-        .servicio-grupo, .info-cliente-grupo {
-            margin-bottom: 25px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-        }
-        .servicio-grupo h3, .info-cliente-grupo h3 {
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            color: black;
-            border-bottom: 2px solid black;
-            padding-bottom: 5px;
-            text-align: center; 
-        }
-        .servicio-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 15px 5px;
-        }
-        .servicio-item-info {
-            flex-grow: 1;
-            overflow: hidden; 
-            word-wrap: break-word;
-            padding-right: 15px;
-        }
-        .servicio-item-info label {
-            font-size: 1.1em;
-            font-weight: 500;
-            color: black;
-            cursor: pointer;
-        }
-        .servicio-item-info .descripcion {
-            font-size: 0.9em;
-            color: black;
-            padding-left: 20px;
-            display: block;
-            margin-top: 4px;
-        }
-        .servicio-item-info .descripcion.no-padding {
-            padding-left: 0;
-        }
-        .servicio-item .precio-control {
-            display: flex;
-            align-items: center;
-            min-width: 150px; 
-            justify-content: flex-end;
-            text-align: right;
-            padding-top: 3px;
-        }
-        .servicio-item .precio {
-            font-size: 0.9em;
-            color: black;
-            font-weight: 500;
-        }
-        .leyenda-consultas {
-            text-align: center;
-            font-style: italic;
-            color: black;
-            font-weight: 500;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0; 
-            border-radius: 5px;
-        }
-        input[type="radio"], input[type="checkbox"] {
-            transform: scale(1.3);
-            margin-right: 10px;
-            cursor: pointer;
-        }
-        input[type="number"] {
-            width: 70px;
-            padding: 5px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            text-align: center;
-            margin-left: 15px;
-        }
-        .info-cliente-grupo .campo {
-            margin-bottom: 15px;
-        }
-        .info-cliente-grupo label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1.1em;
-            color: black;
-        }
-        .info-cliente-grupo input[type="text"],
-        .info-cliente-grupo input[type="number"],
-        .info-cliente-grupo textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .info-cliente-grupo textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-        .info-cliente-grupo .opciones-radio label {
-            display: inline-block;
-            margin-right: 20px;
-            font-weight: normal;
-        }
-        .info-cliente-grupo .opciones-radio input[type="radio"] {
-            margin-right: 5px;
-            transform: scale(1.1);
-        }
-        .campo-condicional {
-            display: none;
-            margin-left: 20px;
-            padding-left: 15px;
-            border-left: 2px solid #eee;
-            margin-top: 10px;
-        }
-        .referido-grupo {
-            background-color: #f0f0f0; 
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        .referido-grupo label {
-            font-weight: 500;
-            font-size: 1.1em;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .referido-grupo input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .referido-grupo small {
-            display: block;
-            font-size: 0.9em;
-            color: black;
-            margin-top: 8px;
-        }
-        .descuento-aplicado {
-            display: none;
-            font-size: 1em;
-            font-weight: bold;
-            color: black; 
-            margin-top: 10px;
-            text-align: center;
-        }
-        .total-container {
-            text-align: right;
-            margin-top: 30px;
-            font-size: 1.9em;
-            font-weight: bold;
-            color: black;
-        }
-        .total-container span {
-            display: inline-block;
-            min-width: 150px;
-            text-align: left;
-            background-color: #f0f0f0; 
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-        .boton-whatsapp {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #25D366;
-            color: #ffffff; 
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-top: 30px;
-            box-sizing: border-box;
-            cursor: pointer;
-            border: none;
-        }
-        .boton-whatsapp:hover {
-            background-color: #128C7E;
-        }
-        .boton-whatsapp.boton-secundario {
-            background-color: #ffffff;
-            color: black;
-            border: 2px solid black;
-            margin-top: 15px;
-        }
-        .boton-whatsapp.boton-secundario:hover {
-            background-color: #f0f0f0;
-            color: black;
-        }
+  body {
+    background-color: var(--bg-color);
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 
-        input[type="text"]#dias_visita {
-            cursor: pointer;
-        }
+  .dafic-pricing-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 20px;
+    min-height: 100vh;
+  }
 
-        @keyframes flash {
-            0%   { background-color: #f0f0f0; } 
-            50%  { background-color: #e0f8e6; } 
-            100% { background-color: #f0f0f0; } 
-        }
+  /* LOGO */
+  .dafic-logo-wrapper { margin-bottom: 60px; animation: fadeInDown 1s ease-out; }
+  .dafic-logo-img {
+    max-width: 250px; height: auto; display: block; margin: 0 auto;
+    filter: drop-shadow(8px 8px 15px var(--shadow-dark));
+    transition: transform 0.3s ease;
+  }
+  .dafic-logo-img:hover { transform: scale(1.02); }
 
-        .total-actualizado {
-            animation: flash 0.8s ease-out;
-        }
+  /* NAVEGACIÓN */
+  .dafic-toggle-wrapper {
+    display: inline-flex; background-color: var(--bg-color); border-radius: 50px;
+    padding: 8px; margin-bottom: 60px; gap: 20px;
+    box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+  }
+  .dafic-toggle-btn {
+    padding: 15px 40px; background: transparent; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); outline: none; color: var(--text-light);
+    border-radius: 40px; text-transform: uppercase;
+  }
+  .dafic-toggle-btn.active {
+    color: var(--accent-color); background-color: var(--bg-color);
+    box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    transform: scale(1.03);
+  }
 
-        /* INICIO: Media Queries para Pantallas Pequeñas (Celulares) */
-        @media (max-width: 600px) {
-            .container {
-                margin: 0 10px; 
-                padding: 15px;
-            }
+  .selection-instruction {
+    font-size: 15px; color: #888; margin-top: 50px; font-weight: 500; letter-spacing: 0.5px; animation: fadeIn 2s;
+  }
 
-            .container a img {
-                max-width: 250px !important; 
-            }
+  /* SEPARADOR */
+  .neumorphic-divider {
+    height: 2px; margin: 60px auto; max-width: 80%; background: var(--bg-color);
+    box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
+    border-radius: 10px; opacity: 0.5;
+  }
 
-            h1 {
-                font-size: 1.5em; 
-                margin-bottom: 20px;
-            }
+  /* GRID TARJETAS */
+  .dafic-cards-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
+  
+  .dafic-card {
+    background-color: var(--bg-color); border-radius: 25px; padding: 50px 25px 35px 25px; width: 260px;
+    text-align: left; cursor: pointer; position: relative; user-select: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0; animation: fadeInUp 0.6s forwards; overflow: hidden;
+  }
+  
+  /* SHEEN */
+  .dafic-card::before {
+    content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+    transform: skewX(-25deg); transition: all 0.7s ease; display: block; z-index: 1; pointer-events: none;
+  }
+  .dafic-card:hover::before { left: 150%; }
 
-            .servicio-item {
-                flex-direction: column; 
-                align-items: flex-start;
-                padding: 10px 0;
-            }
+  .dafic-card:hover { transform: translateY(-8px); box-shadow: 18px 18px 30px var(--shadow-dark), -18px -18px 30px var(--shadow-light); }
+  .dafic-card.selected { box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); border-color: transparent; transform: scale(0.98); }
+  
+  /* BADGES */
+  .popular-badge {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    background: var(--accent-color); color: var(--bg-color);
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    padding: 6px 15px; border-radius: 0 0 15px 15px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
+  }
+  .promo-badge {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    background: var(--promo-color); color: #fff;
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    padding: 6px 15px; border-radius: 0 0 15px 15px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
+    width: auto; text-align: center; white-space: nowrap;
+  }
+  .new-badge {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    background: var(--new-color); color: #fff;
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    padding: 6px 15px; border-radius: 0 0 15px 15px; box-shadow: 4px 4px 8px var(--shadow-dark); z-index: 3;
+  }
 
-            .servicio-item .precio-control {
-                width: 100%;
-                justify-content: flex-start;
-                padding-top: 5px;
-            }
-            
-            .total-container {
-                font-size: 1.4em;
-            }
-        }
-        /* FIN: Media Queries */
-    </style>
+  .card-check-icon {
+    position: absolute; top: 35px; right: 25px; width: 24px; height: 24px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+    background: var(--bg-color); z-index: 2;
+    box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  }
+  .dafic-card.selected .card-check-icon {
+    background: var(--bg-color); color: var(--accent-color);
+    box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+  }
+  .dafic-card.selected .card-check-icon::after { content: "✓"; font-size: 14px; font-weight: 800; }
+
+  .card-title { font-size: 13px; font-weight: 700; margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 1px; color: #888; position: relative; z-index: 2;}
+  .card-price-range { font-size: 22px; font-weight: 800; color: #222; display: block; margin-bottom: 15px; letter-spacing: -0.5px; position: relative; z-index: 2; text-shadow: 1px 1px 1px var(--shadow-light);}
+  .card-desc { font-size: 12px; color: #555; line-height: 1.5; position: relative; z-index: 2; font-weight: 500;}
+
+  /* CALCULADORA */
+  .calculator-section {
+    background-color: var(--bg-color); border-radius: 40px; padding: 50px; max-width: 850px;
+    margin: 0 auto; text-align: left; display: none;
+    box-shadow: 20px 20px 60px var(--shadow-dark), -20px -20px 60px var(--shadow-light);
+    animation: slideUpFade 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .calc-header { margin-bottom: 35px; font-size: 22px; font-weight: 300; color: #333; border-bottom: 1px solid #d1d1d1; padding-bottom: 20px; }
+  .calc-header strong { font-weight: 800; }
+
+  .calc-option-card {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 25px; padding: 25px 30px; border-radius: 20px;
+    background-color: var(--bg-color); cursor: pointer; transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  }
+  .calc-option-card:hover { transform: translateY(-3px); box-shadow: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light); }
+  .calc-option-card.active {
+    box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+    border-color: transparent; transform: translateY(1px);
+  }
+
+  /* Indicador del check */
+  .option-indicator {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--bg-color);
+    box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+    display: flex; align-items: center; justify-content: center; margin-right: 25px; transition: all 0.3s; color: transparent;
+  }
+  .calc-option-card.active .option-indicator {
+    background: var(--bg-color); color: var(--accent-color);
+    box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+  }
+  .calc-option-card.active .option-indicator::after { content: "✓"; font-size: 14px; font-weight: 800; }
+  
+  .option-title { display: block; font-size: 16px; font-weight: 700; color: #333; margin-bottom: 5px; }
+  .option-subtitle { font-size: 13px; color: #777; font-weight: 500; }
+  .option-price { font-size: 20px; font-weight: 700; color: #333; }
+
+  /* CONTROLES NUMÉRICOS (General) */
+  .qty-control {
+    display: flex; align-items: center; background: var(--bg-color); border-radius: 30px;
+    padding: 5px; margin-left: 20px; visibility: hidden; opacity: 0; transition: all 0.3s;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  }
+  .qty-control.visible { visibility: visible; opacity: 1; }
+  .qty-btn {
+    background: var(--bg-color); border: none; width: 35px; height: 35px; border-radius: 50%;
+    font-size: 18px; cursor: pointer; color: #333;
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+    transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+  }
+  .qty-btn:active { box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light); transform: scale(0.95); }
+  
+  /* Inputs de número (empleados y meses) */
+  .num-input { width: 45px; text-align: center; border: none; font-size: 18px; font-weight: 700; background: transparent; color: #333; font-family: 'Montserrat', sans-serif;}
+
+  .total-display {
+    font-size: 52px; font-weight: 800; text-align: right; margin-top: 40px; color: #222; letter-spacing: -2px;
+    text-shadow: 2px 2px 2px var(--shadow-light);
+  }
+  .total-label { font-size: 12px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 3px;}
+  .subtotal-note { text-align: right; font-size: 12px; color: #999; margin-bottom: 40px; font-style: italic; font-weight: 500;}
+  
+  /* CAMBIO: Color rojo para la alerta de descuento */
+  .discount-alert { color: var(--discount-text); font-weight: 800; font-size: 15px; margin-top: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px;}
+
+  /* FORMULARIO Y CALENDARIO */
+  .form-section { margin-top: 40px; padding-top: 40px; border-top: 1px solid #d1d1d1; }
+  .form-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; color: #444; letter-spacing: 1px;}
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
+  .form-input, .form-select {
+    width: 100%; padding: 15px 20px; border-radius: 15px; border: none; background: var(--bg-color);
+    box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+    color: #333; font-size: 14px; outline: none; box-sizing: border-box; font-family: 'Montserrat', sans-serif; font-weight: 500;
+    transition: box-shadow 0.3s;
+  }
+  .form-input:focus, .form-select:focus { box-shadow: inset 8px 8px 15px var(--shadow-dark), inset -8px -8px 15px var(--shadow-light); }
+
+  .custom-calendar {
+    background: var(--bg-color); border-radius: 25px; padding: 25px;
+    box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+    margin-bottom: 25px;
+  }
+  .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+  .month-label { font-weight: 800; text-transform: uppercase; color: #333; letter-spacing: 1px; }
+  .cal-nav {
+    background: var(--bg-color); border: none; cursor: pointer; width: 35px; height: 35px;
+    border-radius: 50%; box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+    font-weight: 700; color: #555; transition: transform 0.2s;
+  }
+  .cal-nav:hover { transform: scale(1.1); }
+  .calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 15px; text-align: center; font-size: 12px; font-weight: 800; color: #999; }
+  .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .day-cell {
+    height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 12px;
+    cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; color: #666;
+  }
+  .day-cell:hover:not(.disabled):not(.selected) { background: #e0e0e0; transform: translateY(-2px); }
+  .day-cell.selected {
+    background: var(--bg-color); color: var(--accent-color); font-weight: 800;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  }
+  .day-cell.disabled { color: #ccc; cursor: not-allowed; font-weight: 400;}
+
+  .time-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; margin-top: 20px; }
+  .time-btn {
+    padding: 12px; border-radius: 15px; background: var(--bg-color); border: none; cursor: pointer;
+    font-size: 13px; font-weight: 600; color: #666; font-family: 'Montserrat', sans-serif;
+    box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    transition: all 0.2s;
+  }
+  .time-btn:hover { transform: translateY(-3px); color: var(--accent-color); }
+  .time-btn.selected {
+    background: var(--bg-color); color: var(--accent-color);
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    border: 1px solid transparent;
+  }
+
+  .action-buttons { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 50px; }
+  .btn-whatsapp-big {
+    padding: 22px 65px; text-decoration: none; font-weight: 800; text-transform: uppercase;
+    font-size: 15px; letter-spacing: 1.5px; cursor: pointer; border-radius: 60px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex; align-items: center; gap: 15px;
+    background-color: var(--bg-color); color: #25D366;
+    box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+  .btn-whatsapp-big:hover { transform: translateY(-5px) scale(1.02); color: #1ebc57; }
+
+  .hidden { display: none !important; }
+  .dafic-card { opacity: 0; animation: fadeInUp 0.6s forwards; }
+  .dafic-card:nth-child(1) { animation-delay: 0.1s; } 
+  .dafic-card:nth-child(2) { animation-delay: 0.15s; }
+  .dafic-card:nth-child(3) { animation-delay: 0.2s; } 
+  .dafic-card:nth-child(4) { animation-delay: 0.25s; }
+  .dafic-card:nth-child(5) { animation-delay: 0.3s; }
+  .dafic-card:nth-child(6) { animation-delay: 0.35s; }
+  .dafic-card:nth-child(7) { animation-delay: 0.4s; }
+  .dafic-card:nth-child(8) { animation-delay: 0.45s; }
+  
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideUpFade { from { opacity: 0; transform: translateY(60px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+</style>
 </head>
 <body>
 
-    <div class="container">
+<div class="dafic-pricing-container">
+  
+  <div class="dafic-logo-wrapper">
+    <img src="https://raw.githubusercontent.com/DAFICCOMMX/COTIZADOR/main/logo.png" 
+         alt="DAFIC" class="dafic-logo-img"
+         onerror="this.onerror=null; this.src='COTIZADOR/logo.png';">
+  </div>
+  
+  <div class="dafic-toggle-wrapper">
+    <button class="dafic-toggle-btn" onclick="cambiarTipo('fisica', this)">Persona Física</button>
+    <button class="dafic-toggle-btn" onclick="cambiarTipo('moral', this)">Persona Moral</button>
+  </div>
 
-        <div style="text-align: center; margin-bottom: 0px;">
-            <a href="https://dafic.com.mx" target="_blank" rel="noopener noreferrer" style="display: inline-block; text-decoration: none;"> 
-                <img src="logo.png" alt="Logo DAFIC" style="max-width: 400px; height: auto; display: block; margin: 0 auto;"> 
-            </a>
-        </div>
-        
-        <h1>COTIZADOR DE SERVICIOS</h1>
-        
-        <div class="servicio-grupo">
-            <h3>Mensualidades</h3>
-            
-            <div class="servicio-item">
-                <div class="servicio-item-info">
-                    <input type="radio" class="servicio-calculo" name="paquete_iguala" data-precio="300" id="pf_basico" data-es-mensualidad="true">
-                    <label for="pf_basico">Paquete PF Básico</label>
-                    <small class="descripcion">Ideal para RESICO (PF) y Arrendamiento. Incluye: Cálculo y presentación de impuestos mensuales (ISR, IVA). Límite: 25 CFDI/mes.</small>
-                </div>
-                <div class="precio-control">
-                    <span class="precio">$300 - $800</span>
-                </div>
-            </div>
-            <div class="servicio-item"><div class="servicio-item-info">
-                <input type="radio" class="servicio-calculo" name="paquete_iguala" data-precio="800" id="pf_intermedio" data-es-mensualidad="true">
-                <label for="pf_intermedio">Paquete PF Intermedio (Plataformas)</label>
-                <small class="descripcion">Únicamente para Plataformas Digitales. Incluye: Cálculo de impuestos (ISR, IVA) y DIOT. Límite: 50 CFDI/mes.</small></div><div class="precio-control">
-                <span class="precio">$800 - $1,500</span>
-            </div></div>
-            <div class="servicio-item"><div class="servicio-item-info">
-                <input type="radio" class="servicio-calculo" name="paquete_iguala" data-precio="1000" id="pf_avanzado" data-es-mensualidad="true">
-                <label for="pf_avanzado">Paquete PF Avanzado (RAEP)</label>
-                <small class="descripcion">Para Personas Físicas con Actividad Empresarial (RAEP). Incluye: Impuestos (ISR, IVA), DIOT y Cont. Electrónica. Límite: 100 CFDI/mes.</small></div><div class="precio-control">
-                <span class="precio">$1,000 - $4,000</span>
-            </div></div>
-            <hr style="border:0; border-top:1px dashed #ccc; margin: 15px 0;">
-            <div class="servicio-item"><div class="servicio-item-info"><input type="radio" class="servicio-calculo" data-precio="3000" id="pm_personalizado" data-es-mensualidad="true"><label for="pm_personalizado">Paquete Persona Moral (A cotizar)</label><small class="descripcion">Para PM (Régimen General o RESICO). El precio final se define según volumen y complejidad.</small></div><div class="precio-control"><span class="precio">$3,000 - $15,000</span></div></div>
-            <div class="servicio-item"><div class="servicio-item-info"><input type="radio" class="servicio-calculo" data-precio="5000" id="contador_externo" data-es-mensualidad="true"><label for="contador_externo">Servicio de Contador Externo</label><small class="descripcion">Servicios de contraloría, auditoría interna, consultoría financiera o fiscal estratégica.</small></div><div class="precio-control"><span class="precio">$5,000 - $10,000</span></div></div>
-            <hr style="border:0; border-top:1px dashed #ccc; margin: 15px 0;">
-            <div class="servicio-item"><div class="servicio-item-info"><input type="radio" class="servicio-calculo" data-precio="1000" id="asesoria_inicial_pf" data-es-mensualidad="false"><label for="asesoria_inicial_pf">Asesoría Inicial (Persona Física)</label><small class="descripcion">Consulta única (2hrs) para diagnóstico fiscal o planificación PF.</small></div><div class="precio-control"><span class="precio">$1,000.00</span></div></div>
-            <div class="servicio-item"><div class="servicio-item-info"><input type="radio" class="servicio-calculo" data-precio="3000" id="asesoria_inicial_pm" data-es-mensualidad="false"><label for="asesoria_inicial_pm">Asesoría Inicial (Persona Moral)</label><small class="descripcion">Consulta única (3hrs) para diagnóstico fiscal o planificación PM.</small></div><div class="precio-control"><span class="precio">$3,000.00</span></div></div>
-            <div class="leyenda-consultas">Nota: Todos los Paquetes (PF y PM) incluyen consultas ilimitadas.</div>
-        </div>
-        
-        <div class="servicio-grupo">
-            <h3>Servicios Recurrentes</h3>
-            <div class="servicio-item"><div class="servicio-item-info"><div style="display: flex; align-items: center;"><label for="nomina">Empleados en Nómina</label><input type="number" class="servicio-calculo" data-precio="90" min="0" value="0" id="nomina"></div><small class="descripcion no-padding">Cálculo, timbrado de recibos y cálculo de impuestos (IMSS, ISN).</small></div><div class="precio-control"><span class="precio">$90.00 c/u</span></div></div>
-        </div>
-        
-        <div class="servicio-grupo" id="grupo-adicionales">
-            <h3>Servicios Adicionales (Pago Único)</h3>
-             <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="1200" id="anual_pf"><label for="anual_pf">Declaración Anual (Persona Física)</label><small class="descripcion">Presentación anual (externo). **Si hay saldo a favor, se cobra 10% adicional sobre el monto recuperado**.</small></div><div class="precio-control"><span class="precio">$1,200.00</span></div></div>
-            <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="5000" id="anual_pm"><label for="anual_pm">Declaración Anual (Persona Moral)</label><small class="descripcion">Presentación de declaración anual para PM (clientes externos).</small></div><div class="precio-control"><span class="precio">$5,000.00</span></div></div>
-            <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="500" id="alta_imss"><label for="alta_imss">Alta Patronal IMSS</label><small class="descripcion">Trámite único de registro de la empresa ante el IMSS.</small></div><div class="precio-control"><span class="precio">$500.00</span></div></div>
-            <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="0" id="devolucion"><label for="devolucion">Gestión de Devolución de Impuestos</label><small class="descripcion">Trámite de devolución de IVA, ISR, etc. **Se cobra el 20% sobre el monto total devuelto**.</small></div><div class="precio-control"><span class="precio">(Bajo %)</span></div></div>
-             <div class="servicio-item"><div class="servicio-item-info"><input type="checkbox" class="servicio-calculo" data-precio="500" id="efirma"><label for="efirma">Trámite de e.firma (Gestión)</label><small class="descripcion">Asesoría y gestión para obtención de cita o renovación de e.firma.</small></div><div class="precio-control"><span class="precio">$500.00</span></div></div>
-        </div>
+  <div id="mensaje-inicial" class="selection-instruction">Seleccione su perfil para comenzar</div>
 
-        <div class="info-cliente-grupo">
-            <h3>Información Adicional</h3>
-            <div class="campo"><label for="nombre_cliente">Tu Nombre</label><input type="text" id="nombre_cliente" placeholder="¿Cómo te llamas?"></div>
-            <div class="campo"><label for="giro">Giro de la empresa</label><input type="text" id="giro" placeholder="Ej: Restaurante, Consultoría, Comercio, etc."></div>
-            <div class="campo"><label for="anios">Años con el negocio</label><input type="number" id="anios" min="0" placeholder="Ej: 3"></div>
-            <div class="campo"><label>¿Están dados de alta en el SAT?</label><div class="opciones-radio"><label><input type="radio" name="alta_sat" value="si" id="alta_sat_si"> Sí</label><label><input type="radio" name="alta_sat" value="no" id="alta_sat_no"> No</label></div></div>
-            <div id="grupo_declaraciones" class="campo-condicional"><div class="campo"><label>Si sí, ¿presentan declaraciones actualmente?</label><div class="opciones-radio"><label><input type="radio" name="declaran" value="si" id="declaran_si"> Sí</label><label><input type="radio" name="declaran" value="no" id="declaran_no"> No</label></div></div><div id="grupo_atraso" class="campo-condicional"><div class="campo"><label for="meses_atraso">Si no declaran, ¿cuántos meses de atraso tienen aproximadamente?</label><input type="number" id="meses_atraso" min="0" placeholder="Ej: 6"></div></div></div>
-            <div class="campo"><label for="direccion">Dirección del negocio (Calle, Número, Colonia, Municipio)</label><textarea id="direccion" placeholder="Ej: Av. Siempre Viva 123, Col. Centro, Zapopan"></textarea></div>
-            
-            <div class="campo"><label for="dias_visita">Días y horarios preferidos para visita</label><input type="text" id="dias_visita" placeholder="Selecciona fecha y hora..."></div>
+  <div id="grid-fisica" class="dafic-cards-grid hidden">
+    <div class="dafic-card" onclick="seleccionarPlan(this, 600, 'RESICO', 1000, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Régimen Simplificado</div>
+      <span class="card-price-range">$600 - $2,000</span>
+      <p class="card-desc">Ideal para emprendedores y ventas al público.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1200, 'Act. Empresarial', 1000, '')">
+      <div class="popular-badge">Más Popular</div>
+      <div class="card-check-icon"></div>
+      <div class="card-title">Actividad Empresarial</div>
+      <span class="card-price-range">$1,200 - $6,000</span>
+      <p class="card-desc">Profesionales independientes y negocios.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Plataformas', 1000, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Plataformas Digitales</div>
+      <span class="card-price-range">$1,000 - $7,000</span>
+      <p class="card-desc">Uber, Airbnb, Amazon, Mercado Libre.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Arrendamiento', 1000, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Arrendamiento</div>
+      <span class="card-price-range">$1,000 - $9,000</span>
+      <p class="card-desc">Gestión fiscal para renta de inmuebles.</p>
+    </div>
+    
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1000, 'Declaración Anual PF', 0, '')">
+      <div class="promo-badge">Oferta hasta 28 Feb</div>
+      <div class="card-check-icon"></div>
+      <div class="card-title">Declaración Anual</div>
+      <span class="card-price-range">$1,000 <small style="font-size:12px; color:#777; font-weight:400;">(Reg. $1,500)</small></span>
+      <p class="card-desc">Sueldos y Salarios. <strong>Incluye Generación de Contraseña GRATIS.</strong></p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 1500, 'Devolución Impuestos PF', 0, ' + 15% de la devolución')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Devolución Impuestos</div>
+      <span class="card-price-range">$1,500 <small style="font-size:14px;">+ 15%</small></span>
+      <p class="card-desc">Gestión integral para la recuperación de tu saldo a favor.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 2000, 'Regularización Fiscal PF', 0, '')">
+      <div class="new-badge">Recomendado</div>
+      <div class="card-check-icon"></div>
+      <div class="card-title">Regularización</div>
+      <span class="card-price-range">Desde $2,000</span>
+      <p class="card-desc">Ponte al corriente con declaraciones de años anteriores.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 800, 'Renovación e.Firma', 0, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Renovación e.Firma</div>
+      <span class="card-price-range">$800</span>
+      <p class="card-desc">Trámite en línea para renovar tu firma electrónica vencida.</p>
+    </div>
+    
+    <div class="dafic-card" onclick="seleccionarPlan(this, 500, 'Cita SAT', 0, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Citas SAT</div>
+      <span class="card-price-range">$500</span>
+      <p class="card-desc">Agendamos tu cita para firma electrónica o trámites.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 500, 'Trámite IMSS', 0, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Trámite IMSS</div>
+      <span class="card-price-range">$500</span>
+      <p class="card-desc">Altas, bajas y gestión de seguridad social.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 200, 'Generación Contraseña', 0, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Generar Contraseña</div>
+      <span class="card-price-range">$200</span>
+      <p class="card-desc">Acceso al portal del SAT. (Gratis si contratas anual).</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 800, 'Asesoría 1:1', 0, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Asesoría 1 a 1</div>
+      <span class="card-price-range">$800 <small style="font-size:12px;">/ hora</small></span>
+      <p class="card-desc">Sesión por Zoom para resolver dudas específicas.</p>
+    </div>
+  </div>
 
+  <div id="grid-moral" class="dafic-cards-grid hidden">
+    <div class="dafic-card" onclick="seleccionarPlan(this, 3000, 'Contabilidad Persona Moral', 2000, '')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Contabilidad</div>
+      <span class="card-price-range">$3,000 - $30,000</span>
+      <p class="card-desc">Cumplimiento total para Sociedades.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 7000, 'Estrategia Fiscal', 2000, '')">
+      <div class="popular-badge">Recomendado</div>
+      <div class="card-check-icon"></div>
+      <div class="card-title">Estrategia Fiscal</div>
+      <span class="card-price-range">$7,000 - $35,000</span>
+      <p class="card-desc">Reingeniería fiscal y optimización (Solo Asesoría).</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 3500, 'Devolución Impuestos PM', 0, ' + 20% de la devolución')">
+      <div class="card-check-icon"></div>
+      <div class="card-title">Devolución Impuestos</div>
+      <span class="card-price-range">$3,500 <small style="font-size:14px;">+ 20%</small></span>
+      <p class="card-desc">Recuperación de saldos para Personas Morales.</p>
+    </div>
+    <div class="dafic-card" onclick="seleccionarPlan(this, 4000, 'Regularización Fiscal PM', 0, '')">
+      <div class="new-badge">Importante</div>
+      <div class="card-check-icon"></div>
+      <div class="card-title">Regularización</div>
+      <span class="card-price-range">Desde $4,000</span>
+      <p class="card-desc">Ponte al corriente y evita multas o cancelaciones.</p>
+    </div>
+  </div>
+
+  <div class="neumorphic-divider"></div>
+
+  <div id="zona-calculadora" class="calculator-section">
+    <div class="calc-header">Resumen: <strong><span id="nombre-plan-display">---</span></strong></div>
+
+    <div class="calc-option-card active" id="card-regularizacion" style="display:none;" onclick="event.stopPropagation()">
+      <div style="display:flex; align-items:center;">
+        <div class="option-indicator" style="background:var(--accent-color); color:white;">✓</div>
+        <div class="option-content">
+          <span class="option-title">Periodo a Regularizar</span>
+          <span class="option-subtitle">Entre más meses, mayor descuento.</span>
+          <span id="txt-descuento" class="discount-alert"></span>
         </div>
-
-        <div class="referido-grupo">
-            <label for="referido">¿Alguien te recomendó con nosotros?</label>
-            <input type="text" id="referido" class="servicio-calculo" placeholder="Escribe el nombre de quien te refirió">
-            <small>¡Si es tu primera vez, <strong>ambos</strong> (tú y la persona que te refirió) obtienen un 10% de descuento en la primera mensualidad de un paquete!</small>
-            <div id="descuento-texto" class="descuento-aplicado">
-                ¡10% de descuento aplicado a la mensualidad!
-            </div>
-        </div>
-        
-        <div class="total-container">
-            TOTAL MÍNIMO (MXN): $ <span id="total-display">0.00</span>
-        </div>
-
-        <button id="enviar-whatsapp" class="boton-whatsapp">
-            Enviar Cotización por WhatsApp
-        </button>
-
-        <button id="info-whatsapp" class="boton-whatsapp boton-secundario">
-            Solicitar más Información
-        </button>
-
+      </div>
+      <div id="wrapper-meses" class="qty-control visible">
+        <button class="qty-btn" onclick="cambiarMeses(-1)">-</button>
+        <input type="number" id="numMesesReg" class="num-input" value="1" readonly>
+        <button class="qty-btn" onclick="cambiarMeses(1)">+</button>
+      </div>
+      <div class="option-price" style="min-width: 80px; text-align: right;">meses</div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    <div class="calc-option-card active" id="card-diagnostico" onclick="toggleOption('checkDiagnostico', 'card-diagnostico')">
+      <div style="display:flex; align-items:center;"><div class="option-indicator"></div><div class="option-content"><span class="option-title">Diagnóstico Inicial</span><span class="option-subtitle">Pago único (Bonificable 100%)</span></div></div>
+      <div class="option-price">+ $<span id="costo-diagnostico">0</span></div>
+      <input type="checkbox" id="checkDiagnostico" style="display:none;" checked>
+    </div>
 
-            // --- Inicialización del calendario Flatpickr ---
-            flatpickr.localize(flatpickr.l10ns.es); 
-            flatpickr("#dias_visita", {
-                enableTime: true,       
-                minDate: "today",       
-                dateFormat: "Y-m-d H:i", 
-                time_24hr: true         
-            });
-            // --- Fin Flatpickr ---
+    <div class="calc-option-card" id="card-nomina" onclick="toggleOption('checkNomina', 'card-nomina')">
+      <div style="display:flex; align-items:center;"><div class="option-indicator"></div><div class="option-content"><span class="option-title">Nómina / Empleados</span><span class="option-subtitle">¿Tienes personal? ($30 c/u)</span></div></div>
+      <div id="wrapper-contador" class="qty-control" onclick="event.stopPropagation()"><button class="qty-btn" onclick="cambiarEmpleados(-1)">-</button><input type="number" id="numEmpleados" class="num-input" value="1" readonly><button class="qty-btn" onclick="cambiarEmpleados(1)">+</button></div>
+      <div class="option-price">+ $<span id="costo-nomina">0</span></div>
+      <input type="checkbox" id="checkNomina" style="display:none;">
+    </div>
 
-            // --- Lista de Referidos Válidos ---
-            const listaNombresValidos = ["ALEJANDRA DELGADO GAYTAN","ALEJANDRA ENRIQUEZ LUNA","ALEJANDRO PRIETO AVILA","ALONZO MARMOLEJOMENDIOLA","ARACELI ROBLES CASTILLO","ASTRID PARRA NORIEGA","BRYAN YAIR AVILA SANTILLAN","CARLOS ANTONIO CARDONA ALERIANO","CARLOS OCTAVIO ROSALES GARCIA","COLEGIO DE REUMATOLOGOS DE AGUASCALIENTES","DANIELA ALEJANDRA SALDAÑA GAYTAN","EDSG","ERICK GEOVANNI MIRANDA BALDOVINES","GUADALUPE ESTHER CHAVEZ MATA","GUILLERMO JOSEPH GARCIA","IVAN ALEJANDRO MEDINA PEREZ","JESUS ALBERTO SOTOMAYOR","JESUS OMAR AVILA SANTILLAN","JOSE ANTONIO DURAN HERNANDEZ","JOSE LUIS ESPINOZA LOPEZ","JUAN ANGEL FLORES PACHECO","JUAN ANTONIO DIAZ RODRIGUEZ","JULIA MENDOZA NUÑEZ","KAREN JUAREZ NICOLAS","LUCY GARCIA","MARCO ANTONIO PAREDES VELAZQUEZ","MARIZA SANTILLAN ORTIZ","MARTIN SANTILLAN GOMEZ","MIGUEL ANGEL VIVEROS PEREZ","NIDIA FERNANDEZ ESPINOSA","ROBEROTO OLMEDO HERNANDEZ","RODOLFO CARDENAS JIMENEZ","VIANNEY PARRA NORIEGA","VICTOR HUGO TENORIO MARTINEZ","YADIRA CAROLANA MORALES SANCHEZ","JONATHAN"];
-            const validReferrers = listaNombresValidos.map(name => name.toUpperCase().trim());
-            
-            // --- Selectores de Elementos ---
-            const inputsCalculo = document.querySelectorAll('.servicio-calculo');
-            const totalDisplay = document.getElementById('total-display');
-            const campoReferido = document.getElementById('referido');
-            const textoDescuento = document.getElementById('descuento-texto');
-            const radioAltaSatSi = document.getElementById('alta_sat_si');
-            const radioAltaSatNo = document.getElementById('alta_sat_no');
-            const grupoDeclaraciones = document.getElementById('grupo_declaraciones');
-            const radioDeclaranSi = document.getElementById('declaran_si');
-            const radioDeclaranNo = document.getElementById('declaran_no');
-            const grupoAtraso = document.getElementById('grupo_atraso');
-            const botonWhatsApp = document.getElementById('enviar-whatsapp');
-            const botonInfo = document.getElementById('info-whatsapp');
-            const telefono = "523329780881"; 
+    <div class="total-display"><span class="total-label" id="label-total">Inversión Estimada</span><br><span id="total-final">$0</span> MXN</div>
+    <div id="nota-diagnostico" class="subtotal-note" style="display:none;">* Este monto cubre únicamente el Diagnóstico.</div>
 
-            // --- FUNCIÓN DE CÁLCULO (CORREGIDA CON ID) ---
-            function getCalculo() {
-                let total = 0;
-                let descuentoAplicado = false;
-                const nombreReferidoEstandarizado = campoReferido ? campoReferido.value.trim().toUpperCase() : ""; 
-                const esReferidoValido = validReferrers.includes(nombreReferidoEstandarizado);
-                
-                // --- 1. Mensualidades ---
-                const paqueteSeleccionado = document.querySelector('input[name="paquete_iguala"]:checked');
-                let precioPaquete = 0;
-                if (paqueteSeleccionado) {
-                    precioPaquete = parseFloat(paqueteSeleccionado.dataset.precio) || 0;
-                    const esMensualidad = paqueteSeleccionado.dataset.esMensualidad === 'true';
-                    if (esMensualidad && esReferidoValido) {
-                        precioPaquete *= 0.90; 
-                        descuentoAplicado = true;
-                    }
-                }
-                total += precioPaquete;
+    <div class="form-section">
+      <div class="form-title">Información para tu Cita</div>
+      <div class="form-grid">
+        <input type="text" id="clientName" class="form-input" placeholder="Nombre Completo" oninput="actualizarLinks()">
+        <input type="text" id="clientGiro" class="form-input" placeholder="Giro del Negocio" oninput="actualizarLinks()">
+        <select id="clientStatus" class="form-select" onchange="verificarStatus()">
+          <option value="" disabled selected>¿Estás dado de alta en el SAT?</option>
+          <option value="No">No, aún no</option>
+          <option value="Si">Sí, ya estoy dado de alta</option>
+        </select>
+        <div id="divAtraso" style="display:none;">
+          <select id="clientAtraso" class="form-select" onchange="actualizarLinks()">
+            <option value="" disabled selected>¿Tienes meses de atraso?</option>
+            <option value="Sin Atraso">No, voy al corriente</option>
+            <option value="Con Atraso">Sí, tengo declaraciones pendientes</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-                // --- 2. Servicios Recurrentes (Nómina) ---
-                const nominaInput = document.getElementById('nomina');
-                const nominaCantidad = nominaInput ? (parseInt(nominaInput.value) || 0) : 0;
-                if (nominaCantidad > 0) {
-                    total += (parseFloat(nominaInput.dataset.precio) || 0) * nominaCantidad;
-                }
+    <div class="form-section">
+      <div class="form-title">Agenda tu Cita (Lun-Sab | 6:30PM - 11:30PM)</div>
+      <div class="custom-calendar">
+        <div class="calendar-header"><button class="cal-nav" onclick="prevMonth()"><</button><span class="month-label" id="calendar-month-year"></span><button class="cal-nav" onclick="nextMonth()">></button></div>
+        <div class="calendar-weekdays"><div>Do</div><div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sa</div></div>
+        <div class="calendar-days" id="calendar-days"></div>
+      </div>
+      <label style="font-size:12px; font-weight:bold; color:#777; display:block; text-transform:uppercase; letter-spacing:1px;">Hora Seleccionada: <span id="txt-hora-sel" style="color:#000;">--</span></label>
+      <div class="time-grid" id="timeGrid">
+        <button class="time-btn" onclick="seleccionarHora('18:30', this)">06:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('19:00', this)">07:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('19:30', this)">07:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('20:00', this)">08:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('20:30', this)">08:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('21:00', this)">09:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('21:30', this)">09:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('22:00', this)">10:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('22:30', this)">10:30 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('23:00', this)">11:00 PM</button>
+        <button class="time-btn" onclick="seleccionarHora('23:30', this)">11:30 PM</button>
+      </div>
+    </div>
 
-                // --- 3. Servicios Adicionales (Pago Único) ---
-                const adicionales = document.querySelectorAll('#grupo-adicionales input[type="checkbox"]');
-                adicionales.forEach(input => {
-                    if (input.checked) {
-                        total += (parseFloat(input.dataset.precio) || 0);
-                    }
-                });
+    <div class="action-buttons">
+      <a href="#" id="btn-whatsapp-link" target="_blank" class="btn-whatsapp-big">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.664-.698c.969.591 1.746.864 2.792.864 3.19 0 5.775-2.586 5.775-5.766.001-3.18-2.587-5.767-5.771-5.767zm12 5.766c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-4.586 3.193c-.237-.118-1.402-.693-1.619-.772-.217-.079-.375-.118-.533.118-.158.237-.612.772-.75.93-.138.157-.276.177-.513.059-.237-.118-1.002-.37-1.908-1.177-.704-.627-1.18-1.401-1.318-1.637-.138-.237-.007-.365.112-.483.107-.107.237-.276.355-.414.118-.138.158-.237.237-.394.079-.158.04-.296-.02-.414-.059-.118-.533-1.286-.73-1.761-.192-.464-.386-.401-.533-.408-.138-.007-.296-.007-.454-.007-.158 0-.414.059-.632.296-.217.237-.829.809-.829 1.974 0 1.165.849 2.29 .967 2.448.118.157 1.671 2.551 4.049 3.577.566.244 1.008.391 1.353.501.572.181 1.093.155 1.505.094.461-.068 1.402-.573 1.6-1.127.198-.553.198-1.028.139-1.127-.059-.099-.217-.158-.454-.277z"/></svg>
+        Confirmar Cita por WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
 
-                return {
-                    montoTotal: total,
-                    descuentoFueAplicado: descuentoAplicado,
-                    esReferidoValido: esReferidoValido
-                };
-            }
+<script>
+  let precioPlanBase = 0; let nombrePlan = ""; let baseDiagnostico = 0;
+  let horaSeleccionada = ""; let fechaSeleccionada = "";
+  let textoExtraPrecio = ""; 
 
-            // --- Función para ACTUALIZAR LA PANTALLA ---
-            function actualizarDisplay() {
-                const calculo = getCalculo();
-                
-                if (totalDisplay) {
-                    totalDisplay.textContent = calculo.montoTotal.toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
+  const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  let currentDate = new Date();
+  let currMonth = currentDate.getMonth();
+  let currYear = currentDate.getFullYear();
 
-                    const totalContainer = document.querySelector('.total-container span');
-                    totalContainer.classList.add('total-actualizado');
-                    setTimeout(() => {
-                        totalContainer.classList.remove('total-actualizado');
-                    }, 800); 
-                }
+  function renderCalendar() {
+    const firstDay = new Date(currYear, currMonth, 1).getDay(); 
+    const daysInMonth = new Date(currYear, currMonth + 1, 0).getDate();
+    const calendarDays = document.getElementById('calendar-days');
+    document.getElementById('calendar-month-year').innerText = `${monthNames[currMonth]} ${currYear}`;
+    calendarDays.innerHTML = "";
+    for (let i = 0; i < firstDay; i++) { calendarDays.appendChild(document.createElement('div')); }
+    for (let i = 1; i <= daysInMonth; i++) {
+        let dayDiv = document.createElement('div');
+        dayDiv.innerText = i; dayDiv.classList.add('day-cell');
+        let checkDate = new Date(currYear, currMonth, i);
+        if (checkDate.getDay() === 0) dayDiv.classList.add('disabled');
+        else dayDiv.onclick = function() { seleccionarFecha(i, this); };
+        calendarDays.appendChild(dayDiv);
+    }
+  }
+  function prevMonth() { currMonth--; if(currMonth < 0) { currMonth = 11; currYear--; } renderCalendar(); }
+  function nextMonth() { currMonth++; if(currMonth > 11) { currMonth = 0; currYear++; } renderCalendar(); }
+  function seleccionarFecha(dia, elemento) {
+    document.querySelectorAll('.day-cell').forEach(d => d.classList.remove('selected'));
+    elemento.classList.add('selected');
+    fechaSeleccionada = `${dia} de ${monthNames[currMonth]} ${currYear}`;
+    actualizarLinks();
+  }
+  renderCalendar();
 
-                if (textoDescuento) {
-                    textoDescuento.style.display = calculo.descuentoFueAplicado ? 'block' : 'none';
-                }
-            }
-            
-            // --- Event Listeners para Recalcular ---
-            inputsCalculo.forEach(input => {
-                input.addEventListener('change', actualizarDisplay);
-                input.addEventListener('input', actualizarDisplay);
-            });
-            
-            // --- Lógica Campos Condicionales ---
-            function manejarVisibilidadCampos() {
-                 if (radioAltaSatSi && grupoDeclaraciones && grupoAtraso && radioDeclaranNo && radioDeclaranSi) {
-                     if (radioAltaSatSi.checked) {
-                        grupoDeclaraciones.style.display = 'block';
-                        if (radioDeclaranNo.checked) {
-                            grupoAtraso.style.display = 'block';
-                        } else {
-                            grupoAtraso.style.display = 'none';
-                        }
-                    } else {
-                        grupoDeclaraciones.style.display = 'none';
-                        grupoAtraso.style.display = 'none';
-                    }
-                 } 
-            }
-            if(radioAltaSatSi) radioAltaSatSi.addEventListener('change', manejarVisibilidadCampos);
-            if(radioAltaSatNo) radioAltaSatNo.addEventListener('change', manejarVisibilidadCampos);
-            if(radioDeclaranSi) radioDeclaranSi.addEventListener('change', manejarVisibilidadCampos);
-            if(radioDeclaranNo) radioDeclaranNo.addEventListener('change', manejarVisibilidadCampos);
-            
-            // --- Función para Generar Mensaje WhatsApp ---
-            function generarMensaje() {
-                const nombreCliente = document.getElementById('nombre_cliente')?.value.trim() || "Cliente";
-                const giro = document.getElementById('giro')?.value.trim() || "No especificado";
-                const anios = document.getElementById('anios')?.value.trim() || "No especificado";
-                const altaSatRadio = document.querySelector('input[name="alta_sat"]:checked');
-                let infoSituacionFiscal = "Situación SAT no especificada.";
-                if (altaSatRadio) { 
-                    if (altaSatRadio.value === 'si') { 
-                        infoSituacionFiscal = " Sí estoy dado de alta en el SAT."; 
-                        const declaranRadio = document.querySelector('input[name="declaran"]:checked'); 
-                        if (declaranRadio) { 
-                            if (declaranRadio.value === 'si') { 
-                                infoSituacionFiscal += " Actualmente declaro."; 
-                            } else { 
-                                infoSituacionFiscal += " No declaro actualmente."; 
-                                const mesesAtrasoInput = document.getElementById('meses_atraso'); 
-                                const mesesAtraso = mesesAtrasoInput ? mesesAtrasoInput.value.trim() : ""; 
-                                if (mesesAtraso && mesesAtraso !== "0") { 
-                                    infoSituacionFiscal += ` Tengo aproximadamente ${mesesAtraso} meses de atraso.`; 
-                                } 
-                            } 
-                        } else { 
-                            infoSituacionFiscal += " (No especificó si declara actualmente)"; 
-                        } 
-                    } else { 
-                        infoSituacionFiscal = " No estoy dado de alta en el SAT."; 
-                    } 
-                }
-                const direccion = document.getElementById('direccion')?.value.trim() || "No especificada";
-                const diasVisita = document.getElementById('dias_visita')?.value.trim() || "No especificados";
+  function cambiarTipo(tipo, btn) {
+    document.getElementById('mensaje-inicial').style.display = 'none';
+    document.getElementById('zona-calculadora').style.display = 'none';
+    resetearSeleccion();
+    document.getElementById('grid-fisica').classList.add('hidden');
+    document.getElementById('grid-moral').classList.add('hidden');
+    if (tipo === 'fisica') document.getElementById('grid-fisica').classList.remove('hidden');
+    else document.getElementById('grid-moral').classList.remove('hidden');
+    document.querySelectorAll('.dafic-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelector('.neumorphic-divider').style.display = 'none';
+  }
 
-                let mensajeIntro = `¡Hola DAFIC! Soy ${nombreCliente}. `;
-                mensajeIntro += `El giro de mi negocio es ${giro}. `;
-                mensajeIntro += `Tengo ${anios} años con él.`;
-                mensajeIntro += infoSituacionFiscal;
-                mensajeIntro += ` Mi negocio está ubicado en ${direccion}.`;
-                mensajeIntro += ` Me gustaría que me visitaran preferentemente: ${diasVisita}.`;
-                
-                const calculo = getCalculo();
-                const totalCalculado = calculo.montoTotal;
-                const descuentoAplicado = calculo.descuentoFueAplicado;
-                
-                let hayMensualidad = false, hayRecurrentes = false, hayAdicionales = false, esRango = false;
-                const nombreReferido = campoReferido ? campoReferido.value.trim() : "";
-                let resumenServicios = "";
+  function seleccionarPlan(ele, prec, nom, diag, txtExtra) {
+    document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected'));
+    ele.classList.add('selected');
+    
+    precioPlanBase = prec; 
+    nombrePlan = nom; 
+    baseDiagnostico = diag;
+    textoExtraPrecio = txtExtra;
 
-                // Mensualidades (Texto)
-                const paqueteSeleccionado = document.querySelector('input[name="paquete_iguala"]:checked');
-                if (paqueteSeleccionado) { 
-                     let precioOriginal = parseFloat(paqueteSeleccionado.dataset.precio) || 0; 
-                     if (precioOriginal > 0) { 
-                         const label = document.querySelector(`label[for='${paqueteSeleccionado.id}']`); 
-                         const precioTextoElement = paqueteSeleccionado.closest('.servicio-item')?.querySelector('.precio');
-                         const precioTexto = precioTextoElement ? precioTextoElement.textContent : "";
-                         let precioFinalTexto = ""; 
-                         
-                         let precioActual = precioOriginal; 
-                         if (descuentoAplicado) {
-                             precioActual = precioOriginal * 0.90;
-                         }
-                         
-                         if (precioTexto.includes('-')) { 
-                             esRango = true; 
-                             precioFinalTexto = ` (Rango: ${precioTexto}`;
-                             if (descuentoAplicado) {
-                                 precioFinalTexto += `, con 10% desc. ref. sobre mínimo)`;
-                             } else {
-                                 precioFinalTexto += `)`;
-                             }
-                         } else { 
-                              precioFinalTexto = ` ($${precioActual.toFixed(2)}`;
-                             if (descuentoAplicado) {
-                                 precioFinalTexto += `, precio original $${precioOriginal.toFixed(2)})`;
-                             } else {
-                                  precioFinalTexto += `)`;
-                             }
-                         } 
-                         resumenServicios += `- Mensualidad: ${label ? label.textContent : 'Paquete seleccionado'}${precioFinalTexto}\n`; 
-                         hayMensualidad = true; 
-                     } 
-                }
-                
-                // Recurrentes (Texto)
-                const nominaInput = document.getElementById('nomina');
-                const nominaCantidad = nominaInput ? (parseInt(nominaInput.value) || 0) : 0;
-                if (nominaCantidad > 0) { 
-                    const precio = parseFloat(nominaInput.dataset.precio) || 0; 
-                    const subtotal = precio * nominaCantidad; 
-                    resumenServicios += `- Empleados en Nómina: ${nominaCantidad} ($${subtotal.toFixed(2)})\n`; 
-                    hayRecurrentes = true; 
-                }
+    let cardDiag = document.getElementById('card-diagnostico');
+    let cardNom = document.getElementById('card-nomina');
+    let cardReg = document.getElementById('card-regularizacion');
+    let checkDiag = document.getElementById('checkDiagnostico');
+    let checkNom = document.getElementById('checkNomina');
 
-                // Adicionales (Texto)
-                const adicionales = document.querySelectorAll('#grupo-adicionales input[type="checkbox"]');
-                adicionales.forEach(input => { 
-                    if (input.checked) { 
-                        hayAdicionales = true; 
-                        const precio = parseFloat(input.dataset.precio) || 0; 
-                        const label = document.querySelector(`label[for='${input.id}']`); 
-                        if (precio > 0) { 
-                            resumenServicios += `- Adicional: ${label ? label.textContent : 'Servicio adicional'} ($${precio.toFixed(2)})\n`; 
-                        } else { 
-                            resumenServicios += `- Adicional: ${label ? label.textContent : 'Servicio adicional'} (Cobro bajo %)\n`; 
-                        } 
-                    } 
-                });
+    // Resetear estados
+    cardReg.style.display = 'none';
+    document.getElementById('numMesesReg').value = 1; 
+    document.getElementById('txt-descuento').innerText = "";
 
-                if (!hayMensualidad && !hayRecurrentes && !hayAdicionales) {
-                    resumenServicios = "(No se seleccionaron servicios específicos)\n";
-                }
+    const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal'];
+    
+    if (nom.includes('Regularización')) {
+        // MODO REGULARIZACION: Mostrar selector de meses
+        cardDiag.style.display = 'none';
+        cardNom.style.display = 'none';
+        cardReg.style.display = 'flex'; 
+        checkDiag.checked = false;
+        checkNom.checked = false;
+    } else if (serviciosUnicos.includes(nom)) {
+        // MODO PAGO ÚNICO: Ocultar todo
+        cardDiag.style.display = 'none';
+        cardNom.style.display = 'none';
+        checkDiag.checked = false;
+        checkNom.checked = false;
+        cardDiag.classList.remove('active');
+        cardNom.classList.remove('active');
+    } else {
+        // MODO MENSUALIDAD (Normal): Mostrar nómina y diagnóstico
+        cardDiag.style.display = 'flex';
+        cardNom.style.display = 'flex';
+        checkDiag.checked = true;
+        checkNom.checked = false;
+        cardDiag.classList.add('active');
+        cardNom.classList.remove('active');
+    }
 
-                // Construir mensaje final
-                let mensajeFinal = `${mensajeIntro}\n\nEstoy interesado/a en los siguientes servicios:\n${resumenServicios}`;
-                mensajeFinal += `\n-----------------------\n`;
-                
-                const totalFormateado = totalCalculado.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    updateNominaVisibility();
+    document.getElementById('zona-calculadora').style.display = 'block';
+    document.querySelector('.neumorphic-divider').style.display = 'block'; 
+    setTimeout(() => { document.getElementById('zona-calculadora').scrollIntoView({behavior: "smooth", block: "center"}); }, 100);
+    calcularTotal();
+  }
 
-                if (esRango) { 
-                    mensajeFinal += `*TOTAL MÍNIMO ESTIMADO: $${totalFormateado} MXN*\n(El paquete a cotizar se definirá dentro del rango)\n`; 
-                } else { 
-                    mensajeFinal += `*TOTAL ESTIMADO: $${totalFormateado} MXN*\n`; 
-                }
-                if (nombreReferido.length > 0) { 
-                    mensajeFinal += `\n*Referido por: ${nombreReferido}*\n`; 
-                    if (descuentoAplicado) { 
-                        mensajeFinal += `(¡Descuento del 10% para ambos aplicado en 1ra mensualidad!)\n`; 
-                    } 
-                }
-                if (hayMensualidad && paqueteSeleccionado && !paqueteSeleccionado.id.includes('asesoria_inicial')) { 
-                    mensajeFinal += `(Total incluye consultas ilimitadas)\n`; 
-                }
-                mensajeFinal += `\n*Todos los precios mostrados incluyen IVA.*\n(Sujeto a revisión y confirmación)`;
+  function toggleOption(chkId, cardId) {
+    let chk = document.getElementById(chkId);
+    let card = document.getElementById(cardId);
+    chk.checked = !chk.checked;
+    if (chk.checked) card.classList.add('active'); else card.classList.remove('active');
+    if(chkId === 'checkNomina') updateNominaVisibility();
+    calcularTotal();
+  }
 
-                return { mensaje: mensajeFinal }; 
-            }
+  function updateNominaVisibility() {
+    let chk = document.getElementById('checkNomina');
+    let wrp = document.getElementById('wrapper-contador');
+    if (chk.checked) wrp.classList.add('visible'); else wrp.classList.remove('visible');
+  }
 
-            // --- Event Listeners Botones ---
-            if(botonWhatsApp) {
-                botonWhatsApp.addEventListener('click', (e) => { 
-                    e.preventDefault(); 
-                    try { 
-                        const { mensaje } = generarMensaje();
-                        const mensajeCodificado = encodeURIComponent(mensaje);
-                        const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
-                        window.open(url, '_blank');
-                    } catch (error) {
-                        console.error("Error al generar o enviar mensaje de cotización:", error);
-                        alert("Hubo un error al intentar enviar la cotización. Revisa la consola (F12) para más detalles.");
-                    }
-                });
-            }
+  function cambiarEmpleados(delta) {
+    let input = document.getElementById('numEmpleados');
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1; input.value = val; calcularTotal();
+  }
 
-            if(botonInfo) {
-                botonInfo.addEventListener('click', (e) => { 
-                    e.preventDefault(); 
-                    try { 
-                        const mensaje = "¡Hola DAFIC! Saludos. Me gustaría pedir más información sobre sus servicios.";
-                        const mensajeCodificado = encodeURIComponent(mensaje);
-                        const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
-                        window.open(url, '_blank');
-                    } catch (error) {
-                        console.error("Error al enviar mensaje de información:", error);
-                        alert("Hubo un error al intentar contactar. Revisa la consola (F12) para más detalles.");
-                    }
-                });
-            }
-            
-            // --- Carga Inicial ---
-            actualizarDisplay(); 
-            manejarVisibilidadCampos(); 
+  // NUEVA FUNCIÓN PARA CAMBIAR MESES DE REGULARIZACIÓN
+  function cambiarMeses(delta) {
+    let input = document.getElementById('numMesesReg');
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1; input.value = val; 
+    calcularTotal(); // Recalcular con el nuevo número de meses
+  }
 
-        }); 
-    </script>
+  function resetearSeleccion() { 
+    precioPlanBase = 0; nombrePlan = ""; baseDiagnostico = 0; textoExtraPrecio = "";
+    document.querySelectorAll('.dafic-card').forEach(c => c.classList.remove('selected')); 
+    document.getElementById('card-diagnostico').style.display = 'flex';
+    document.getElementById('card-nomina').style.display = 'flex';
+    document.getElementById('card-regularizacion').style.display = 'none';
+  }
 
+  function verificarStatus() {
+    let st = document.getElementById('clientStatus').value;
+    let div = document.getElementById('divAtraso');
+    if (st === 'Si') div.style.display = 'block';
+    else { div.style.display = 'none'; document.getElementById('clientAtraso').value = ""; }
+    actualizarLinks();
+  }
+
+  function seleccionarHora(hora, btn) {
+    horaSeleccionada = hora;
+    document.getElementById('txt-hora-sel').innerText = formatTime(hora);
+    let btns = document.querySelectorAll('.time-btn');
+    btns.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    actualizarLinks();
+  }
+  
+  function formatTime(time24) {
+    let [h, m] = time24.split(':');
+    let ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12; h = h ? h : 12; 
+    return `${h}:${m} ${ampm}`;
+  }
+
+  function calcularTotal() {
+    let totalDisplay = document.getElementById('total-final');
+    let labelDisplay = document.getElementById('label-total');
+    let notaDisplay = document.getElementById('nota-diagnostico');
+    let totalFinal = 0;
+
+    // --- LÓGICA ESPECIAL PARA REGULARIZACIÓN CON DESCUENTO ---
+    if (nombrePlan.includes('Regularización')) {
+        let meses = parseInt(document.getElementById('numMesesReg').value);
+        let precioBaseMes = precioPlanBase; // El precio base de la tarjeta (2000 o 4000)
+        let subtotal = precioBaseMes * meses;
+        let descuento = 0;
+        let porcentaje = 0;
+
+        // Aplicar descuentos por volumen
+        if (meses >= 12) { porcentaje = 30; }
+        else if (meses >= 6) { porcentaje = 20; }
+        else if (meses >= 3) { porcentaje = 10; }
+
+        descuento = subtotal * (porcentaje / 100);
+        totalFinal = subtotal - descuento;
+
+        // Mostrar alerta de ahorro
+        if (porcentaje > 0) {
+            document.getElementById('txt-descuento').innerText = `¡${porcentaje}% OFF aplicado! Ahorras $${descuento.toLocaleString()}`;
+        } else {
+            document.getElementById('txt-descuento').innerText = "";
+        }
+
+        totalDisplay.innerText = "$" + totalFinal.toLocaleString();
+        labelDisplay.innerText = `Total por ${meses} meses (Pago Único):`;
+        notaDisplay.style.display = "none";
+
+    } else {
+        // --- LÓGICA NORMAL (Mensualidad / Pago Único) ---
+        let chkDiag = document.getElementById('checkDiagnostico');
+        let montoDiag = baseDiagnostico;
+        document.getElementById('costo-diagnostico').innerText = montoDiag.toLocaleString();
+
+        let chkNom = document.getElementById('checkNomina');
+        let num = parseInt(document.getElementById('numEmpleados').value);
+        let totalNom = chkNom.checked ? num * 30 : 0;
+        document.getElementById('costo-nomina').innerText = totalNom.toLocaleString();
+        
+        let mensualidadEstimada = precioPlanBase + totalNom;
+
+        if(chkDiag.checked) {
+            totalDisplay.innerText = "$" + montoDiag.toLocaleString();
+            labelDisplay.innerText = "Pago Inicial Requerido (Diagnóstico):";
+            notaDisplay.style.display = "block";
+            notaDisplay.innerText = "* Cubriendo este monto iniciamos tu Diagnóstico. La mensualidad de $" + mensualidadEstimada.toLocaleString() + " inicia después.";
+        } else {
+            totalDisplay.innerText = "$" + mensualidadEstimada.toLocaleString() + textoExtraPrecio;
+            labelDisplay.innerText = (textoExtraPrecio !== "") ? "Costo Estimado:" : "Inversión Mensual Estimada:";
+            notaDisplay.style.display = "none";
+        }
+    }
+    document.getElementById('nombre-plan-display').innerText = nombrePlan;
+    actualizarLinks();
+  }
+
+  function actualizarLinks() {
+    let checkDiag = document.getElementById('checkDiagnostico').checked;
+    let costoDiag = document.getElementById('costo-diagnostico').innerText;
+    let chkNom = document.getElementById('checkNomina');
+    let num = parseInt(document.getElementById('numEmpleados').value);
+    let totalNom = chkNom.checked ? num * 30 : 0;
+    
+    // Calcular Total Real para el mensaje de WhatsApp
+    let totalMensaje = "";
+    if (nombrePlan.includes('Regularización')) {
+        let meses = parseInt(document.getElementById('numMesesReg').value);
+        // Recalcular rápido para el mensaje
+        let sub = precioPlanBase * meses;
+        let porc = (meses >= 12) ? 0.3 : (meses >= 6 ? 0.2 : (meses >= 3 ? 0.1 : 0));
+        let final = sub - (sub * porc);
+        totalMensaje = `$${final.toLocaleString()} (Total por ${meses} meses con descuento aplicado)`;
+    } else {
+        let mens = precioPlanBase + totalNom;
+        totalMensaje = `$${mens.toLocaleString()}${textoExtraPrecio}`;
+    }
+
+    let nombre = document.getElementById('clientName').value || "No especificado";
+    let giro = document.getElementById('clientGiro').value || "No especificado";
+    let status = document.getElementById('clientStatus').value || "No especificado";
+    let atraso = document.getElementById('clientAtraso').value;
+    
+    let infoFiscal = status === 'Si' ? `• Alta SAT: SÍ\n• Estatus: ${atraso || "Sin especificar"}` : `• Alta SAT: ${status}`;
+    let fechaTxt = fechaSeleccionada || "Pendiente";
+    let horaTxt = horaSeleccionada ? formatTime(horaSeleccionada) : "Pendiente";
+
+    let telefono = "5213329780881"; 
+    let textoEmpleados = (chkNom.checked && !nombrePlan.includes('Regularización')) ? ` (+ Nómina de ${num} empleados)` : "";
+    let textoDiag = checkDiag ? `\n• PAGO INICIAL (Diagnóstico): $${costoDiag}` : "";
+    
+    let mensaje = `Hola DAFIC, quiero agendar mi cita.\n\n` +
+                  `📋 *DATOS DEL CLIENTE*\n• Nombre: ${nombre}\n• Giro: ${giro}\n${infoFiscal}\n\n` +
+                  `📊 *COTIZACIÓN*\n• Plan: ${nombrePlan}\n• Costo Total: ${totalMensaje}${textoEmpleados}` +
+                  `${textoDiag}\n\n` +
+                  `📅 *CITA SOLICITADA*\n• Fecha: ${fechaTxt}\n• Hora: ${horaTxt}`;
+
+    document.getElementById('btn-whatsapp-link').href = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector('.neumorphic-divider').style.display = 'none';
+  });
+</script>
 </body>
 </html>
