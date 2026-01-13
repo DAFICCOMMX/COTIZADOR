@@ -565,7 +565,7 @@
     document.getElementById('numMesesReg').value = 1; 
     document.getElementById('txt-descuento').innerText = "";
 
-    const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal'];
+    const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal', 'Regularización Fiscal PF', 'Regularización Fiscal PM'];
     
     if (nom.includes('Regularización')) {
         cardDiag.style.display = 'none';
@@ -662,6 +662,9 @@
     let notaDisplay = document.getElementById('nota-diagnostico');
     let totalFinal = 0;
 
+    // Lista de servicios de pago único (no mensuales)
+    const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal', 'Regularización Fiscal PF', 'Regularización Fiscal PM'];
+
     if (nombrePlan.includes('Regularización')) {
         let meses = parseInt(document.getElementById('numMesesReg').value);
         let precioBaseMes = precioPlanBase;
@@ -683,7 +686,7 @@
         }
 
         totalDisplay.innerText = "$" + totalFinal.toLocaleString();
-        labelDisplay.innerText = `Total por ${meses} meses (Pago Único):`;
+        labelDisplay.innerText = `Inversión Estimada (${meses} meses):`;
         notaDisplay.style.display = "none";
 
     } else {
@@ -705,7 +708,14 @@
             notaDisplay.innerText = "* Cubriendo este monto iniciamos tu Diagnóstico. La mensualidad de $" + mensualidadEstimada.toLocaleString() + " inicia después.";
         } else {
             totalDisplay.innerText = "$" + mensualidadEstimada.toLocaleString() + textoExtraPrecio;
-            labelDisplay.innerText = (textoExtraPrecio !== "") ? "Costo Estimado:" : "Inversión Mensual Estimada:";
+            
+            // Lógica para cambiar la etiqueta según el tipo de servicio
+            if (serviciosUnicos.includes(nombrePlan)) {
+                labelDisplay.innerText = "Inversión Estimada:";
+            } else {
+                labelDisplay.innerText = "Inversión Mensual Estimada:";
+            }
+            
             notaDisplay.style.display = "none";
         }
     }
