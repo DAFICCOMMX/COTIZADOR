@@ -412,6 +412,16 @@
   <div id="zona-calculadora" class="calculator-section">
     <div class="calc-header">Resumen: <strong><span id="nombre-plan-display">---</span></strong></div>
 
+    <div id="wrapper-regimen-reg" style="display:none; margin-bottom:25px;">
+      <span class="option-title" style="margin-bottom:15px;">Selecciona tu Régimen Fiscal</span>
+      <select id="regimenRegularizacion" class="form-select" onchange="cambiarPrecioRegularizacion()">
+        <option value="600">RESICO ($600/mes)</option>
+        <option value="1200" selected>Actividad Empresarial ($1,200/mes)</option>
+        <option value="1000">Plataformas Digitales ($1,000/mes)</option>
+        <option value="1000">Arrendamiento ($1,000/mes)</option>
+      </select>
+    </div>
+
     <div class="calc-option-card active" id="card-regularizacion" style="display:none;" onclick="event.stopPropagation()">
       <div style="display:flex; align-items:center;">
         <div class="option-indicator" style="background:var(--accent-color); color:white;">✓</div>
@@ -558,19 +568,33 @@
     let cardDiag = document.getElementById('card-diagnostico');
     let cardNom = document.getElementById('card-nomina');
     let cardReg = document.getElementById('card-regularizacion');
+    let wrapRegimen = document.getElementById('wrapper-regimen-reg');
     let checkDiag = document.getElementById('checkDiagnostico');
     let checkNom = document.getElementById('checkNomina');
 
     cardReg.style.display = 'none';
+    wrapRegimen.style.display = 'none';
     document.getElementById('numMesesReg').value = 1; 
     document.getElementById('txt-descuento').innerText = "";
 
-    const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal', 'Regularización Fiscal PF', 'Regularización Fiscal PM'];
+    const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal'];
     
-    if (nom.includes('Regularización')) {
+    if (nom.includes('Regularización Fiscal PF')) {
+        // MODO REGULARIZACIÓN PERSONA FÍSICA
         cardDiag.style.display = 'none';
         cardNom.style.display = 'none';
         cardReg.style.display = 'flex'; 
+        wrapRegimen.style.display = 'block'; // Mostramos selector de régimen
+        checkDiag.checked = false;
+        checkNom.checked = false;
+        // Sincronizamos el precio inicial con el selector
+        precioPlanBase = parseInt(document.getElementById('regimenRegularizacion').value);
+    } else if (nom.includes('Regularización Fiscal PM')) {
+        // MODO REGULARIZACIÓN PERSONA MORAL (Precio fijo inicial)
+        cardDiag.style.display = 'none';
+        cardNom.style.display = 'none';
+        cardReg.style.display = 'flex'; 
+        wrapRegimen.style.display = 'none';
         checkDiag.checked = false;
         checkNom.checked = false;
     } else if (serviciosUnicos.includes(nom)) {
@@ -593,6 +617,12 @@
     document.getElementById('zona-calculadora').style.display = 'block';
     document.querySelector('.neumorphic-divider').style.display = 'block'; 
     setTimeout(() => { document.getElementById('zona-calculadora').scrollIntoView({behavior: "smooth", block: "center"}); }, 100);
+    calcularTotal();
+  }
+
+  // NUEVA FUNCIÓN: Cambia el precio base cuando se elige régimen en regularización
+  function cambiarPrecioRegularizacion() {
+    precioPlanBase = parseInt(document.getElementById('regimenRegularizacion').value);
     calcularTotal();
   }
 
@@ -630,6 +660,7 @@
     document.getElementById('card-diagnostico').style.display = 'flex';
     document.getElementById('card-nomina').style.display = 'flex';
     document.getElementById('card-regularizacion').style.display = 'none';
+    document.getElementById('wrapper-regimen-reg').style.display = 'none';
   }
 
   function verificarStatus() {
@@ -662,33 +693,19 @@
     let notaDisplay = document.getElementById('nota-diagnostico');
     let totalFinal = 0;
 
-    // Lista de servicios de pago único (no mensuales)
     const serviciosUnicos = ['Declaración Anual PF', 'Devolución Impuestos PF', 'Cita SAT', 'Trámite IMSS', 'Generación Contraseña', 'Devolución Impuestos PM', 'Renovación e.Firma', 'Asesoría 1:1', 'Estrategia Fiscal', 'Regularización Fiscal PF', 'Regularización Fiscal PM'];
 
     if (nombrePlan.includes('Regularización')) {
         let meses = parseInt(document.getElementById('numMesesReg').value);
-        let precioBaseMes = precioPlanBase;
-        let subtotal = precioBaseMes * meses;
-        let descuento = 0;
-        let porcentaje = 0;
-
-        if (meses >= 12) { porcentaje = 30; }
-        else if (meses >= 6) { porcentaje = 20; }
-        else if (meses >= 3) { porcentaje = 10; }
-
-        descuento = subtotal * (porcentaje / 100);
+        let subtotal = precioPlanBase * meses;
+        let porcentaje = (meses >= 12) ? 30 : (meses >= 6 ? 20 : (meses >= 3 ? 10 : 0));
+        let descuento = subtotal * (porcentaje / 100);
         totalFinal = subtotal - descuento;
 
-        if (porcentaje > 0) {
-            document.getElementById('txt-descuento').innerText = `¡${porcentaje}% OFF aplicado! Ahorras $${descuento.toLocaleString()}`;
-        } else {
-            document.getElementById('txt-descuento').innerText = "";
-        }
-
+        document.getElementById('txt-descuento').innerText = porcentaje > 0 ? `¡${porcentaje}% OFF aplicado! Ahorras $${descuento.toLocaleString()}` : "";
         totalDisplay.innerText = "$" + totalFinal.toLocaleString();
         labelDisplay.innerText = `Inversión Estimada (${meses} meses):`;
         notaDisplay.style.display = "none";
-
     } else {
         let chkDiag = document.getElementById('checkDiagnostico');
         let montoDiag = baseDiagnostico;
@@ -697,8 +714,6 @@
         let chkNom = document.getElementById('checkNomina');
         let num = parseInt(document.getElementById('numEmpleados').value);
         let totalNom = chkNom.checked ? num * 30 : 0;
-        document.getElementById('costo-nomina').innerText = totalNom.toLocaleString();
-        
         let mensualidadEstimada = precioPlanBase + totalNom;
 
         if(chkDiag.checked) {
@@ -708,14 +723,7 @@
             notaDisplay.innerText = "* Cubriendo este monto iniciamos tu Diagnóstico. La mensualidad de $" + mensualidadEstimada.toLocaleString() + " inicia después.";
         } else {
             totalDisplay.innerText = "$" + mensualidadEstimada.toLocaleString() + textoExtraPrecio;
-            
-            // Lógica para cambiar la etiqueta según el tipo de servicio
-            if (serviciosUnicos.includes(nombrePlan)) {
-                labelDisplay.innerText = "Inversión Estimada:";
-            } else {
-                labelDisplay.innerText = "Inversión Mensual Estimada:";
-            }
-            
+            labelDisplay.innerText = serviciosUnicos.includes(nombrePlan) ? "Inversión Estimada:" : "Inversión Mensual Estimada:";
             notaDisplay.style.display = "none";
         }
     }
@@ -724,8 +732,6 @@
   }
 
   function actualizarLinks() {
-    let checkDiag = document.getElementById('checkDiagnostico').checked;
-    let costoDiag = document.getElementById('costo-diagnostico').innerText;
     let chkNom = document.getElementById('checkNomina');
     let num = parseInt(document.getElementById('numEmpleados').value);
     let totalNom = chkNom.checked ? num * 30 : 0;
@@ -736,7 +742,8 @@
         let sub = precioPlanBase * meses;
         let porc = (meses >= 12) ? 0.3 : (meses >= 6 ? 0.2 : (meses >= 3 ? 0.1 : 0));
         let final = sub - (sub * porc);
-        totalMensaje = `$${final.toLocaleString()} (Total por ${meses} meses con descuento aplicado)`;
+        let regimenTxt = nombrePlan.includes('PF') ? ` (${document.getElementById('regimenRegularizacion').options[document.getElementById('regimenRegularizacion').selectedIndex].text})` : "";
+        totalMensaje = `$${final.toLocaleString()} (Total por ${meses} meses)${regimenTxt}`;
     } else {
         let mens = precioPlanBase + totalNom;
         totalMensaje = `$${mens.toLocaleString()}${textoExtraPrecio}`;
@@ -753,7 +760,7 @@
 
     let telefono = "5213329780881"; 
     let textoEmpleados = (chkNom.checked && !nombrePlan.includes('Regularización')) ? ` (+ Nómina de ${num} empleados)` : "";
-    let textoDiag = checkDiag ? `\n• PAGO INICIAL (Diagnóstico): $${costoDiag}` : "";
+    let textoDiag = document.getElementById('checkDiagnostico').checked ? `\n• PAGO INICIAL (Diagnóstico): $${document.getElementById('costo-diagnostico').innerText}` : "";
     
     let mensaje = `Hola DAFIC, quiero agendar mi cita.\n\n` +
                   `📋 *DATOS DEL CLIENTE*\n• Nombre: ${nombre}\n• Giro: ${giro}\n${infoFiscal}\n\n` +
